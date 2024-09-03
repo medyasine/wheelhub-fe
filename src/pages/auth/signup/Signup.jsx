@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../../store/AuthSlice";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -33,7 +32,6 @@ function Signup() {
     });
   };
 
-  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -41,20 +39,18 @@ function Signup() {
     setError(null);
 
     if (formData.password === formData.confirm) {
-      const response = await fetch("http://localhost:8080/api/signup", {
+      const response = await fetch("http://localhost:8080/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      const json = await response.json();
+
       if (!response.ok) {
         setLoading(false);
-        setError(json.error);
-        console.log(json.error);
-      }
-      if (response.ok) {
+        setError("Something went wrong, try again!");
+      } else {
         setLoading(false);
-        dispatch(login(json));
+        navigate("/login");
       }
 
       setFormData({
@@ -68,10 +64,7 @@ function Signup() {
       setError("Password do not match");
     }
   };
-  const [type, setType] = useState(false);
-  const switchType = () => {
-    setType((preTYpe) => !preTYpe);
-  };
+
   return (
     <div className="mt-28 bg-gray-200 flex items-center justify-center p-10">
       <div className="font-[sans-serif] text-[#333] bg-white">

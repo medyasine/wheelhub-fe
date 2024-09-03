@@ -17,7 +17,7 @@ function Login() {
   const [isLoading, setLoading] = useState(null);
 
   const [loginData, setLoginData] = useState({
-    username: "",
+    usernameOrEmail: "",
     password: "",
   });
 
@@ -55,7 +55,7 @@ function Login() {
     }
 
     setLoginData({
-      username: "",
+      usernameOrEmail: "",
       password: "",
     });
   };
@@ -89,12 +89,12 @@ function Login() {
             <div>
               <div className="relative flex items-center">
                 <input
-                  name="username"
+                  name="usernameOrEmail"
                   type="text"
                   required
                   className="w-full text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
-                  placeholder="Enter username"
-                  value={loginData.username}
+                  placeholder="Enter username or email"
+                  value={loginData.usernameOrEmail}
                   onChange={hamdleChange}
                 />
                 <svg
