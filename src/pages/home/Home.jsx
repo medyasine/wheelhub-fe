@@ -1,6 +1,11 @@
+import LogoutButton from "./LogoutButton";
+
 const Home = () => {
   return (
-    <h1>Home Works!</h1>
+    <div>
+      <h1>Home Works!</h1>
+      <LogoutButton />
+    </div>
   );
 };
 

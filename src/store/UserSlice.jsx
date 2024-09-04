@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const url = "http://localhost:8080/api/users";
 
 export const getUser = createAsyncThunk("users/getUser", async () => {
-  const user = JSON.parse(localStorage.getItem("login"));
+  const user = JSON.parse(sessionStorage.getItem("login"));
   try {
-    const res = await fetch(url + `/${user.id}`, {
+    const res = await fetch(url + `/${user.username}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,

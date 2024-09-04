@@ -5,19 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
-  const user = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   useEffect(() => {
-    if (user) {
+    if (token) {
       navigate("/");
     }
   });
 
   const [msg, setMsg] = useState(null);
-  const [isLoading, setLoading] = useState(null);
 
   const [loginData, setLoginData] = useState({
-    usernameOrEmail: "",
+    email: "",
     password: "",
   });
 
@@ -36,7 +35,6 @@ function Login() {
   const handelSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
     setMsg(null);
 
     const response = await fetch("http://localhost:8080/api/auth/login", {
@@ -46,16 +44,14 @@ function Login() {
     });
     const json = await response.json();
     if (!response.ok) {
-      setLoading(false);
-      setMsg(json.error);
+      // setMsg(json.error);
     }
     if (response.ok) {
-      setLoading(false);
       dispatch(login(json));
     }
 
     setLoginData({
-      usernameOrEmail: "",
+      email: "",
       password: "",
     });
   };
@@ -89,12 +85,12 @@ function Login() {
             <div>
               <div className="relative flex items-center">
                 <input
-                  name="usernameOrEmail"
+                  name="email"
                   type="text"
                   required
                   className="w-full text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none"
-                  placeholder="Enter username or email"
-                  value={loginData.usernameOrEmail}
+                  placeholder="Enter email"
+                  value={loginData.email}
                   onChange={hamdleChange}
                 />
                 <svg
