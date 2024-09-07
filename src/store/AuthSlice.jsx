@@ -13,7 +13,6 @@ const authSlice = createSlice({
       const { token } = action.payload;
 
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
 
       sessionStorage.setItem(
         "login",
