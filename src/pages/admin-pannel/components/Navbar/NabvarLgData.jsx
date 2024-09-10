@@ -1,4 +1,5 @@
 import DotsDropDown from "../DotsDropDown";
+import Notifications from "../Notifications";
 import ProfileDropDown from "../ProfileDropDown";
 import ThemeDropDown from "../ThemeDropDown";
 
@@ -65,6 +66,7 @@ function NabvarLgData() {
           </ul>
           <ul className="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
             <ThemeDropDown />
+            <Notifications />
             <DotsDropDown />
             <ProfileDropDown />
           </ul>

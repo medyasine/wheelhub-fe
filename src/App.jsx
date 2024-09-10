@@ -5,20 +5,35 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import RootLayout from "./pages/layouts/RootLayout";
+import RootLayout from "./pages/layouts/AdminPannelLayout";
 import Login from "./pages/auth/login/Login";
 import Home from "./pages/home/Home";
 import Signup from "./pages/auth/signup/Signup";
 import AuthLayout from "./pages/layouts/AuthLayout";
+import AdminPannelLayout from "./pages/layouts/AdminPannelLayout";
+import Index from "./pages/admin-pannel/pages/Index/Index";
+import Users from "./pages/admin-pannel/pages/users/Users";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route index element={<Home />} />
-      <Route element={<AuthLayout />}></Route>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-    </Route>
+    <>
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+        <Route element={<AuthLayout />}></Route>
+      </Route>
+
+      <Route path="/admin" element={<AdminPannelLayout />}>
+        <Route index element={<Index />} />
+        <Route path="users" element={<Users />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+      </Route>
+
+      {/* <Route path="*" element={<NotFound />} /> 
+      <Route path="/500" element={<ServerError />} />  */}
+    </>
   )
 );
 

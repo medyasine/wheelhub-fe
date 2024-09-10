@@ -6,7 +6,7 @@ function SettingsPannel() {
       <div
         className="offcanvas offcanvas-end settings-panel border-0"
         id="settings-offcanvas"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="settings-offcanvas"
       >
         <div className="offcanvas-header settings-panel-header bg-shape">
@@ -18,7 +18,7 @@ function SettingsPannel() {
               <button
                 className="btn btn-primary btn-sm rounded-pill mt-0 mb-0"
                 data-theme-control="reset"
-                style={{ "font-size": "12px" }}
+                style={{ fontSize: "12px" }}
               >
                 <span
                   className="fas fa-redo-alt me-1"
@@ -59,7 +59,7 @@ function SettingsPannel() {
                 />
                 <label
                   className="btn d-inline-block btn-navbar-style fs-10"
-                  for="themeSwitcherLight"
+                  htmlFor="themeSwitcherLight"
                 >
                   <span className="hover-overlay mb-2 rounded d-block">
                     <img
@@ -82,7 +82,7 @@ function SettingsPannel() {
                 />
                 <label
                   className="btn d-inline-block btn-navbar-style fs-10"
-                  for="themeSwitcherDark"
+                  htmlFor="themeSwitcherDark"
                 >
                   <span className="hover-overlay mb-2 rounded d-block">
                     <img
@@ -105,7 +105,7 @@ function SettingsPannel() {
                 />
                 <label
                   className="btn d-inline-block btn-navbar-style fs-10"
-                  for="themeSwitcherAuto"
+                  htmlFor="themeSwitcherAuto"
                 >
                   <span className="hover-overlay mb-2 rounded d-block">
                     <img
@@ -234,7 +234,7 @@ function SettingsPannel() {
                 />
                 <label
                   className="btn d-block w-100 btn-navbar-style fs-10"
-                  for="navbar-style-transparent"
+                  htmlFor="navbar-style-transparent"
                 >
                   <img
                     className="img-fluid img-prototype"
@@ -255,7 +255,7 @@ function SettingsPannel() {
                 />
                 <label
                   className="btn d-block w-100 btn-navbar-style fs-10"
-                  for="navbar-style-inverted"
+                  htmlFor="navbar-style-inverted"
                 >
                   <img
                     className="img-fluid img-prototype"
@@ -276,7 +276,7 @@ function SettingsPannel() {
                 />
                 <label
                   className="btn d-block w-100 btn-navbar-style fs-10"
-                  for="navbar-style-card"
+                  htmlFor="navbar-style-card"
                 >
                   <img
                     className="img-fluid img-prototype"
@@ -297,7 +297,7 @@ function SettingsPannel() {
                 />
                 <label
                   className="btn d-block w-100 btn-navbar-style fs-10"
-                  for="navbar-style-vibrant"
+                  htmlFor="navbar-style-vibrant"
                 >
                   <img
                     className="img-fluid img-prototype"
@@ -339,7 +339,7 @@ function SettingsPannel() {
         <div className="card-body d-flex align-items-center py-md-2 px-2 py-1">
           <div
             className="bg-primary-subtle position-relative rounded-start"
-            style="height:34px;width:28px"
+            style={{ height: "34px", width: "28px" }}
           >
             <div className="settings-popover">
               <span className="ripple">
