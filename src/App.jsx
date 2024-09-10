@@ -5,7 +5,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import RootLayout from "./pages/layouts/AdminPannelLayout";
+import RootLayout from "./pages/layouts/RootLayout";
 import Login from "./pages/auth/login/Login";
 import Home from "./pages/home/Home";
 import Signup from "./pages/auth/signup/Signup";

@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
-import SettingsPannel from "../components/SettingsPannel";
+import SettingsPannel from "../admin-pannel/components/SettingsPannel";
 import LandingFooter from "../home/LandingFooter";
-import OurMission from "../home/Section7";
 import Header from "../home/Header";
 import RegisterModal from "../home/RegisterModal";
 
