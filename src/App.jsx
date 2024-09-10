@@ -19,17 +19,15 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
         <Route element={<AuthLayout />}></Route>
       </Route>
 
       <Route path="/admin" element={<AdminPannelLayout />}>
         <Route index element={<Index />} />
         <Route path="users" element={<Users />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
       </Route>
+      <Route path="login" element={<Login />} />
+      <Route path="signup" element={<Signup />} />
 
       {/* <Route path="*" element={<NotFound />} /> 
       <Route path="/500" element={<ServerError />} />  */}

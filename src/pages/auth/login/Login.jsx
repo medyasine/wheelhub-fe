@@ -144,20 +144,23 @@ function Login() {
                         <h3>Account Login</h3>
                       </div>
                     </div>
-                    <form>
+                    <form onSubmit={handelSubmit}>
                       <div className="mb-3">
-                        <label className="form-label" for="card-email">
+                        <label className="form-label" htmlFor="card-email">
                           Email address
                         </label>
                         <input
                           className="form-control"
                           id="card-email"
                           type="email"
+                          name="email"
+                          value={loginData.email}
+                          onChange={hamdleChange}
                         />
                       </div>
                       <div className="mb-3">
                         <div className="d-flex justify-content-between">
-                          <label className="form-label" for="card-password">
+                          <label className="form-label" htmlFor="card-password">
                             Password
                           </label>
                         </div>
@@ -165,6 +168,9 @@ function Login() {
                           className="form-control"
                           id="card-password"
                           type="password"
+                          name="password"
+                          value={loginData.password}
+                          onChange={hamdleChange}
                         />
                       </div>
                       <div className="row flex-between-center">

@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
-  const user = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   useEffect(() => {
-    if (user) {
+    if (token) {
       navigate("/");
     }
   });
@@ -66,148 +66,206 @@ function Signup() {
   };
 
   return (
-    <div className="mt-28 bg-gray-200 flex items-center justify-center p-10">
-      <div className="font-[sans-serif] text-[#333] bg-white">
-        <div className="min-h-screen flex fle-col items-center justify-center p-6">
-          <div className="grid md:grid-cols-2 items-center gap-6 max-w-7xl w-full">
-            <form className="md:max-w-md w-full" onSubmit={handleSubmit}>
-              <h3 className="text-2xl font-extrabold mb-10">Registration</h3>
-              <div className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="text-sm mb-2 block">
-                    Name
-                  </label>
-                  <input
-                    name="name"
-                    type="text"
-                    className="bg-gray-100 w-full text-sm px-4 py-4 focus:bg-transparent outline-blue-500 transition-all"
-                    placeholder="Enter name"
-                    onChange={handleChange}
-                    value={formData.name}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="username" className="text-sm mb-2 block">
-                    Username
-                  </label>
-                  <input
-                    name="username"
-                    type="text"
-                    className="bg-gray-100 w-full text-sm px-4 py-4 focus:bg-transparent outline-blue-500 transition-all"
-                    placeholder="Enter name"
-                    onChange={handleChange}
-                    value={formData.username}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="text-sm mb-2 block">
-                    Email
-                  </label>
-                  <input
-                    name="email"
-                    type="text"
-                    className="bg-gray-100 w-full text-sm px-4 py-4 focus:bg-transparent outline-blue-500 transition-all"
-                    placeholder="Enter email"
-                    onChange={handleChange}
-                    value={formData.email}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="password" className="text-sm mb-2 block">
-                    Password
-                  </label>
-                  <input
-                    name="password"
-                    type={type ? "text" : "password"}
-                    className="bg-gray-100 w-full text-sm px-4 py-4 focus:bg-transparent outline-blue-500 transition-all"
-                    placeholder="Enter password"
-                    onChange={handleChange}
-                    value={formData.password}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="confirm" className="text-sm mb-2 block">
-                    Confirm password
-                  </label>
-                  <input
-                    name="confirm"
-                    type="password"
-                    className="bg-gray-100 w-full text-sm px-4 py-4 focus:bg-transparent outline-blue-500 transition-all"
-                    placeholder="Retype password"
-                    onChange={handleChange}
-                    value={formData.confirm}
-                  />
-                </div>
-              </div>
-              <div className="flex mt-2 -mx-3">
-                {error && (
+    <div className="container-fluid">
+      <div className="row min-vh-100 flex-center g-0">
+        <div className="col-lg-8 col-xxl-5 py-3 position-relative">
+          <img
+            className="bg-auth-circle-shape"
+            src="./assets/img/icons/spot-illustrations/bg-shape.png"
+            alt=""
+            width="250"
+          />
+          <img
+            className="bg-auth-circle-shape-2"
+            src="./assets/img/icons/spot-illustrations/shape-1.png"
+            alt=""
+            width="150"
+          />
+          <div className="card overflow-hidden z-1">
+            <div className="card-body p-0">
+              <div className="row g-0 h-100">
+                <div className="col-md-5 text-center bg-card-gradient">
                   <div
-                    className="flex w-full bg-red-100 dark:bg-red-200 rounded-lg p-4 mx-3 mb-4 text-sm text-red-700"
-                    role="alert"
+                    className="position-relative p-4 pt-md-5 pb-md-7"
+                    data-bs-theme="light"
                   >
-                    <svg
-                      className="w-5 h-5 inline mr-3"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <div>
-                      <span className="font-medium">Error!</span>: {error}
+                    <div
+                      className="bg-holder bg-auth-card-shape"
+                      style={{
+                        backgroundImage:
+                          "url(./assets/img/icons/spot-illustrations/half-circle.png)",
+                      }}
+                    ></div>
+                    <div className="z-1 position-relative">
+                      <a
+                        className="link-light mb-4 font-sans-serif fs-5 d-inline-block fw-bolder"
+                        href="../../../index.html"
+                      >
+                        falcon
+                      </a>
+                      <p className="opacity-75 text-white">
+                        With the power of Falcon, you can now focus only on
+                        functionaries for your digital products, while leaving
+                        the UI design on us!
+                      </p>
                     </div>
                   </div>
-                )}
-              </div>
-              <div className="mt-3">
-                {isLoading ? (
-                  <button
-                    type="submit"
-                    className="py-4 px-6 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-500 hover:bg-blue-600 active:bg-blue-500"
+                  <div
+                    className="mt-3 mb-4 mt-md-4 mb-md-5"
+                    data-bs-theme="light"
                   >
-                    Loading
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18px"
-                      fill="#fff"
-                      className="ml-2 inline animate-spin"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"
-                        data-original="#000000"
-                      />
-                    </svg>
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="py-4 px-6 text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none"
-                  >
-                    Create an account
-                  </button>
-                )}
+                    <p className="pt-3 text-white">
+                      Have an account?
+                      <br />
+                      <a
+                        className="btn btn-outline-light mt-2 px-4"
+                        href="login.html"
+                      >
+                        Log In
+                      </a>
+                    </p>
+                  </div>
+                </div>
+                <div className="col-md-7 d-flex flex-center">
+                  <div className="p-4 p-md-5 flex-grow-1">
+                    <h3>Register</h3>
+                    <form onSubmit={handleSubmit}>
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="card-name">
+                          Name
+                        </label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          autocomplete="on"
+                          id="card-name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="card-username">
+                          Username
+                        </label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          autocomplete="on"
+                          id="card-username"
+                          name="username"
+                          value={formData.username}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="card-email">
+                          Email address
+                        </label>
+                        <input
+                          className="form-control"
+                          type="email"
+                          autocomplete="on"
+                          id="card-email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="row gx-2">
+                        <div className="mb-3 col-sm-6">
+                          <label className="form-label" htmlFor="card-password">
+                            Password
+                          </label>
+                          <input
+                            className="form-control"
+                            type="password"
+                            autocomplete="on"
+                            id="card-password"
+                            name="passsword"
+                            value={formData.password}
+                            onChange={handleChange}
+                          />
+                        </div>
+                        <div className="mb-3 col-sm-6">
+                          <label
+                            className="form-label"
+                            htmlFor="card-confirm-password"
+                          >
+                            Confirm Password
+                          </label>
+                          <input
+                            className="form-control"
+                            type="password"
+                            autocomplete="on"
+                            id="card-confirm-password"
+                            name="confirm"
+                            value={formData.confirm}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="card-register-checkbox"
+                        />
+                        <label
+                          className="form-label"
+                          for="card-register-checkbox"
+                        >
+                          I accept the <a href="#!">terms </a>and
+                          <a className="white-space-nowrap" href="#!">
+                            privacy policy
+                          </a>
+                        </label>
+                      </div>
+                      <div className="mb-3">
+                        <button
+                          className="btn btn-primary d-block w-100 mt-3"
+                          type="submit"
+                          name="submit"
+                        >
+                          Register
+                        </button>
+                      </div>
+                    </form>
+                    <div className="position-relative mt-4">
+                      <hr />
+                      <div className="divider-content-center">
+                        or register with
+                      </div>
+                    </div>
+                    <div className="row g-2 mt-2">
+                      <div className="col-sm-6">
+                        <a
+                          className="btn btn-outline-google-plus btn-sm d-block w-100"
+                          href="#"
+                        >
+                          <span
+                            className="fab fa-google-plus-g me-2"
+                            data-fa-transform="grow-8"
+                          ></span>
+                          google
+                        </a>
+                      </div>
+                      <div className="col-sm-6">
+                        <a
+                          className="btn btn-outline-facebook btn-sm d-block w-100"
+                          href="#"
+                        >
+                          <span
+                            className="fab fa-facebook-square me-2"
+                            data-fa-transform="grow-8"
+                          ></span>
+                          facebook
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p className="text-sm mt-6">
-                Already have an account?
-                <Link
-                  to="/login"
-                  className="text-blue-500 font-semibold hover:underline ml-1"
-                >
-                  Login here
-                </Link>
-              </p>
-            </form>
-            <div className="h-full max-md:mt-10">
-              <img
-                src="./images/signup.webp"
-                className="w-full h-full object-cover"
-                alt="Dining Experience"
-              />
             </div>
           </div>
         </div>
