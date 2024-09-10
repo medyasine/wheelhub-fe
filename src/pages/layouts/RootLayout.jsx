@@ -4,6 +4,8 @@ import NavbarXl from "../components/Navbar/NavbarXl";
 import NavbarLg from "../components/Navbar/NavbarLg";
 import Navbar from "../components/Navbar/Navbar";
 import { useEffect, useState } from "react";
+import NavbarDataContent from "../components/Navbar/NavbarDataContent";
+import NavbarContent from "../components/Navbar/NavbarContent";
 
 function RootLayout() {
   const [navbarPosition, setNavbarPosition] = useState(
@@ -64,6 +66,8 @@ function RootLayout() {
         <NavbarLg />
         {/* <Navbar /> */}
         <div className="content">
+          <NavbarContent />
+          <NavbarDataContent />
           <Outlet />
         </div>
       </div>
