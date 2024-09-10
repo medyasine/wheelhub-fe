@@ -13,6 +13,7 @@ import AuthLayout from "./pages/layouts/AuthLayout";
 import AdminPannelLayout from "./pages/layouts/AdminPannelLayout";
 import Index from "./pages/admin-pannel/pages/Index/Index";
 import Users from "./pages/admin-pannel/pages/users/Users";
+import NotFound from "./pages/404/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,8 +30,8 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
 
-      {/* <Route path="*" element={<NotFound />} /> 
-      <Route path="/500" element={<ServerError />} />  */}
+      <Route path="*" element={<NotFound />} />
+      {/* <Route path="/500" element={<ServerError />} />  */}
     </>
   )
 );
