@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { login } from "../../../../store/AuthSlice";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-function Signup() {
+function Login() {
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   useEffect(() => {
@@ -11,58 +13,51 @@ function Signup() {
     }
   });
 
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    username: "",
-    password: "",
-    confirm: "",
+  const [msg, setMsg] = useState(null);
+
+  const [loginData, setLoginData] = useState({
     email: "",
+    password: "",
   });
 
-  const handleChange = (e) => {
-    const { value, name } = e.target;
+  const dispatch = useDispatch();
 
-    setFormData((preData) => {
+  function hamdleChange(e) {
+    const { value, name } = e.target;
+    setLoginData((preData) => {
       return {
         ...preData,
         [name]: value,
       };
     });
-  };
+  }
 
-  const handleSubmit = async (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
-    setError(null);
+    setMsg(null);
 
-    if (formData.password === formData.confirm) {
-      const response = await fetch("http://localhost:8080/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        setLoading(false);
-        setError("Something went wrong, try again!");
-      } else {
-        setLoading(false);
-        navigate("/login");
-      }
-
-      setFormData({
-        name: "",
-        username: "",
-        password: "",
-        confirm: "",
-        email: "",
-      });
-    } else {
-      setError("Password do not match");
+    const response = await fetch("http://localhost:8080/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginData),
+    });
+    const json = await response.json();
+    if (!response.ok) {
+      // setMsg(json.error);
     }
+    if (response.ok) {
+      dispatch(login(json));
+    }
+
+    setLoginData({
+      email: "",
+      password: "",
+    });
+  };
+  const [type, setType] = useState(false);
+  const switchType = () => {
+    setType((preTYpe) => !preTYpe);
   };
 
   return (
@@ -97,12 +92,12 @@ function Signup() {
                       }}
                     ></div>
                     <div className="z-1 position-relative">
-                      <a
+                      <Link
                         className="link-light mb-4 font-sans-serif fs-5 d-inline-block fw-bolder"
-                        href="../../../index.html"
+                        to="/"
                       >
                         falcon
-                      </a>
+                      </Link>
                       <p className="opacity-75 text-white">
                         With the power of Falcon, you can now focus only on
                         functionaries for your digital products, while leaving
@@ -114,112 +109,91 @@ function Signup() {
                     className="mt-3 mb-4 mt-md-4 mb-md-5"
                     data-bs-theme="light"
                   >
-                    <p className="pt-3 text-white">
-                      Have an account?
+                    <p className="text-white">
+                      Don't have an account?
                       <br />
-                      <a
-                        className="btn btn-outline-light mt-2 px-4"
-                        href="login.html"
+                      <Link
+                        className="text-decoration-underline link-light"
+                        to="/signup"
                       >
-                        Log In
+                        Get started!
+                      </Link>
+                    </p>
+                    <p className="mb-0 mt-4 mt-md-5 fs-10 fw-semi-bold text-white opacity-75">
+                      Read our
+                      <a
+                        className="text-decoration-underline text-white"
+                        href="#!"
+                      >
+                        terms
+                      </a>
+                      and
+                      <a
+                        className="text-decoration-underline text-white"
+                        href="#!"
+                      >
+                        conditions
                       </a>
                     </p>
                   </div>
                 </div>
                 <div className="col-md-7 d-flex flex-center">
                   <div className="p-4 p-md-5 flex-grow-1">
-                    <h3>Register</h3>
-                    <form onSubmit={handleSubmit}>
-                      <div className="mb-3">
-                        <label className="form-label" htmlFor="card-name">
-                          Name
-                        </label>
-                        <input
-                          className="form-control"
-                          type="text"
-                          autocomplete="on"
-                          id="card-name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                        />
+                    <div className="row flex-between-center">
+                      <div className="col-auto">
+                        <h3>Account Login</h3>
                       </div>
-                      <div className="mb-3">
-                        <label className="form-label" htmlFor="card-username">
-                          Username
-                        </label>
-                        <input
-                          className="form-control"
-                          type="text"
-                          autocomplete="on"
-                          id="card-username"
-                          name="username"
-                          value={formData.username}
-                          onChange={handleChange}
-                        />
-                      </div>
+                    </div>
+                    <form onSubmit={handelSubmit}>
                       <div className="mb-3">
                         <label className="form-label" htmlFor="card-email">
                           Email address
                         </label>
                         <input
                           className="form-control"
-                          type="email"
-                          autocomplete="on"
                           id="card-email"
+                          type="email"
                           name="email"
-                          value={formData.email}
-                          onChange={handleChange}
+                          value={loginData.email}
+                          onChange={hamdleChange}
                         />
                       </div>
-                      <div className="row gx-2">
-                        <div className="mb-3 col-sm-6">
+                      <div className="mb-3">
+                        <div className="d-flex justify-content-between">
                           <label className="form-label" htmlFor="card-password">
                             Password
                           </label>
-                          <input
-                            className="form-control"
-                            type="password"
-                            autocomplete="on"
-                            id="card-password"
-                            name="passsword"
-                            value={formData.password}
-                            onChange={handleChange}
-                          />
                         </div>
-                        <div className="mb-3 col-sm-6">
-                          <label
-                            className="form-label"
-                            htmlFor="card-confirm-password"
-                          >
-                            Confirm Password
-                          </label>
-                          <input
-                            className="form-control"
-                            type="password"
-                            autocomplete="on"
-                            id="card-confirm-password"
-                            name="confirm"
-                            value={formData.confirm}
-                            onChange={handleChange}
-                          />
-                        </div>
-                      </div>
-                      <div className="form-check">
                         <input
-                          className="form-check-input"
-                          type="checkbox"
-                          id="card-register-checkbox"
+                          className="form-control"
+                          id="card-password"
+                          type="password"
+                          name="password"
+                          value={loginData.password}
+                          onChange={hamdleChange}
                         />
-                        <label
-                          className="form-label"
-                          for="card-register-checkbox"
-                        >
-                          I accept the <a href="#!">terms </a>and
-                          <a className="white-space-nowrap" href="#!">
-                            privacy policy
+                      </div>
+                      <div className="row flex-between-center">
+                        <div className="col-auto">
+                          <div className="form-check mb-0">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id="card-checkbox"
+                            />
+                            <label
+                              className="form-check-label mb-0"
+                              htmlFor="card-checkbox"
+                            >
+                              Remember me
+                            </label>
+                          </div>
+                        </div>
+                        <div className="col-auto">
+                          <a className="fs-10" href="forgot-password.html">
+                            Forgot Password?
                           </a>
-                        </label>
+                        </div>
                       </div>
                       <div className="mb-3">
                         <button
@@ -227,14 +201,14 @@ function Signup() {
                           type="submit"
                           name="submit"
                         >
-                          Register
+                          Log in
                         </button>
                       </div>
                     </form>
                     <div className="position-relative mt-4">
                       <hr />
                       <div className="divider-content-center">
-                        or register with
+                        or log in with
                       </div>
                     </div>
                     <div className="row g-2 mt-2">
@@ -274,4 +248,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Login;

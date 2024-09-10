@@ -1,5 +1,5 @@
 import React from "react";
-import ThemeDropDown from "../admin-pannel/components/ThemeDropDown";
+import ThemeDropDown from "../../admin-pannel/components/ThemeDropDown";
 import LoginDropDown from "./LoginDropDown";
 
 function Header() {

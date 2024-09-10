@@ -5,15 +5,15 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import RootLayout from "./pages/layouts/RootLayout";
-import Login from "./pages/auth/login/Login";
-import Home from "./pages/home/Home";
-import Signup from "./pages/auth/signup/Signup";
-import AuthLayout from "./pages/layouts/AuthLayout";
-import AdminPannelLayout from "./pages/layouts/AdminPannelLayout";
-import Index from "./pages/admin-pannel/pages/Index/Index";
-import Users from "./pages/admin-pannel/pages/users/Users";
-import NotFound from "./pages/404/NotFound";
+import RootLayout from "./layouts/RootLayout";
+import Login from "./user-pannel/pages/auth/login/Login";
+import Home from "./user-pannel/pages/home/Home";
+import Signup from "./user-pannel/pages/auth/signup/Signup";
+import AuthLayout from "./layouts/AuthLayout";
+import AdminPannelLayout from "./layouts/AdminPannelLayout";
+import Index from "./admin-pannel/pages/Index/Index";
+import Users from "./admin-pannel/pages/users/Users";
+import NotFound from "./user-pannel/pages/404/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

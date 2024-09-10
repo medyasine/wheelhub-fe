@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import SettingsPannel from "../admin-pannel/components/SettingsPannel";
-import LandingFooter from "../home/LandingFooter";
-import Header from "../home/Header";
-import RegisterModal from "../home/RegisterModal";
+import LandingFooter from "../user-pannel/components/LandingFooter";
+import Header from "../user-pannel/components/Header";
+import RegisterModal from "../user-pannel/components/RegisterModal";
 
 function RootLayout() {
   return (

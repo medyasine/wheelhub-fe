@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../store/UserSlice";
+import { getUser } from "../store/UserSlice";
 
 const AuthLayout = () => {
   const { token } = useSelector((state) => state.auth);
@@ -11,7 +11,6 @@ const AuthLayout = () => {
   useEffect(() => {
     dispatch(getUser());
   }, [token]);
-
 
   if (!token) {
     return <Navigate to="/login" />;
