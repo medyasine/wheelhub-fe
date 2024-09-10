@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import NavbarLg from "./NavbarLg";
+import NabvarLgData from "./NabvarLgData";
+import NavbarXl from "./NavbarXl";
 
 function Navbar() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -14,26 +17,11 @@ function Navbar() {
 
   return (
     <>
-      {windowWidth < 992 && (
-        <nav className="navbar navbar-light navbar-glass navbar-top navbar-expand-lg">
-          {/* Small screen navbar content */}
-        </nav>
-      )}
+      {windowWidth < 992 && <NavbarLg />}
 
-      {windowWidth >= 992 && windowWidth < 1200 && (
-        <nav
-          className="navbar navbar-light navbar-glass navbar-top navbar-expand-lg"
-          data-double-top-nav="data-double-top-nav"
-        >
-          {/* Medium screen navbar content */}
-        </nav>
-      )}
+      {windowWidth >= 992 && windowWidth < 1200 && <NabvarLgData />}
 
-      {windowWidth >= 1200 && (
-        <nav className="navbar navbar-light navbar-vertical navbar-expand-xl">
-          {/* Large screen vertical navbar content */}
-        </nav>
-      )}
+      {windowWidth >= 1200 && <NavbarXl />}
     </>
   );
 }

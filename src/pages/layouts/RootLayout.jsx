@@ -1,18 +1,73 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
+import NabvarLgData from "../components/Navbar/NabvarLgData";
+import NavbarXl from "../components/Navbar/NavbarXl";
+import NavbarLg from "../components/Navbar/NavbarLg";
+import Navbar from "../components/Navbar/Navbar";
+import { useEffect, useState } from "react";
 
 function RootLayout() {
-  const [isLoginModalVisible, setLoginModalVisible] = useState(false);
+  const [navbarPosition, setNavbarPosition] = useState(
+    localStorage.getItem("navbarPosition")
+  );
 
-  const toggleLoginModal = () => {
-    setLoginModalVisible(!isLoginModalVisible);
-  };
+  useEffect(() => {
+    const handleNavbarPosition = () => {
+      const navbarVertical = document.querySelector(".navbar-vertical");
+      const navbarTopVertical = document.querySelector(".content .navbar-top");
+      const navbarTop = document.querySelector(
+        "[data-layout] .navbar-top:not([data-double-top-nav])"
+      );
+      const navbarDoubleTop = document.querySelector("[data-double-top-nav]");
+      const navbarTopCombo = document.querySelector(
+        '.content [data-navbar-top="combo"]'
+      );
+
+      if (navbarPosition === "double-top") {
+        document.documentElement.classList.toggle("double-top-nav-layout");
+      }
+
+      if (navbarPosition === "top") {
+        if (navbarTop) navbarTop.style.display = "";
+        if (navbarTopVertical) navbarTopVertical.remove();
+        if (navbarVertical) navbarVertical.remove();
+        if (navbarTopCombo) navbarTopCombo.remove();
+        if (navbarDoubleTop) navbarDoubleTop.remove();
+      } else if (navbarPosition === "combo") {
+        if (navbarVertical) navbarVertical.style.display = "";
+        if (navbarTopCombo) navbarTopCombo.style.display = "";
+        if (navbarTop) navbarTop.remove();
+        if (navbarTopVertical) navbarTopVertical.remove();
+        if (navbarDoubleTop) navbarDoubleTop.remove();
+      } else if (navbarPosition === "double-top") {
+        if (navbarDoubleTop) navbarDoubleTop.style.display = "";
+        if (navbarTopVertical) navbarTopVertical.remove();
+        if (navbarVertical) navbarVertical.remove();
+        if (navbarTop) navbarTop.remove();
+        if (navbarTopCombo) navbarTopCombo.remove();
+      } else {
+        if (navbarVertical) navbarVertical.style.display = "";
+        if (navbarTopVertical) navbarTopVertical.style.display = "";
+        if (navbarTop) navbarTop.remove();
+        if (navbarDoubleTop) navbarDoubleTop.remove();
+        if (navbarTopCombo) navbarTopCombo.remove();
+      }
+    };
+
+    handleNavbarPosition();
+  }, [navbarPosition]);
 
   return (
-    <div className="root-layout h-screen scroll-smooth">
-      <Outlet setShowLogin={toggleLoginModal} />
-    </div>
+    <main className="main" id="top">
+      <div className="container" data-layout="container">
+        <NabvarLgData />
+        <NavbarXl />
+        <NavbarLg />
+        {/* <Navbar /> */}
+        <div className="content">
+          <Outlet />
+        </div>
+      </div>
+    </main>
   );
 }
 
