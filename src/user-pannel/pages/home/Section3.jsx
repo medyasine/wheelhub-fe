@@ -1,5 +1,3 @@
-import React from "react";
-
 function Section3() {
   return (
     <section>
@@ -47,7 +45,7 @@ function Section3() {
             </h5>
             <h3>38 Sets of components</h3>
             <p>
-              Build any UI effortlessly with Falcon's robust set of layouts, 38
+              Build any UI effortlessly with Falcon&apos;s robust set of layouts, 38
               sets of built-in elements, carefully chosen colors, typography,
               and css helpers.
             </p>

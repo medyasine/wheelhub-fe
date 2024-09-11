@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { login } from "../../../../store/AuthSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,8 +12,6 @@ function Login() {
       navigate("/");
     }
   });
-
-  const [msg, setMsg] = useState(null);
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -35,8 +33,6 @@ function Login() {
   const handelSubmit = async (e) => {
     e.preventDefault();
 
-    setMsg(null);
-
     const response = await fetch("http://localhost:8080/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -54,10 +50,6 @@ function Login() {
       email: "",
       password: "",
     });
-  };
-  const [type, setType] = useState(false);
-  const switchType = () => {
-    setType((preTYpe) => !preTYpe);
   };
 
   return (
@@ -110,7 +102,7 @@ function Login() {
                     data-bs-theme="light"
                   >
                     <p className="text-white">
-                      Don't have an account?
+                      Don&apos;t have an account?
                       <br />
                       <Link
                         className="text-decoration-underline link-light"

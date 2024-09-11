@@ -1,5 +1,3 @@
-import React from "react";
-
 function LandingFooter() {
   return (
     <section className="py-0 bg-dark" data-bs-theme="light">

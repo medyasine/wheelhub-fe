@@ -1,5 +1,3 @@
-import React from "react";
-
 function Section5() {
   return (
     <section className="bg-200 text-center">
@@ -14,10 +12,11 @@ function Section5() {
                 <div className="swiper-slide">
                   <div className="px-5 px-sm-6">
                     <p className="fs-sm-8 fs-md-7 fst-italic text-1100">
-                      Falcon is the best option if you are looking for a theme
-                      built with Bootstrap. On top of that, Falcon&apos;s
-                      creators and support staff are very brilliant and
-                      attentive to users&apos; needs.
+                      Wheelhub is an excellent choice if you want a dynamic
+                      platform for buying, selling, and trading vehicles. The
+                      team&apos;s attention to detail and commitment to innovation
+                      ensure a seamless experience, making it the top choice for
+                      automotive enthusiasts and businesses alike.
                     </p>
                     <p className="fs-9 text-600">
                       - Scott Tolinski, Web Developer
@@ -33,10 +32,11 @@ function Section5() {
                 <div className="swiper-slide">
                   <div className="px-5 px-sm-6">
                     <p className="fs-sm-8 fs-md-7 fst-italic text-1100">
-                      We&apos;ve become fanboys! Easy to change the modular
-                      design, great dashboard UI, enterprise-className support,
-                      fast loading time. What else do you want from a Bootstrap
-                      Theme?
+                      Wheelhub stands out in the automotive market, delivering a
+                      top-notch experience for buying, selling, and trading
+                      vehicles. Its advanced features and user-focused design
+                      make it a premier choice, while the exceptional support
+                      team ensures a smooth and effective platform for all users
                     </p>
                     <p className="fs-9 text-600">- Jeff Escalante, Developer</p>
                     <img
@@ -50,11 +50,11 @@ function Section5() {
                 <div className="swiper-slide">
                   <div className="px-5 px-sm-6">
                     <p className="fs-sm-8 fs-md-7 fst-italic text-1100">
-                      When I first saw Falcon, I was totally blown away by the
-                      care taken in the interface. It felt like something that
-                      I&apos;d really want to use and something I could see
-                      being a true modern replacement to the current className
-                      of Bootstrap themes.
+                      Discover Wheelhub, where cutting-edge technology meets a
+                      seamless automotive marketplace. Our platform excels in
+                      connecting buyers and sellers with ease, and our dedicated
+                      support team is always ready to assist. Choose Wheelhub
+                      for an unparalleled experience in vehicle trading
                     </p>
                     <p className="fs-9 text-600">- Liam Martens, Designer</p>
                     <img

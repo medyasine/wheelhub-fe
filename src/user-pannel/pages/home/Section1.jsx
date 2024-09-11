@@ -1,5 +1,3 @@
-import React from "react";
-
 function Section1() {
   return (
     <section className="py-0 overflow-hidden" id="banner" data-bs-theme="light">
@@ -20,26 +18,25 @@ function Section1() {
               <span className="me-2" role="img" aria-label="Gift">
                 🎁
               </span>
-              Become a pro
+              Become a seller/buyer
             </a>
             <h1 className="text-white fw-light">
-              Bring
+              All{" "}
               <span
                 className="typed-text fw-bold"
-                data-typed-text='["design","beauty","elegance","perfection"]'
+                data-typed-text='["cars","bikes","offers","deals", "friends"]'
               ></span>
               <br />
-              to your webapp
+              to your hands
             </h1>
             <p className="lead text-white opacity-75">
-              With the power of Falcon, you can now focus only on functionaries
-              for your digital products, while leaving the UI design on us!
+              Just with few clicks away, with Wheelhub can make you life easier
             </p>
             <a
               className="btn btn-outline-light border-2 rounded-pill btn-lg mt-4 fs-9 py-2"
               href="#!"
             >
-              Start building with the falcon
+              Get staeted with Whellhub
               <span
                 className="fas fa-play ms-2"
                 data-fa-transform="shrink-6 down-1"

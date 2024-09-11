@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -11,8 +11,6 @@ function Signup() {
     }
   });
 
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -35,9 +33,6 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
-    setError(null);
-
     if (formData.password === formData.confirm) {
       const response = await fetch("http://localhost:8080/api/auth/signup", {
         method: "POST",
@@ -46,10 +41,6 @@ function Signup() {
       });
 
       if (!response.ok) {
-        setLoading(false);
-        setError("Something went wrong, try again!");
-      } else {
-        setLoading(false);
         navigate("/login");
       }
 
@@ -60,8 +51,6 @@ function Signup() {
         confirm: "",
         email: "",
       });
-    } else {
-      setError("Password do not match");
     }
   };
 
@@ -137,7 +126,7 @@ function Signup() {
                         <input
                           className="form-control"
                           type="text"
-                          autocomplete="on"
+                          autoComplete="on"
                           id="card-name"
                           name="name"
                           value={formData.name}
@@ -151,7 +140,7 @@ function Signup() {
                         <input
                           className="form-control"
                           type="text"
-                          autocomplete="on"
+                          autoComplete="on"
                           id="card-username"
                           name="username"
                           value={formData.username}
@@ -165,7 +154,7 @@ function Signup() {
                         <input
                           className="form-control"
                           type="email"
-                          autocomplete="on"
+                          autoComplete="on"
                           id="card-email"
                           name="email"
                           value={formData.email}
@@ -180,7 +169,7 @@ function Signup() {
                           <input
                             className="form-control"
                             type="password"
-                            autocomplete="on"
+                            autoComplete="on"
                             id="card-password"
                             name="passsword"
                             value={formData.password}
@@ -197,29 +186,13 @@ function Signup() {
                           <input
                             className="form-control"
                             type="password"
-                            autocomplete="on"
+                            autoComplete="on"
                             id="card-confirm-password"
                             name="confirm"
                             value={formData.confirm}
                             onChange={handleChange}
                           />
                         </div>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          id="card-register-checkbox"
-                        />
-                        <label
-                          className="form-label"
-                          for="card-register-checkbox"
-                        >
-                          I accept the <a href="#!">terms </a>and
-                          <a className="white-space-nowrap" href="#!">
-                            privacy policy
-                          </a>
-                        </label>
                       </div>
                       <div className="mb-3">
                         <button

@@ -1,11 +1,62 @@
-import React from "react";
-
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 function RegisterModal() {
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  });
+
+  const [formData, setFormData] = useState({
+    name: "",
+    username: "",
+    password: "",
+    confirm: "",
+    email: "",
+  });
+
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+
+    setFormData((preData) => {
+      return {
+        ...preData,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password === formData.confirm) {
+      const response = await fetch("http://localhost:8080/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        navigate("/login");
+      }
+
+      setFormData({
+        name: "",
+        username: "",
+        password: "",
+        confirm: "",
+        email: "",
+      });
+    }
+  };
   return (
     <div
       className="modal fade"
       id="exampleModal"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="modalLabel"
       aria-hidden="true"
@@ -20,25 +71,42 @@ function RegisterModal() {
               <div className="col-auto">
                 <p className="fs-10 text-600 mb-0">
                   Have an account?
-                  <a href="authentication/simple/login.html">Login</a>
+                  <Link to="/login">Login</Link>
                 </p>
               </div>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <input
                   className="form-control"
                   type="text"
-                  autocomplete="on"
+                  autoComplete="on"
                   placeholder="Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  className="form-control"
+                  type="text"
+                  autoComplete="on"
+                  placeholder="Username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
                 />
               </div>
               <div className="mb-3">
                 <input
                   className="form-control"
                   type="email"
-                  autocomplete="on"
+                  autoComplete="on"
                   placeholder="Email address"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
               <div className="row gx-2">
@@ -46,31 +114,24 @@ function RegisterModal() {
                   <input
                     className="form-control"
                     type="password"
-                    autocomplete="on"
+                    autoComplete="on"
                     placeholder="Password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3 col-sm-6">
                   <input
                     className="form-control"
                     type="password"
-                    autocomplete="on"
+                    autoComplete="on"
                     placeholder="Confirm Password"
+                    name="confirm"
+                    value={formData.confirm}
+                    onChange={handleChange}
                   />
                 </div>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="modal-register-checkbox"
-                />
-                <label className="form-label" for="modal-register-checkbox">
-                  I accept the <a href="#!">terms </a>and
-                  <a className="white-space-nowrap" href="#!">
-                    privacy policy
-                  </a>
-                </label>
               </div>
               <div className="mb-3">
                 <button

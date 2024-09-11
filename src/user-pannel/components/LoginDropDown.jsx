@@ -1,6 +1,57 @@
-import React from "react";
+import { useEffect } from "react";
+import { login } from "../../../../store/AuthSlice";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 function LoginDropDown() {
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  });
+
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const dispatch = useDispatch();
+
+  function hamdleChange(e) {
+    const { value, name } = e.target;
+    setLoginData((preData) => {
+      return {
+        ...preData,
+        [name]: value,
+      };
+    });
+  }
+
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:8080/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginData),
+    });
+    const json = await response.json();
+    if (!response.ok) {
+      // setMsg(json.error);
+    }
+    if (response.ok) {
+      dispatch(login(json));
+    }
+
+    setLoginData({
+      email: "",
+      password: "",
+    });
+  };
+
   return (
     <li className="nav-item dropdown">
       <a
@@ -27,18 +78,19 @@ function LoginDropDown() {
               <div className="col-auto">
                 <p className="fs-10 text-600 mb-0">
                   or
-                  <a href="authentication/simple/register.html">
-                    Create an account
-                  </a>
+                  <Link to="/signup">Create an account</Link>
                 </p>
               </div>
             </div>
-            <form>
+            <form onSubmit={handelSubmit}>
               <div className="mb-3">
                 <input
                   className="form-control"
                   type="email"
                   placeholder="Email address"
+                  name="email"
+                  value={loginData.email}
+                  onChange={hamdleChange}
                 />
               </div>
               <div className="mb-3">
@@ -46,6 +98,9 @@ function LoginDropDown() {
                   className="form-control"
                   type="password"
                   placeholder="Password"
+                  name="password"
+                  value={loginData.password}
+                  onChange={hamdleChange}
                 />
               </div>
               <div className="row flex-between-center">
@@ -58,7 +113,7 @@ function LoginDropDown() {
                     />
                     <label
                       className="form-check-label mb-0"
-                      for="modal-checkbox"
+                      htmlFor="modal-checkbox"
                     >
                       Remember me
                     </label>

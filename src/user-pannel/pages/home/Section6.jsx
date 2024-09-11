@@ -1,5 +1,3 @@
-import React from "react";
-
 function Section6() {
   return (
     <section className="bg-dark" data-bs-theme="light">
@@ -14,14 +12,15 @@ function Section6() {
         <div className="row justify-content-center text-center">
           <div className="col-lg-8">
             <p className="fs-6 fs-sm-5 text-white">
-              Join our community of 20,000+ developers and content creators on
-              their mission to build better sites and apps.
+              Become part of our thriving community of automotive enthusiasts
+              and industry experts, collaborating to transform the way vehicles
+              are bought, sold, and traded.
             </p>
             <button
               className="btn btn-outline-light border-2 rounded-pill btn-lg mt-4 fs-9 py-2"
               type="button"
             >
-              Start your webapp
+              Start your journey
             </button>
           </div>
         </div>

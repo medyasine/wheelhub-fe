@@ -1,5 +1,3 @@
-import React from "react";
-
 function Section2() {
   return (
     <section className="py-3 bg-body-tertiary shadow-sm">

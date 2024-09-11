@@ -1,4 +1,3 @@
-import React from 'react';
 import TicketsTable from '../../components/Table/Table';
 
 const mockTranslateService = (key) => key;

@@ -1,5 +1,3 @@
-import React from "react";
-
 function Section4() {
   return (
     <section className="bg-body-tertiary dark__bg-opacity-50 text-center">
@@ -7,10 +5,11 @@ function Section4() {
         <div className="row">
           <div className="col">
             <h1 className="fs-7 fs-sm-5 fs-md-4">
-              Here's what's in it for you
+              What you&apos;ll gain with Wheelhub
             </h1>
             <p className="lead">
-              Things you will get right out of the box with Falcon.
+              Features and benefits you&apos;ll enjoy with our cutting-edge
+              automotive platform.
             </p>
           </div>
         </div>
@@ -18,14 +17,13 @@ function Section4() {
           <div className="col-lg-4">
             <div className="card card-span h-100">
               <div className="card-span-img">
-                <span className="fab fa-sass fs-5 text-info"></span>
+                <span className="fab fa-car fs-5 text-info"></span>
               </div>
               <div className="card-body pt-6 pb-4">
-                <h5 className="mb-2">Bootstrap 5.x</h5>
+                <h5 className="mb-2">Comprehensive Vehicle Listings</h5>
                 <p>
-                  Build your webapp with the world's most popular front-end
-                  component library along with Falcon's 32 sets of carefully
-                  designed elements.
+                  Effortlessly browse, buy, sell, or trade cars and motorcycles
+                  with detailed categories and up-to-date listings.
                 </p>
               </div>
             </div>
@@ -33,14 +31,13 @@ function Section4() {
           <div className="col-lg-4 mt-6 mt-lg-0">
             <div className="card card-span h-100">
               <div className="card-span-img">
-                <span className="fab fa-node-js fs-4 text-success"></span>
+                <span className="fab fa-users fs-4 text-success"></span>
               </div>
               <div className="card-body pt-6 pb-4">
-                <h5 className="mb-2">SCSS &amp; Javascript files</h5>
+                <h5 className="mb-2">Active Community Engagement</h5>
                 <p>
-                  With your purchased copy of Falcon, you will get all the
-                  uncompressed & documented SCSS and Javascript source code
-                  files.
+                  Connect with fellow enthusiasts, share experiences, and
+                  leverage our community-driven features for better interaction.
                 </p>
               </div>
             </div>
@@ -48,14 +45,13 @@ function Section4() {
           <div className="col-lg-4 mt-6 mt-lg-0">
             <div className="card card-span h-100">
               <div className="card-span-img">
-                <span className="fab fa-gulp fs-3 text-danger"></span>
+                <span className="fab fa-newspaper fs-3 text-danger"></span>
               </div>
               <div className="card-body pt-6 pb-4">
-                <h5 className="mb-2">Gulp based workflow</h5>
+                <h5 className="mb-2">Latest News & Insights</h5>
                 <p>
-                  All the painful or time-consuming tasks in your development
-                  workflow such as compiling the SCSS or transpiring the JS are
-                  automated.
+                  Stay informed with the latest automotive news, research, and
+                  reviews to make well-informed decisions.
                 </p>
               </div>
             </div>
