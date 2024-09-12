@@ -1,5 +1,3 @@
-import React from "react";
-
 function Section7() {
   return (
     <section className="bg-dark pt-8 pb-4" data-bs-theme="light">
@@ -18,13 +16,14 @@ function Section7() {
               Our Mission
             </h5>
             <p className="text-600">
-              Falcon enables front end developers to build custom streamlined
-              user interfaces in a matter of hours, while it gives backend
-              developers all the UI elements they need to develop their web
-              app.And it's rich design can be easily integrated with backends
-              whether your app is based on ruby on rails, laravel, express or
-              any other server side system.
+              Wheelhub empowers automotive enthusiasts and businesses to
+              effortlessly create, manage, and scale their vehicle marketplaces.
+              Whether you&apos;re buying, selling, or trading, Wheelhub provides
+              a seamless, customizable platform that&apos;s designed to
+              integrate smoothly with any backend system, ensuring a hassle-free
+              experience for all users.
             </p>
+
             <div className="icon-group mt-4">
               <a className="icon-item bg-white text-facebook" href="#!">
                 <span className="fab fa-facebook-f"></span>
@@ -65,26 +64,6 @@ function Section7() {
                       Careers
                     </a>
                   </li>
-                  <li className="mb-1">
-                    <a className="link-600" href="#!">
-                      Blog
-                    </a>
-                  </li>
-                  <li className="mb-1">
-                    <a className="link-600" href="#!">
-                      Terms
-                    </a>
-                  </li>
-                  <li className="mb-1">
-                    <a className="link-600" href="#!">
-                      Privacy
-                    </a>
-                  </li>
-                  <li>
-                    <a className="link-600" href="#!">
-                      Imprint
-                    </a>
-                  </li>
                 </ul>
               </div>
               <div className="col-6 col-md-3">
@@ -107,31 +86,6 @@ function Section7() {
                       Changelog
                     </a>
                   </li>
-                  <li className="mb-1">
-                    <a className="link-600" href="#!">
-                      Pricing
-                    </a>
-                  </li>
-                  <li className="mb-1">
-                    <a className="link-600" href="#!">
-                      Docs
-                    </a>
-                  </li>
-                  <li className="mb-1">
-                    <a className="link-600" href="#!">
-                      System Status
-                    </a>
-                  </li>
-                  <li className="mb-1">
-                    <a className="link-600" href="#!">
-                      Agencies
-                    </a>
-                  </li>
-                  <li className="mb-1">
-                    <a className="link-600" href="#!">
-                      Enterprise
-                    </a>
-                  </li>
                 </ul>
               </div>
               <div className="col mt-5 mt-md-0">
@@ -142,7 +96,7 @@ function Section7() {
                   <li>
                     <h5 className="fs-9 mb-0">
                       <a className="link-600" href="#!">
-                        Interactive graphs and charts
+                        Best deals ever made
                       </a>
                     </h5>
                     <p className="text-600 opacity-50">
@@ -152,31 +106,11 @@ function Section7() {
                   <li>
                     <h5 className="fs-9 mb-0">
                       <a className="link-600" href="#!">
-                        Lifetime free updates
+                        Thes best cars used
                       </a>
                     </h5>
                     <p className="text-600 opacity-50">
-                      Jan 5 &bull; 3min read &starf;
-                    </p>
-                  </li>
-                  <li>
-                    <h5 className="fs-9 mb-0">
-                      <a className="link-600" href="#!">
-                        Merry Christmas From us
-                      </a>
-                    </h5>
-                    <p className="text-600 opacity-50">
-                      Dec 25 &bull; 2min read
-                    </p>
-                  </li>
-                  <li>
-                    <h5 className="fs-9 mb-0">
-                      <a className="link-600" href="#!">
-                        The New Falcon Theme
-                      </a>
-                    </h5>
-                    <p className="text-600 opacity-50">
-                      Dec 23 &bull; 10min read
+                      Jan 5 &bull; 3min read
                     </p>
                   </li>
                 </ul>

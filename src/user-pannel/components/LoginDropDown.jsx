@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { login } from "../../../../store/AuthSlice";
+import { login } from "../../store/AuthSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";

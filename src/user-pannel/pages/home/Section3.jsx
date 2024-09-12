@@ -4,10 +4,13 @@ function Section3() {
       <div className="container">
         <div className="row justify-content-center text-center">
           <div className="col-lg-8 col-xl-7 col-xxl-6">
-            <h1 className="fs-7 fs-sm-5 fs-md-4">WebApp theme of the future</h1>
+            <h1 className="fs-7 fs-sm-5 fs-md-4">
+              Revolutionizing Vehicle Trading
+            </h1>
             <p className="lead">
-              Built on top of Bootstrap 5, super modular Falcon provides you
-              gorgeous design &amp; streamlined UX for your WebApp.
+              Powered by cutting-edge technology, Wheelhub offers a seamless
+              experience for buying, selling, and trading vehicles with a
+              user-friendly design and smooth navigation.
             </p>
           </div>
         </div>
@@ -23,10 +26,11 @@ function Section3() {
             <h5 className="text-danger">
               <span className="far fa-lightbulb me-2"></span>PLAN
             </h5>
-            <h3>Blueprint &amp; design </h3>
+            <h3>Platform &amp; Innovation</h3>
             <p>
-              With Falcon as your guide, now you have a fine-tuned state of the
-              earth tool to make your wireframe a reality.
+              With Wheelhub, you have a powerful, cutting-edge platform that
+              brings your vision for buying, selling, and trading vehicles to
+              life with ease and efficiency.
             </p>
           </div>
         </div>
@@ -40,14 +44,13 @@ function Section3() {
           </div>
           <div className="col-md col-lg-5 col-xl-4 mt-4 mt-md-0">
             <h5 className="text-info">
-              {" "}
-              <span className="far fa-object-ungroup me-2"></span>BUILD
+              <span className="fas fa-car me-2"></span>BUILD
             </h5>
-            <h3>38 Sets of components</h3>
+            <h3>Seamless Automotive Tools</h3>
             <p>
-              Build any UI effortlessly with Falcon&apos;s robust set of layouts, 38
-              sets of built-in elements, carefully chosen colors, typography,
-              and css helpers.
+              Effortlessly create your vehicle marketplace with Wheelhub&apos;s
+              intuitive features, customizable layouts, and advanced tools for a
+              smooth user experience in buying, selling, and trading vehicles.
             </p>
           </div>
         </div>
@@ -61,13 +64,14 @@ function Section3() {
           </div>
           <div className="col-md col-lg-5 col-xl-4 mt-4 mt-md-0">
             <h5 className="text-success">
-              <span className="far fa-paper-plane me-2"></span>DEPLOY
+              <span className="fas fa-check-circle me-2"></span>DEPLOY
             </h5>
-            <h3>Review and test</h3>
+            <h3>Test and Launch</h3>
             <p>
-              From IE to iOS, rigorously tested and optimized Falcon will give
-              the near perfect finishing to your webapp; from the landing page
-              to the logout screen.
+              Thoroughly tested across devices, Wheelhub ensures a flawless
+              experience for users, from browsing listings to completing
+              transactions. Optimized for performance and reliability, it&apos;s
+              ready to power your vehicle marketplace.
             </p>
           </div>
         </div>

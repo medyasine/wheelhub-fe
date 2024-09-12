@@ -14,6 +14,7 @@ import AdminPannelLayout from "./layouts/AdminPannelLayout";
 import Index from "./admin-pannel/pages/Index/Index";
 import Users from "./admin-pannel/pages/users/Users";
 import NotFound from "./user-pannel/pages/404/NotFound";
+import ServerError from "./user-pannel/pages/505/ServerError";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,7 +32,7 @@ const router = createBrowserRouter(
       <Route path="signup" element={<Signup />} />
 
       <Route path="*" element={<NotFound />} />
-      {/* <Route path="/500" element={<ServerError />} />  */}
+      <Route path="/500" element={<ServerError />} />
     </>
   )
 );

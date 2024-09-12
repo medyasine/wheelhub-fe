@@ -4,7 +4,7 @@ function Section1() {
       <div
         className="bg-holder overlay"
         style={{
-          backgroundImage: "url(./assets/img/generic/bg-1.jpg)",
+          backgroundImage: "url(./assets/img/dark.jpeg)",
           backgroundPosition: "center bottom",
         }}
       ></div>
@@ -29,7 +29,7 @@ function Section1() {
               <br />
               to your hands
             </h1>
-            <p className="lead text-white opacity-75">
+            <p className="lead text-white">
               Just with few clicks away, with Wheelhub can make you life easier
             </p>
             <a
@@ -43,20 +43,7 @@ function Section1() {
               ></span>
             </a>
           </div>
-          <div className="col-xl-7 offset-xl-1 align-self-end mt-4 mt-xl-0">
-            <a className="img-landing-banner rounded" href="../index.html">
-              <img
-                className="img-fluid d-dark-none"
-                src="../assets/img/generic/dashboard-alt.jpg"
-                alt=""
-              />
-              <img
-                className="img-fluid d-light-none"
-                src="../assets/img/generic/dashboard-alt-dark.png"
-                alt=""
-              />
-            </a>
-          </div>
+          <div className="col-xl-7 offset-xl-1 align-self-end mt-4 mt-xl-0"></div>
         </div>
       </div>
     </section>

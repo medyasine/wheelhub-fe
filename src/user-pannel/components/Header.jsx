@@ -1,4 +1,3 @@
-import React from "react";
 import ThemeDropDown from "../../admin-pannel/components/ThemeDropDown";
 import LoginDropDown from "./LoginDropDown";
 
@@ -10,7 +9,7 @@ function Header() {
     >
       <div className="container">
         <a className="navbar-brand" href="../index.html">
-          <span className="text-white dark__text-white">Falcon</span>
+          <span className="text-white dark__text-white">Wheelhub</span>
         </a>
         <button
           className="navbar-toggler collapsed"
@@ -29,6 +28,11 @@ function Header() {
             data-top-nav-dropdowns="data-top-nav-dropdowns"
           >
             <li className="nav-item dropdown">
+              <a className="nav-link" href="#">
+                All vehicles
+              </a>
+            </li>
+            <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
@@ -38,7 +42,7 @@ function Header() {
                 aria-expanded="false"
                 id="dashboards"
               >
-                Dashboard
+                New
               </a>
               <div
                 className="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0"
@@ -49,7 +53,25 @@ function Header() {
                     className="dropdown-item link-600 fw-medium"
                     href="../index.html"
                   >
-                    Default
+                    cars
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    motorcycles
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    trucks
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    bikes
                   </a>
                 </div>
               </div>
@@ -62,9 +84,146 @@ function Header() {
                 data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                id="dashboards"
+              >
+                Used
+              </a>
+              <div
+                className="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0"
+                aria-labelledby="dashboards"
+              >
+                <div className="bg-white dark__bg-1000 rounded-3 py-2">
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    cars
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    motorcycles
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    trucks
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    bikes
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                id="dashboards"
+              >
+                Electric
+              </a>
+              <div
+                className="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0"
+                aria-labelledby="dashboards"
+              >
+                <div className="bg-white dark__bg-1000 rounded-3 py-2">
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    cars
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    motorcycles
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    trucks
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    bikes
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                id="dashboards"
+              >
+                Research
+              </a>
+              <div
+                className="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0"
+                aria-labelledby="dashboards"
+              >
+                <div className="bg-white dark__bg-1000 rounded-3 py-2">
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    Search for a car
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    Find you car
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    News
+                  </a>
+                  <a
+                    className="dropdown-item link-600 fw-medium"
+                    href="../index.html"
+                  >
+                    What&apos;s new
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link" href="#" role="button">
+                Sell your vehicle
+              </a>
+            </li>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
                 id="apps"
               >
-                App
+                Community
               </a>
               <div
                 className="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0"
