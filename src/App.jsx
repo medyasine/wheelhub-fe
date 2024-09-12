@@ -15,6 +15,7 @@ import Index from "./admin-pannel/pages/Index/Index";
 import Users from "./admin-pannel/pages/users/Users";
 import NotFound from "./user-pannel/pages/404/NotFound";
 import ServerError from "./user-pannel/pages/505/ServerError";
+import Profile from "./user-pannel/pages/profile/Profile";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="/admin" element={<AdminPannelLayout />}>
         <Route index element={<Index />} />
         <Route path="users" element={<Users />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
