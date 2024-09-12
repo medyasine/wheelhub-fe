@@ -33,8 +33,8 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
 
-      <Route path="*" element={<NotFound />} />
       <Route path="/500" element={<ServerError />} />
+      <Route path="*" element={<NotFound />} />
     </>
   )
 );
