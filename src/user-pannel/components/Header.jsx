@@ -29,7 +29,7 @@ function Header() {
           >
             <li className="nav-item dropdown">
               <a className="nav-link" href="#">
-                All vehicles
+                All
               </a>
             </li>
             <li className="nav-item dropdown">
@@ -210,7 +210,7 @@ function Header() {
             </li>
             <li className="nav-item dropdown">
               <a className="nav-link" href="#" role="button">
-                Sell your vehicle
+                Sell
               </a>
             </li>
             <li className="nav-item dropdown">
