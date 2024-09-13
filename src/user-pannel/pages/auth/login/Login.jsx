@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const { token } = useSelector((state) => state.auth);
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
   useEffect(() => {
     if (token) {
@@ -33,23 +35,40 @@ function Login() {
   const handelSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:8080/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loginData),
-    });
-    const json = await response.json();
-    if (!response.ok) {
-      // setMsg(json.error);
-    }
-    if (response.ok) {
-      dispatch(login(json));
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!loginData.email.trim() || !loginData.password.trim()) {
+      setError("ALl fields are required.");
+      return;
     }
 
-    setLoginData({
-      email: "",
-      password: "",
-    });
+    if (!emailRegex.test(loginData.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginData),
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        setError(json.error || "Invalid login credentials.");
+      } else {
+        dispatch(login(json));
+        setLoginData({
+          email: "",
+          password: "",
+        });
+      }
+    } catch (error) {
+      setError("Failed to connect to the server.");
+      console.log(error);
+    }
   };
 
   return (
@@ -172,6 +191,9 @@ function Login() {
                           </a>
                         </div>
                       </div>
+                      {error && (
+                        <span className="text-danger mb-3">{error}</span>
+                      )}
                       <div className="mb-3">
                         <button
                           className="btn btn-primary d-block w-100 mt-3"

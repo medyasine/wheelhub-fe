@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
   const { token } = useSelector((state) => state.auth);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     if (token) {
@@ -33,24 +34,60 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password === formData.confirm) {
+    if (
+      !formData.name.trim() ||
+      !formData.username.trim() ||
+      !formData.email.trim()
+    ) {
+      setError("All fields are required");
+      return;
+    }
+
+    if (formData.username.length < 3) {
+      setError("Username must be at least 3 characters long.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError("Valid email is required.");
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+
+    if (formData.password !== formData.confirm) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
       const response = await fetch("http://localhost:8080/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        navigate("/login");
-      }
+      const json = await response.json();
 
-      setFormData({
-        name: "",
-        username: "",
-        password: "",
-        confirm: "",
-        email: "",
-      });
+      if (response.ok) {
+        navigate("/login");
+        setFormData({
+          name: "",
+          username: "",
+          password: "",
+          confirm: "",
+          email: "",
+        });
+      } else {
+        setError(json.error || "An error occurred during registration.");
+      }
+    } catch (error) {
+      setError("Failed to connect to the server.");
+      console.log(error);
     }
   };
 
@@ -172,7 +209,7 @@ function Signup() {
                             type="password"
                             autoComplete="on"
                             id="card-password"
-                            name="passsword"
+                            name="password"
                             value={formData.password}
                             onChange={handleChange}
                           />
@@ -194,6 +231,9 @@ function Signup() {
                             onChange={handleChange}
                           />
                         </div>
+                        {error && (
+                          <span className="text-danger mb-3">{error}</span>
+                        )}
                       </div>
                       <div className="mb-3">
                         <button

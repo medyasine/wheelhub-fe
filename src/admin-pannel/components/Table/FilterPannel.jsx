@@ -40,7 +40,7 @@ function FilterPannel() {
                   <option>Email</option>
                   <option>Phone</option>
                   <option>Forum</option>
-                  <option selected="selected">Facebook</option>
+                  <option>Facebook</option>
                 </select>
               </div>
             </form>

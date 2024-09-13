@@ -11,7 +11,7 @@ const Table = ({
   confirmationService,
   messageService,
   itemsPerPage = 10,
-  newClicked
+  newClicked,
 }) => {
   const [filteredData, setFilteredData] = useState(tableData);
   const [currentPage, setCurrentPage] = useState(1);
@@ -140,7 +140,7 @@ const Table = ({
                         className="form-select form-select-sm"
                         aria-label="Bulk actions"
                       >
-                        <option selected="">Bulk actions</option>
+                        <option>Bulk actions</option>
                         <option value="Refund">Refund</option>
                         <option value="Delete">Delete</option>
                         <option value="Archive">Archive</option>
@@ -195,14 +195,15 @@ const Table = ({
                     <button
                       className="btn btn-falcon-default btn-sm mx-2"
                       type="button"
+                      onClick={newClicked}
                     >
                       <span
                         className="fas fa-plus"
                         data-fa-transform="shrink-3"
                       ></span>
-                      <button onClick={newClicked} className="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">
+                      <span className="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">
                         New
-                      </button>
+                      </span>
                     </button>
                     <button
                       className="btn btn-falcon-default btn-sm"
