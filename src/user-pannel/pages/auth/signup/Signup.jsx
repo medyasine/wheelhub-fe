@@ -18,6 +18,7 @@ function Signup() {
     password: "",
     confirm: "",
     email: "",
+    role: "guest",
   });
 
   const handleChange = (e) => {
@@ -64,6 +65,11 @@ function Signup() {
       return;
     }
 
+    if (formData.role == "guest") {
+      formData.role = "user";
+    }
+
+    formData.role = formData.role.toLocaleUpperCase();
     try {
       const response = await fetch("http://localhost:8080/api/auth/signup", {
         method: "POST",
@@ -81,6 +87,7 @@ function Signup() {
           password: "",
           confirm: "",
           email: "",
+          role: "guest",
         });
       } else {
         setError(json.error || "An error occurred during registration.");
@@ -230,6 +237,67 @@ function Signup() {
                             value={formData.confirm}
                             onChange={handleChange}
                           />
+                        </div>
+                        <div className="mb-3 col-sm-6">
+                          <label
+                            className="form-label me-3"
+                            htmlFor="card-confirm-password"
+                          >
+                            Choose your role
+                          </label>
+                          <div className="d-flex align-items-center">
+                            <div className="form-check form-check-inline">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                id="role-buyer"
+                                name="role"
+                                value="buyer"
+                                checked={formData.role === "buyer"}
+                                onChange={handleChange}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="role-buyer"
+                              >
+                                Buyer
+                              </label>
+                            </div>
+                            <div className="form-check form-check-inline">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                id="role-seller"
+                                name="role"
+                                value="seller"
+                                checked={formData.role === "seller"}
+                                onChange={handleChange}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="role-seller"
+                              >
+                                Seller
+                              </label>
+                            </div>
+                            <div className="form-check form-check-inline">
+                              <input
+                                className="form-check-input"
+                                type="radio"
+                                id="role-guest"
+                                name="role"
+                                value="guest"
+                                checked={formData.role === "guest"}
+                                onChange={handleChange}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor="role-guest"
+                              >
+                                Guest
+                              </label>
+                            </div>
+                          </div>
                         </div>
                         {error && (
                           <span className="text-danger mb-3">{error}</span>

@@ -16,7 +16,7 @@ function Login() {
   });
 
   const [loginData, setLoginData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -35,15 +35,8 @@ function Login() {
   const handelSubmit = async (e) => {
     e.preventDefault();
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!loginData.email.trim() || !loginData.password.trim()) {
+    if (!loginData.username.trim() || !loginData.password.trim()) {
       setError("ALl fields are required.");
-      return;
-    }
-
-    if (!emailRegex.test(loginData.email)) {
-      setError("Please enter a valid email address.");
       return;
     }
 
@@ -61,7 +54,7 @@ function Login() {
       } else {
         dispatch(login(json));
         setLoginData({
-          email: "",
+          username: "",
           password: "",
         });
       }
@@ -142,15 +135,15 @@ function Login() {
                     </div>
                     <form onSubmit={handelSubmit}>
                       <div className="mb-3">
-                        <label className="form-label" htmlFor="card-email">
-                          Email address
+                        <label className="form-label" htmlFor="card-username">
+                          Username
                         </label>
                         <input
                           className="form-control"
-                          id="card-email"
-                          type="email"
-                          name="email"
-                          value={loginData.email}
+                          id="card-username"
+                          type="text"
+                          name="username"
+                          value={loginData.username}
                           onChange={hamdleChange}
                         />
                       </div>
