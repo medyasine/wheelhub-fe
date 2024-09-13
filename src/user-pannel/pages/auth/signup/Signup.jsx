@@ -90,12 +90,13 @@ function Signup() {
                         className="link-light mb-4 font-sans-serif fs-5 d-inline-block fw-bolder"
                         to="/"
                       >
-                        falcon
+                        Wheelhub
                       </Link>
                       <p className="opacity-75 text-white">
-                        With the power of Falcon, you can now focus only on
-                        functionaries for your digital products, while leaving
-                        the UI design on us!
+                        With Wheelhub, seamlessly connect with the automotive
+                        community, buy, sell, and trade vehicles while we handle
+                        the technical aspects, letting you focus on what matters
+                        most.
                       </p>
                     </div>
                   </div>

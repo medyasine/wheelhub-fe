@@ -88,12 +88,13 @@ function Login() {
                         className="link-light mb-4 font-sans-serif fs-5 d-inline-block fw-bolder"
                         to="/"
                       >
-                        falcon
+                        Wheelhub
                       </Link>
                       <p className="opacity-75 text-white">
-                        With the power of Falcon, you can now focus only on
-                        functionaries for your digital products, while leaving
-                        the UI design on us!
+                        With Wheelhub, seamlessly connect with the automotive
+                        community, buy, sell, and trade vehicles while we handle
+                        the technical aspects, letting you focus on what matters
+                        most.
                       </p>
                     </div>
                   </div>
@@ -110,22 +111,6 @@ function Login() {
                       >
                         Get started!
                       </Link>
-                    </p>
-                    <p className="mb-0 mt-4 mt-md-5 fs-10 fw-semi-bold text-white opacity-75">
-                      Read our
-                      <a
-                        className="text-decoration-underline text-white"
-                        href="#!"
-                      >
-                        terms
-                      </a>
-                      and
-                      <a
-                        className="text-decoration-underline text-white"
-                        href="#!"
-                      >
-                        conditions
-                      </a>
                     </p>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import TicketsTable from '../../components/Table/Table';
+import Table from '../../components/Table/Table';
 
 const mockTranslateService = (key) => key;
 const mockMessageService = {
@@ -81,7 +81,7 @@ export default function Users() {
   return (
     <div className="container mt-5">
       <h1 className="mb-4">User Table </h1>
-      <TicketsTable 
+      <Table 
         tableColumns={sampleColumns}
         tableData={sampleData}
         showDetailButton={true}
@@ -92,7 +92,7 @@ export default function Users() {
         confirmationService={mockConfirmationService}
         messageService={mockMessageService}
         translateService={mockTranslateService}
-        itemsPerPage={10} 
+        itemsPerPage={10}
       />
     </div>
   );

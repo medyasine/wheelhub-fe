@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import FilterPannel from "./FilterPannel";
 
 const Table = ({
   tableColumns = [],
@@ -10,6 +11,7 @@ const Table = ({
   confirmationService,
   messageService,
   itemsPerPage = 10,
+  newClicked
 }) => {
   const [filteredData, setFilteredData] = useState(tableData);
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,7 +103,7 @@ const Table = ({
             <div className="d-lg-flex justify-content-between">
               <div className="row flex-between-center gy-2 px-x1">
                 <div className="col-auto">
-                  <h6 className="mb-0">All tickets</h6>
+                  <h6 className="mb-0">All records</h6>
                 </div>
                 <div className="col-auto">
                   <input
@@ -198,9 +200,9 @@ const Table = ({
                         className="fas fa-plus"
                         data-fa-transform="shrink-3"
                       ></span>
-                      <span className="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">
+                      <button onClick={newClicked} className="d-none d-sm-inline-block d-xl-none d-xxl-inline-block ms-1">
                         New
-                      </span>
+                      </button>
                     </button>
                     <button
                       className="btn btn-falcon-default btn-sm"
@@ -274,7 +276,7 @@ const Table = ({
                           <input
                             className="form-check-input"
                             type="checkbox"
-                            id={`table-view-tickets-${rowData.id}`}
+                            id={`table-view-tickerowDatats-${rowData.id}`}
                             data-bulk-select-row="data-bulk-select-row"
                             checked={checkedRows.includes(rowData.id)}
                             onChange={(e) =>
@@ -316,7 +318,7 @@ const Table = ({
                 </tbody>
               </table>
               <div className="text-center d-none" id="tickets-table-fallback">
-                <p className="fw-bold fs-8 mt-3">No ticket found</p>
+                <p className="fw-bold fs-8 mt-3">No result found</p>
               </div>
             </div>
           </div>
@@ -363,141 +365,7 @@ const Table = ({
           </div>
         </div>
       </div>
-      <div class="col-xxl-2 col-xl-3">
-        <div
-          class="offcanvas offcanvas-end offcanvas-filter-sidebar border-0 dark__bg-card-dark h-auto rounded-xl-3"
-          tabindex="-1"
-          id="ticketOffcanvas"
-          aria-labelledby="ticketOffcanvasLabel"
-        >
-          <div class="offcanvas-header d-flex flex-between-center d-xl-none bg-body-tertiary">
-            <h6 class="fs-9 mb-0 fw-semi-bold">Filter</h6>
-            <button
-              class="btn-close text-reset d-xl-none shadow-none"
-              id="ticketOffcanvasLabel"
-              type="button"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="card scrollbar shadow-none shadow-show-xl">
-            <div class="card-header bg-body-tertiary d-none d-xl-block">
-              <h6 class="mb-0">Filter</h6>
-            </div>
-            <div class="card-body">
-              <form>
-                <div class="mb-2 mt-n2">
-                  <label class="mb-1">Priority</label>
-                  <select class="form-select form-select-sm">
-                    <option>None</option>
-                    <option>Urgent</option>
-                    <option>High</option>
-                    <option>Medium</option>
-                    <option>Low</option>
-                  </select>
-                </div>
-                <div class="mb-2">
-                  <label class="mb-1 mt-2">Source</label>
-                  <select class="form-select form-select-sm">
-                    <option>None</option>
-                    <option>Email</option>
-                    <option>Phone</option>
-                    <option>Forum</option>
-                    <option selected="selected">Facebook</option>
-                    <option>Twitter</option>
-                    <option>Chat</option>
-                    <option>Whatsapp</option>
-                    <option>Portal</option>
-                    <option>Bots</option>
-                    <option>External Email</option>
-                    <option>Ecommerce</option>
-                    <option>Feedback Widget</option>
-                  </select>
-                </div>
-                <div class="mb-2">
-                  <label class="mb-1 mt-2">Status</label>
-                  <select class="form-select form-select-sm">
-                    <option>None</option>
-                    <option>Recent</option>
-                    <option>Overdue</option>
-                    <option>Closed</option>
-                    <option>Remaining</option>
-                    <option>Responded</option>
-                  </select>
-                </div>
-                <div class="mb-2">
-                  <label class="mb-1 mt-2">Group</label>
-                  <select class="form-select form-select-sm">
-                    <option>None</option>
-                    <option>My Group</option>
-                    <option>Billing</option>
-                    <option>Customer Support</option>
-                    <option>Enhancement</option>
-                    <option>Unassigned</option>
-                  </select>
-                </div>
-                <div class="mb-2">
-                  <label class="mb-1 mt-2">Agent</label>
-                  <select class="form-select form-select-sm">
-                    <option>None</option>
-                    <option>Anindya</option>
-                    <option>Nowrin</option>
-                    <option>Khalid</option>
-                  </select>
-                </div>
-                <div class="mb-2">
-                  <label class="mb-1 mt-2">Type</label>
-                  <select class="form-select form-select-sm">
-                    <option>None</option>
-                    <option>Question</option>
-                    <option>Incident</option>
-                    <option>Problem</option>
-                    <option>Feature Request</option>
-                    <option>Refund</option>
-                  </select>
-                </div>
-                <div class="mb-2">
-                  <label class="mb-1 mt-2">Category</label>
-                  <select class="form-select form-select-sm">
-                    <option>None</option>
-                    <option>General Issue</option>
-                    <option>Maintenance</option>
-                    <option>Engineering</option>
-                    <option>Accounts</option>
-                    <option>Feedback</option>
-                    <option selected="selected">Support</option>
-                    <option>Test Helpdesk</option>
-                  </select>
-                </div>
-                <div class="mb-2">
-                  <label class="mb-1 mt-2">Tags</label>
-                  <select class="form-select form-select-sm">
-                    <option>None</option>
-                    <option>Sales</option>
-                    <option>Request</option>
-                    <option>Complaint</option>
-                    <option>Feedback</option>
-                    <option>Support</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="mb-1 mt-2">Subscription</label>
-                  <select class="form-select form-select-sm">
-                    <option>None</option>
-                    <option>Active</option>
-                    <option>Inactive</option>
-                    <option>Expired</option>
-                    <option>Pending</option>
-                  </select>
-                </div>
-              </form>
-            </div>
-            <div class="card-footer border-top border-200 py-x1">
-              <button class="btn btn-primary w-100">Update</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <FilterPannel />
     </div>
   );
 };
