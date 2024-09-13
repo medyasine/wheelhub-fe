@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 function RegisterModal() {
   const { token } = useSelector((state) => state.auth);
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  });
+  if (token) {
+    return;
+  }
 
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     username: "",

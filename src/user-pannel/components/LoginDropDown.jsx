@@ -1,22 +1,18 @@
-import { useEffect } from "react";
 import { login } from "../../store/AuthSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LoginDropDown() {
   const { token } = useSelector((state) => state.auth);
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  });
+  if (token) {
+    return;
+  }
 
   const [loginData, setLoginData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -35,15 +31,8 @@ function LoginDropDown() {
   const handelSubmit = async (e) => {
     e.preventDefault();
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!loginData.email.trim() || !loginData.password.trim()) {
+    if (!loginData.username.trim() || !loginData.password.trim()) {
       setError("ALl fields are required.");
-      return;
-    }
-
-    if (!emailRegex.test(loginData.email)) {
-      setError("Please enter a valid email address.");
       return;
     }
 
@@ -61,7 +50,7 @@ function LoginDropDown() {
       } else {
         dispatch(login(json));
         setLoginData({
-          email: "",
+          username: "",
           password: "",
         });
       }
@@ -105,10 +94,10 @@ function LoginDropDown() {
               <div className="mb-3">
                 <input
                   className="form-control"
-                  type="email"
-                  placeholder="Email address"
-                  name="email"
-                  value={loginData.email}
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  value={loginData.username}
                   onChange={hamdleChange}
                 />
               </div>

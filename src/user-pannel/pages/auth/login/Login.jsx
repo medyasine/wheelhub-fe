@@ -3,24 +3,29 @@ import { login } from "../../../../store/AuthSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { getUser } from "../../../../store/UserSlice";
 
 function Login() {
   const { token } = useSelector((state) => state.auth);
-  const [error, setError] = useState("");
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  });
-
+  const { user } = useSelector((state) => state.user);
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
-
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+    if (token) {
+      if (user.role === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    }
+  }, []);
 
   function hamdleChange(e) {
     const { value, name } = e.target;

@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
   const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  });
-
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -20,6 +14,20 @@ function Signup() {
     email: "",
     role: "guest",
   });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+    if (token) {
+      if (user.role === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { value, name } = e.target;

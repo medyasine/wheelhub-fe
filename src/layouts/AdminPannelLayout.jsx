@@ -1,13 +1,6 @@
-import { Navigate, Outlet } from "react-router-dom";
-import NabvarLgData from "../admin-pannel/components/Navbar/NabvarLgData";
-import NavbarXl from "../admin-pannel/components/Navbar/NavbarXl";
-import NavbarLg from "../admin-pannel/components/Navbar/NavbarLg";
 import { useEffect, useState } from "react";
-import NavbarDataContent from "../admin-pannel/components/Navbar/NavbarDataContent";
-import NavbarContent from "../admin-pannel/components/Navbar/NavbarContent";
-import SettingsPannel from "../admin-pannel/components/SettingsPannel";
-import Footer from "../admin-pannel/components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { getUser } from "../store/UserSlice";
 
 function AdminPannelLayout() {
@@ -66,14 +59,16 @@ function AdminPannelLayout() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUser());
-  }, [token, dispatch]);
+    if (token) {
+      dispatch(getUser());
+    }
+  }, [dispatch, token]);
 
   if (!token) {
     return <Navigate to="/login" />;
   }
 
-  if (user?.role !== "ADMIN") {
+  if (user && user.role !== "ADMIN") {
     return <Navigate to="/" />;
   }
 

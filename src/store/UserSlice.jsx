@@ -5,7 +5,7 @@ const url = "http://localhost:8080/api/users";
 export const getUser = createAsyncThunk("users/getUser", async () => {
   const user = JSON.parse(sessionStorage.getItem("login"));
 
-  const res = await fetch(url + `/${user.username}`, {
+  const res = await fetch(url + `/username/${user.username}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${user.token}`,
