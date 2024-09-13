@@ -19,8 +19,6 @@ import Profile from "./user-pannel/pages/profile/Profile";
 import Vehicles from "./admin-pannel/pages/vehicles/Vehicles";
 import UserDetails from "./admin-pannel/pages/users/UserDetails";
 import VehicleDetail from "./admin-pannel/pages/vehicles/VehicleDetail";
-import React, { useState, useEffect } from "react";
-import Loader from "./user-pannel/components/Loader";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -76,21 +74,7 @@ const router = createBrowserRouter(
   )
 );
 
-
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return <Loader />;
-  }
   return <RouterProvider router={router} />;
 }
 

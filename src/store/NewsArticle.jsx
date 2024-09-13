@@ -97,7 +97,7 @@ export const deleteNewsArticle = createAsyncThunk(
 const newsArticleSlice = createSlice({
   name: "newsArticles",
   initialState: {
-    newsArticle: {},
+    newsArticle: null,
     newsArticles: [],
     isLoading: false,
     isSaving: false,

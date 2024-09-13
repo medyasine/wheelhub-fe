@@ -97,7 +97,7 @@ export const deleteInquiry = createAsyncThunk(
 const inquirySlice = createSlice({
   name: "inquiry",
   initialState: {
-    inquiry: {},
+    inquiry: null,
     inquiries: [],
     isLoading: false,
     isSaving: false,

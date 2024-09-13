@@ -2,22 +2,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const url = "http://localhost:8080/api/reviews";
 
 // GET all reviews
-export const getReviews = createAsyncThunk(
-  "review/getReviews",
-  async () => {
-    const user = JSON.parse(sessionStorage.getItem("login"));
+export const getReviews = createAsyncThunk("review/getReviews", async () => {
+  const user = JSON.parse(sessionStorage.getItem("login"));
 
-    const res = await fetch(url + "/all", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-    if (!res.ok) throw new Error("Could not fetch reviews");
-    const data = await res.json();
-    return data;
-  }
-);
+  const res = await fetch(url + "/all", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Could not fetch reviews");
+  const data = await res.json();
+  return data;
+});
 
 // GET a single review
 export const getReview = createAsyncThunk(
@@ -97,7 +94,7 @@ export const deleteReview = createAsyncThunk(
 const reviewSlice = createSlice({
   name: "review",
   initialState: {
-    review: {},
+    review: null,
     reviews: [],
     isLoading: false,
     isSaving: false,

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function NavbarXl() {
   useEffect(() => {
@@ -38,7 +39,7 @@ function NavbarXl() {
               alt=""
               width="40"
             />
-            <span className="font-sans-serif text-primary">falcon</span>
+            <span className="font-sans-serif text-primary">Wheelhub</span>
           </div>
         </a>
       </div>
@@ -73,19 +74,42 @@ function NavbarXl() {
             </li>
             <li className="nav-item">
               <div className="row navbar-vertical-label-wrapper mt-3 mb-2">
-                <div className="col-auto navbar-vertical-label">App</div>
+                <div className="col-auto navbar-vertical-label">Management</div>
                 <div className="col ps-0">
                   <hr className="mb-0 navbar-vertical-divider" />
                 </div>
               </div>
-              <a className="nav-link" href="app/calendar.html" role="button">
+              <a
+                className="nav-link dropdown-indicator"
+                href="#users"
+                role="button"
+                data-bs-toggle="collapse"
+                aria-expanded="false"
+                aria-controls="users"
+              >
                 <div className="d-flex align-items-center">
                   <span className="nav-link-icon">
-                    <span className="fas fa-calendar-alt"></span>
+                    <span className="fas fa-users"></span>
                   </span>
-                  <span className="nav-link-text ps-1">Calendar</span>
+                  <span className="nav-link-text ps-1">Users</span>
                 </div>
               </a>
+              <ul className="nav collapse" id="users">
+                <li className="nav-item">
+                  <Link className="nav-link" to="vehicles">
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">All</span>
+                    </div>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="vehicles">
+                    <div className="d-flex align-items-center">
+                      <span className="nav-link-text ps-1">Add a vehicle</span>
+                    </div>
+                  </Link>
+                </li>
+              </ul>
               <a
                 className="nav-link dropdown-indicator"
                 href="#e-learning"
@@ -96,53 +120,25 @@ function NavbarXl() {
               >
                 <div className="d-flex align-items-center">
                   <span className="nav-link-icon">
-                    <span className="fas fa-graduation-cap"></span>
+                    <span className="fas fa-car"></span>
                   </span>
-                  <span className="nav-link-text ps-1">E learning</span>
-                  <span className="badge rounded-pill ms-2 badge-subtle-success">
-                    New
-                  </span>
+                  <span className="nav-link-text ps-1">Vehicles</span>
                 </div>
               </a>
               <ul className="nav collapse" id="e-learning">
                 <li className="nav-item">
-                  <a
-                    className="nav-link dropdown-indicator"
-                    href="#course"
-                    data-bs-toggle="collapse"
-                    aria-expanded="false"
-                    aria-controls="e-learning"
-                  >
+                  <Link className="nav-link" to="vehicles">
                     <div className="d-flex align-items-center">
-                      <span className="nav-link-text ps-1">Course</span>
+                      <span className="nav-link-text ps-1">All</span>
                     </div>
-                  </a>
-                  <ul className="nav collapse" id="course">
-                    <li className="nav-item">
-                      <a
-                        className="nav-link"
-                        href="app/e-learning/course/course-list.html"
-                      >
-                        <div className="d-flex align-items-center">
-                          <span className="nav-link-text ps-1">
-                            Course list
-                          </span>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="app/e-learning/student-overview.html"
-                  >
+                  <Link className="nav-link" to="vehicles">
                     <div className="d-flex align-items-center">
-                      <span className="nav-link-text ps-1">
-                        Student overview
-                      </span>
+                      <span className="nav-link-text ps-1">Add a vehicle</span>
                     </div>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>

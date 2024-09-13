@@ -97,7 +97,7 @@ export const deletePayment = createAsyncThunk(
 const paymentSlice = createSlice({
   name: "payments",
   initialState: {
-    payment: {},
+    payment: null,
     payments: [],
     isLoading: false,
     isSaving: false,

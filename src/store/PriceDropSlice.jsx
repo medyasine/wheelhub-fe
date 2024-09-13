@@ -97,7 +97,7 @@ export const deletePriceDrop = createAsyncThunk(
 const priceDropSlice = createSlice({
   name: "priceDrops",
   initialState: {
-    priceDrop: {},
+    priceDrop: null,
     priceDrops: [],
     isLoading: false,
     isSaving: false,

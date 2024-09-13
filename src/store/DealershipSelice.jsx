@@ -97,7 +97,7 @@ export const deleteDealership = createAsyncThunk(
 const dealershipSlice = createSlice({
   name: "dealerships",
   initialState: {
-    dealership: {},
+    dealership: null,
     dealerships: [],
     isLoading: false,
     isSaving: false,

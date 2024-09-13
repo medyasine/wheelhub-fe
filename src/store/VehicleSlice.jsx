@@ -99,7 +99,7 @@ export const deleteVehicle = createAsyncThunk(
 const vehicleSlice = createSlice({
   name: "vehicles",
   initialState: {
-    vehicle: {},
+    vehicle: null,
     vehicles: [],
     isLoading: false,
     isSaving: false,

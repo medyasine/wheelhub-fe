@@ -91,7 +91,7 @@ export const deleteOffer = createAsyncThunk(
 const offerSlice = createSlice({
   name: "offers",
   initialState: {
-    offer: {},
+    offer: null,
     offers: [],
     isLoading: false,
     isSaving: false,

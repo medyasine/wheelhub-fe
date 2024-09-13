@@ -97,7 +97,7 @@ export const deleteAppointment = createAsyncThunk(
 const appointmentSlice = createSlice({
   name: "appointments",
   initialState: {
-    appointment: {},
+    appointment: null,
     appointments: [],
     isLoading: false,
     isSaving: false,

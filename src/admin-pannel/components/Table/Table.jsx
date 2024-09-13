@@ -286,7 +286,9 @@ const Table = ({
                           />
                         </div>
                       </td>
-                      <td>{indexOfFirstItem + i + 1}</td>
+                      <td className="align-middle">
+                        {indexOfFirstItem + i + 1}
+                      </td>
                       {tableColumns.map((col, index) => (
                         <td key={index} className="align-middle">
                           {rowData[col.tr]}
