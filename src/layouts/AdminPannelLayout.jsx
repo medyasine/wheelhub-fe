@@ -70,9 +70,9 @@ function AdminPannelLayout() {
             <NavbarContent />
             <NavbarDataContent />
             <Outlet />
+            <Footer />
           </div>
         </div>
-        <Footer />
       </main>
       <SettingsPannel />
     </>
