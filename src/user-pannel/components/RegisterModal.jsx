@@ -1,21 +1,24 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function RegisterModal() {
   const { token } = useSelector((state) => state.auth);
-  if (token) {
-    return;
-  }
-
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     username: "",
     password: "",
     confirm: "",
     email: "",
+    role: "buyer",
   });
+
+  if (token) {
+    return;
+  }
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -61,6 +64,8 @@ function RegisterModal() {
       return;
     }
 
+    formData.role = formData.role.toLocaleUpperCase();
+
     try {
       const response = await fetch("http://localhost:8080/api/auth/signup", {
         method: "POST",
@@ -78,6 +83,7 @@ function RegisterModal() {
           password: "",
           confirm: "",
           email: "",
+          role: "buyer",
         });
       } else {
         setError(json.error || "An error occurred during registration.");
@@ -167,8 +173,46 @@ function RegisterModal() {
                     onChange={handleChange}
                   />
                 </div>
-                {error && <span className="text-danger mb-3">{error}</span>}
               </div>
+              <div className="mb-3 col-sm-6">
+                <label
+                  className="form-label me-3"
+                  htmlFor="card-confirm-password"
+                >
+                  Choose your role
+                </label>
+                <div className="d-flex align-items-center">
+                  <div className="form-check form-check-inline">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      id="role-buyer"
+                      name="role"
+                      value="buyer"
+                      checked={formData.role === "buyer"}
+                      onChange={handleChange}
+                    />
+                    <label className="form-check-label" htmlFor="role-buyer">
+                      Buyer
+                    </label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      id="role-seller"
+                      name="role"
+                      value="seller"
+                      checked={formData.role === "seller"}
+                      onChange={handleChange}
+                    />
+                    <label className="form-check-label" htmlFor="role-seller">
+                      Seller
+                    </label>
+                  </div>
+                </div>
+              </div>
+              {error && <span className="text-danger mb-3">{error}</span>}
               <div className="mb-3">
                 <button
                   className="btn btn-primary d-block w-100 mt-3"

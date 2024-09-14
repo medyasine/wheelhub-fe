@@ -13,7 +13,7 @@ function Signup() {
     password: "",
     confirm: "",
     email: "",
-    role: "guest",
+    role: "buyer",
   });
 
   const navigate = useNavigate();
@@ -72,10 +72,6 @@ function Signup() {
     if (formData.password !== formData.confirm) {
       setError("Passwords do not match.");
       return;
-    }
-
-    if (formData.role == "guest") {
-      formData.role = "user";
     }
 
     formData.role = formData.role.toLocaleUpperCase();
@@ -287,23 +283,6 @@ function Signup() {
                                 htmlFor="role-seller"
                               >
                                 Seller
-                              </label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                id="role-guest"
-                                name="role"
-                                value="guest"
-                                checked={formData.role === "guest"}
-                                onChange={handleChange}
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="role-guest"
-                              >
-                                Guest
                               </label>
                             </div>
                           </div>

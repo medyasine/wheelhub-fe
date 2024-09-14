@@ -18,7 +18,7 @@ import ServerError from "./user-pannel/pages/505/ServerError";
 import Profile from "./user-pannel/pages/profile/Profile";
 import Vehicles from "./admin-pannel/pages/vehicles/Vehicles";
 import UserDetails from "./admin-pannel/pages/users/UserDetails";
-import VehicleDetail from "./admin-pannel/pages/vehicles/VehicleDetail";
+import VehicleDetail from "./admin-pannel/pages/vehicles/VehicleDetails/VehicleDetail";
 import VehicleCreate from "./admin-pannel/pages/vehicles/VehicleCreate";
 import UserCreate from "./admin-pannel/pages/users/UserCreate";
 

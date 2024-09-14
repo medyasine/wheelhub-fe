@@ -36,7 +36,7 @@ function NavbarXl() {
               className="me-2"
               src="/assets/img/icons/spot-illustrations/falcon.png"
               alt=""
-              width="20"
+              width="30"
             />
             <span className="font-sans-serif text-primary">wheelhub</span>
           </div>
@@ -95,14 +95,14 @@ function NavbarXl() {
               </a>
               <ul className="nav collapse" id="users">
                 <li className="nav-item">
-                  <Link className="nav-link" to="vehicles">
+                  <Link className="nav-link" to="users">
                     <div className="d-flex align-items-center">
                       <span className="nav-link-text ps-1">All</span>
                     </div>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="vehicles">
+                  <Link className="nav-link" to="users/create">
                     <div className="d-flex align-items-center">
                       <span className="nav-link-text ps-1">Add a vehicle</span>
                     </div>

@@ -7,16 +7,17 @@ function LoginDropDown() {
   const { token } = useSelector((state) => state.auth);
   const [error, setError] = useState("");
 
-  if (token) {
-    return;
-  }
-
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
 
   const dispatch = useDispatch();
+
+  if (token) {
+    return;
+  }
+
 
   function hamdleChange(e) {
     const { value, name } = e.target;

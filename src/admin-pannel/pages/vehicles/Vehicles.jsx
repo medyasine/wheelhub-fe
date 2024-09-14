@@ -44,12 +44,10 @@ function Vehicles() {
   };
 
   const handleEditClicked = (rowData) => {
-    console.log("Edit clicked:", rowData);
     dispatch(updateVehicle(rowData));
   };
 
   const handleDeleteClicked = (id) => {
-    console.log("Delete clicked:", id);
     dispatch(deleteVehicle(id));
   };
 

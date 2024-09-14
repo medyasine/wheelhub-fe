@@ -34,6 +34,24 @@ export const getReview = createAsyncThunk(
   }
 );
 
+// GET vehicle reviews
+export const getVehicleReviews = createAsyncThunk(
+  "review/getVehicleReviews",
+  async ({ vehicleId, reviewType }) => {
+    const user = JSON.parse(sessionStorage.getItem("login"));
+
+    const res = await fetch(url + `/vehicle/${vehicleId}/${reviewType}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    if (!res.ok) throw new Error("Could not fetch vehicle reviews");
+    const data = await res.json();
+    return data;
+  }
+);
+
 // CREATE a new review
 export const createReview = createAsyncThunk(
   "review/createReview",
@@ -96,6 +114,7 @@ const reviewSlice = createSlice({
   initialState: {
     review: null,
     reviews: [],
+    vehicleReviews:[],
     isLoading: false,
     isSaving: false,
     isUpdating: false,
@@ -115,6 +134,19 @@ const reviewSlice = createSlice({
     builder.addCase(getReviews.fulfilled, (state, action) => {
       state.isLoading = false;
       state.reviews = action.payload;
+    });
+
+    // Get all vehicle reviews
+    builder.addCase(getVehicleReviews.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getVehicleReviews.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(getVehicleReviews.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.vehicleReviews = action.payload;
     });
 
     // Get a single review

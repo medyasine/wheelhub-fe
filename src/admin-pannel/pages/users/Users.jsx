@@ -1,12 +1,16 @@
-import Table from '../../components/Table/Table';
+import { useDispatch, useSelector } from "react-redux";
+import Table from "../../components/Table/Table";
+import { useEffect } from "react";
+import { deleteUser, getUsers, updateUser } from "../../../store/UserSlice";
+import { useNavigate } from "react-router-dom";
 
 const mockTranslateService = (key) => key;
 const mockMessageService = {
-  add: (message) => console.log('Message:', message),
+  add: (message) => console.log("Message:", message),
 };
 const mockConfirmationService = {
   confirm: ({ accept, reject }) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
+    if (window.confirm("Are you sure you want to delete this item?")) {
       accept();
     } else {
       reject();
@@ -16,79 +20,53 @@ const mockConfirmationService = {
 };
 
 const sampleColumns = [
-  { tableHeader: 'CLIENT', tr: 'client' },
-  { tableHeader: 'SUBJECT', tr: 'subject' },
-  { tableHeader: 'STATUS', tr: 'status' },
-  { tableHeader: 'PRIORITY', tr: 'priority' },
-];
-
-const sampleData = [
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 4, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
-
-  { id: 1, client: 'John Doe', subject: 'Account Access', status: 'Open', priority: 'High', membersCount: 0 },
-  { id: 2, client: 'Jane Smith', subject: 'Payment Issue', status: 'In Progress', priority: 'Medium', membersCount: 2 },
-  { id: 3, client: 'Bob Johnson', subject: 'Feature Request', status: 'Closed', priority: 'Low', membersCount: 0 },
+  { tableHeader: "USERNAME", tr: "username" },
+  { tableHeader: "EMAIL", tr: "email" },
+  { tableHeader: "PHONE", tr: "phoneNumber" },
+  { tableHeader: "ROLE", tr: "role" },
 ];
 
 export default function Users() {
-  const handleDetailClicked = (rowData) => console.log('Detail clicked:', rowData);
-  const handleEditClicked = (rowData) => console.log('Edit clicked:', rowData);
-  const handleDeleteClicked = (id) => console.log('Delete clicked:', id);
-  const handleRecoverClicked = (rowData) => console.log('Recover clicked:', rowData);
+  const { users } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  const handleDetailClicked = (id) => {
+    navigate(`/admin/users/${id}`);
+  };
+
+  const handleEditClicked = (rowData) => {
+    dispatch(updateUser(rowData));
+  };
+
+  const handleDeleteClicked = (id) => {
+    dispatch(deleteUser(id));
+  };
+
+  const handleRecoverClicked = (rowData) => {
+    console.log("Recover clicked:", rowData);
+  };
+
+  const handleNewClicked = (rowData) => {
+    console.log("New clicked:", rowData);
+  };
 
   return (
     <div className="container mt-5">
       <h1 className="mb-4">User Table </h1>
-      <Table 
+      <Table
         tableColumns={sampleColumns}
-        tableData={sampleData}
+        tableData={users}
         showDetailButton={true}
         detailClicked={handleDetailClicked}
         editClicked={handleEditClicked}
         deleteClicked={handleDeleteClicked}
         recoverClicked={handleRecoverClicked}
+        newClicked={handleNewClicked}
         confirmationService={mockConfirmationService}
         messageService={mockMessageService}
         translateService={mockTranslateService}

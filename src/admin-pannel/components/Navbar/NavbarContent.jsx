@@ -28,7 +28,7 @@ function NavbarContent() {
             className="me-2"
             src="/assets/img/icons/spot-illustrations/falcon.png"
             alt=""
-            width="40"
+            width="30"
           />
           <span className="font-sans-serif text-primary">wheelhub</span>
         </div>
