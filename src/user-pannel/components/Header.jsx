@@ -233,7 +233,7 @@ function Header() {
                   <div className="card-body scrollbar max-h-dropdown">
                     <img
                       className="img-dropdown"
-                      src="../assets/img/icons/spot-illustrations/authentication-corner.png"
+                      src="/assets/img/icons/spot-illustrations/authentication-corner.png"
                       width="130"
                       alt=""
                     />

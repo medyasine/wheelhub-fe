@@ -19,6 +19,8 @@ import Profile from "./user-pannel/pages/profile/Profile";
 import Vehicles from "./admin-pannel/pages/vehicles/Vehicles";
 import UserDetails from "./admin-pannel/pages/users/UserDetails";
 import VehicleDetail from "./admin-pannel/pages/vehicles/VehicleDetail";
+import VehicleCreate from "./admin-pannel/pages/vehicles/VehicleCreate";
+import UserCreate from "./admin-pannel/pages/users/UserCreate";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,15 +36,15 @@ const router = createBrowserRouter(
         <Route index element={<Index />} />
 
         <Route path="users" element={<Users />} />
-        {/* <Route path="users/create" element={<UserCreate />} />
-        <Route path="users/:id/edit" element={<UserEdit />} /> */}
+        <Route path="users/create" element={<UserCreate />} />
+        {/* <Route path="users/:id/edit" element={<UserEdit />} /> */}
         <Route path="users/:id" element={<UserDetails />} />
 
         <Route path="profile" element={<Profile />} />
 
         <Route path="vehicles" element={<Vehicles />} />
-        {/* <Route path="vehicles/create" element={<VehicleCreate />} />
-        <Route path="vehicles/:id/edit" element={<VehicleEdit />} /> */}
+        <Route path="vehicles/create" element={<VehicleCreate />} />
+        {/* <Route path="vehicles/:id/edit" element={<VehicleEdit />} /> */}
         <Route path="vehicles/:id" element={<VehicleDetail />} />
 
         {/* <Route path="appointments" element={<Appointments />} />

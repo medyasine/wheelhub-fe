@@ -1,5 +1,3 @@
-import React from "react";
-
 function TotalSales() {
   return (
     <div className="col-lg-6 ps-lg-2 mb-3">

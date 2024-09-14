@@ -1,5 +1,3 @@
-import React from "react";
-
 function ActiveUsers() {
   return (
     <div className="col-md-6 col-xxl-3 pe-md-2 mb-3 mb-xxl-0">
@@ -38,7 +36,7 @@ function ActiveUsers() {
         <div className="card-body py-2">
           <div className="d-flex align-items-center position-relative mb-3">
             <div className="avatar avatar-2xl status-online">
-              <img className="rounded-circle" src="./assets/img/team/1.jpg" alt="" />
+              <img className="rounded-circle" src="/assets/img/team/1.jpg" alt="" />
             </div>
             <div className="flex-1 ms-3">
               <h6 className="mb-0 fw-semi-bold">
@@ -54,7 +52,7 @@ function ActiveUsers() {
           </div>
           <div className="d-flex align-items-center position-relative mb-3">
             <div className="avatar avatar-2xl status-online">
-              <img className="rounded-circle" src="./assets/img/team/2.jpg" alt="" />
+              <img className="rounded-circle" src="/assets/img/team/2.jpg" alt="" />
             </div>
             <div className="flex-1 ms-3">
               <h6 className="mb-0 fw-semi-bold">
@@ -70,7 +68,7 @@ function ActiveUsers() {
           </div>
           <div className="d-flex align-items-center position-relative mb-3">
             <div className="avatar avatar-2xl status-away">
-              <img className="rounded-circle" src="./assets/img/team/3.jpg" alt="" />
+              <img className="rounded-circle" src="/assets/img/team/3.jpg" alt="" />
             </div>
             <div className="flex-1 ms-3">
               <h6 className="mb-0 fw-semi-bold">
@@ -86,7 +84,7 @@ function ActiveUsers() {
           </div>
           <div className="d-flex align-items-center position-relative mb-3">
             <div className="avatar avatar-2xl status-offline">
-              <img className="rounded-circle" src="./assets/img/team/4.jpg" alt="" />
+              <img className="rounded-circle" src="/assets/img/team/4.jpg" alt="" />
             </div>
             <div className="flex-1 ms-3">
               <h6 className="mb-0 fw-semi-bold">
@@ -102,7 +100,7 @@ function ActiveUsers() {
           </div>
           <div className="d-flex align-items-center position-relative false">
             <div className="avatar avatar-2xl status-offline">
-              <img className="rounded-circle" src="./assets/img/team/5.jpg" alt="" />
+              <img className="rounded-circle" src="/assets/img/team/5.jpg" alt="" />
             </div>
             <div className="flex-1 ms-3">
               <h6 className="mb-0 fw-semi-bold">

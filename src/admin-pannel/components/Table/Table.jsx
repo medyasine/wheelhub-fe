@@ -298,7 +298,9 @@ const Table = ({
                         {showDetailButton && (
                           <button
                             className="btn btn-sm btn-falcon-default me-1"
-                            onClick={() => detailClicked(rowData)}
+                            onClick={() => {
+                              detailClicked(rowData.id);
+                            }}
                           >
                             Details
                           </button>

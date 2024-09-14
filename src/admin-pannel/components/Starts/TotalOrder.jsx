@@ -1,5 +1,3 @@
-import React from "react";
-
 function TotalOrder() {
   return (
     <div className="col-md-6 col-xxl-3">

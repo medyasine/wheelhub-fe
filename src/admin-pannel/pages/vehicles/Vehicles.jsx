@@ -39,9 +39,10 @@ function Vehicles() {
     dispatch(getVehicles());
   }, [dispatch]);
 
-  const handleDetailClicked = (rowData) => {
-    navigate(rowData.id);
+  const handleDetailClicked = (id) => {
+    navigate(`/admin/vehicles/${id}`);
   };
+
   const handleEditClicked = (rowData) => {
     console.log("Edit clicked:", rowData);
     dispatch(updateVehicle(rowData));

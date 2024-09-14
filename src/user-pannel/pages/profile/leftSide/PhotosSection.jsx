@@ -9,13 +9,13 @@ function PhotosSection() {
           <div className="col-6 p-1">
             <a
               className="glightbox"
-              href="./assets/img/generic/4.jpg"
+              href="/assets/img/generic/4.jpg"
               data-gallery="gallery1"
               data-glightbox="data-glightbox"
             >
               <img
                 className="img-fluid rounded"
-                src="./assets/img/generic/4.jpg"
+                src="/assets/img/generic/4.jpg"
                 alt="..."
               />
             </a>
@@ -23,13 +23,13 @@ function PhotosSection() {
           <div className="col-6 p-1">
             <a
               className="glightbox"
-              href="./assets/img/generic/5.jpg"
+              href="/assets/img/generic/5.jpg"
               data-gallery="gallery1"
               data-glightbox="data-glightbox"
             >
               <img
                 className="img-fluid rounded"
-                src="./assets/img/generic/5.jpg"
+                src="/assets/img/generic/5.jpg"
                 alt="..."
               />
             </a>
@@ -37,13 +37,13 @@ function PhotosSection() {
           <div className="col-4 p-1">
             <a
               className="glightbox"
-              href="./assets/img/gallery/4.jpg"
+              href="/assets/img/gallery/4.jpg"
               data-gallery="gallery1"
               data-glightbox="data-glightbox"
             >
               <img
                 className="img-fluid rounded"
-                src="./assets/img/gallery/4.jpg"
+                src="/assets/img/gallery/4.jpg"
                 alt="..."
               />
             </a>
@@ -51,13 +51,13 @@ function PhotosSection() {
           <div className="col-4 p-1">
             <a
               className="glightbox"
-              href="./assets/img/gallery/5.jpg"
+              href="/assets/img/gallery/5.jpg"
               data-gallery="gallery1"
               data-glightbox="data-glightbox"
             >
               <img
                 className="img-fluid rounded"
-                src="./assets/img/gallery/5.jpg"
+                src="/assets/img/gallery/5.jpg"
                 alt="..."
               />
             </a>
@@ -65,13 +65,13 @@ function PhotosSection() {
           <div className="col-4 p-1">
             <a
               className="glightbox"
-              href="./assets/img/gallery/3.jpg"
+              href="/assets/img/gallery/3.jpg"
               data-gallery="gallery1"
               data-glightbox="data-glightbox"
             >
               <img
                 className="img-fluid rounded"
-                src="./assets/img/gallery/3.jpg"
+                src="/assets/img/gallery/3.jpg"
                 alt="..."
               />
             </a>

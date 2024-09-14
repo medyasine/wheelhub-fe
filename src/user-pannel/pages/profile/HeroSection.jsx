@@ -4,12 +4,12 @@ function HeroSection() {
       <div className="card-header position-relative min-vh-25 mb-7">
         <div
           className="bg-holder rounded-3 rounded-bottom-0"
-          style={{ backgroundImage: "url(./assets/img/generic/4.jpg)" }}
+          style={{ backgroundImage: "url(/assets/img/generic/4.jpg)" }}
         ></div>
         <div className="avatar avatar-5xl avatar-profile">
           <img
             className="rounded-circle img-thumbnail shadow-sm"
-            src="./assets/img/team/2.jpg"
+            src="/assets/img/team/2.jpg"
             width="200"
             alt=""
           />
@@ -62,7 +62,7 @@ function HeroSection() {
             <a className="d-flex align-items-center mb-2" href="#">
               <img
                 className="align-self-center me-2"
-                src="./assets/img/logos/g.png"
+                src="/assets/img/logos/g.png"
                 alt="Generic placeholder image"
                 width="30"
               />
@@ -73,7 +73,7 @@ function HeroSection() {
             <a className="d-flex align-items-center mb-2" href="#">
               <img
                 className="align-self-center me-2"
-                src="./assets/img/logos/apple.png"
+                src="/assets/img/logos/apple.png"
                 alt="Generic placeholder image"
                 width="30"
               />
@@ -84,7 +84,7 @@ function HeroSection() {
             <a className="d-flex align-items-center mb-2" href="#">
               <img
                 className="align-self-center me-2"
-                src="./assets/img/logos/hp.png"
+                src="/assets/img/logos/hp.png"
                 alt="Generic placeholder image"
                 width="30"
               />

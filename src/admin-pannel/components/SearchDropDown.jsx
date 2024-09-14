@@ -1,5 +1,3 @@
-import React from "react";
-
 function SearchDropDown() {
   return (
     <div className="dropdown-menu border font-base start-0 mt-2 py-0 overflow-hidden w-100">
@@ -87,7 +85,7 @@ function SearchDropDown() {
             <div className="file-thumbnail me-2">
               <img
                 className="border h-100 w-100 object-fit-cover rounded-3"
-                src="./assets/img/products/3-thumb.png"
+                src="/assets/img/products/3-thumb.png"
                 alt=""
               />
             </div>
@@ -107,7 +105,7 @@ function SearchDropDown() {
             <div className="file-thumbnail me-2">
               <img
                 className="img-fluid"
-                src="./assets/img/icons/zip.png"
+                src="/assets/img/icons/zip.png"
                 alt=""
               />
             </div>
@@ -131,7 +129,7 @@ function SearchDropDown() {
             <div className="avatar avatar-l status-online me-2">
               <img
                 className="rounded-circle"
-                src="./assets/img/team/1.jpg"
+                src="/assets/img/team/1.jpg"
                 alt=""
               />
             </div>
@@ -146,7 +144,7 @@ function SearchDropDown() {
             <div className="avatar avatar-l me-2">
               <img
                 className="rounded-circle"
-                src="./assets/img/team/2.jpg"
+                src="/assets/img/team/2.jpg"
                 alt=""
               />
             </div>
@@ -161,7 +159,7 @@ function SearchDropDown() {
             <div className="avatar avatar-l me-2">
               <img
                 className="rounded-circle"
-                src="./assets/img/team/3.jpg"
+                src="/assets/img/team/3.jpg"
                 alt=""
               />
             </div>

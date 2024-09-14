@@ -29,7 +29,7 @@ function NavbarDataContent() {
         <div className="d-flex align-items-center">
           <img
             className="me-2"
-            src="./assets/img/icons/spot-illustrations/falcon.png"
+            src="/assets/img/icons/spot-illustrations/falcon.png"
             alt=""
             width="20"
           />
@@ -84,7 +84,7 @@ function NavbarDataContent() {
                 <div className="card-body scrollbar max-h-dropdown">
                   <img
                     className="img-dropdown"
-                    src="./assets/img/icons/spot-illustrations/authentication-corner.png"
+                    src="/assets/img/icons/spot-illustrations/authentication-corner.png"
                     width="130"
                     alt=""
                   />

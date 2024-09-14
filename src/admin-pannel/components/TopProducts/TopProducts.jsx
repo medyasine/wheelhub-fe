@@ -1,5 +1,3 @@
-import React from "react";
-
 function TopProducts() {
   return (
     <div className="col-xxl-6 px-xxl-2">

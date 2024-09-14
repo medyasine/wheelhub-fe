@@ -1,5 +1,3 @@
-import React from "react";
-
 function BestSellingProducts() {
   return (
     <div className="col-lg-7 col-xl-8 pe-lg-2 mb-3">
@@ -25,7 +23,7 @@ function BestSellingProducts() {
                     <div className="d-flex align-items-center position-relative">
                       <img
                         className="rounded-1 border border-200"
-                        src="./assets/img/products/12.png"
+                        src="/assets/img/products/12.png"
                         width="60"
                         alt=""
                       />
@@ -64,7 +62,7 @@ function BestSellingProducts() {
                     <div className="d-flex align-items-center position-relative">
                       <img
                         className="rounded-1 border border-200"
-                        src="./assets/img/products/10.png"
+                        src="/assets/img/products/10.png"
                         width="60"
                         alt=""
                       />
@@ -103,7 +101,7 @@ function BestSellingProducts() {
                     <div className="d-flex align-items-center position-relative">
                       <img
                         className="rounded-1 border border-200"
-                        src="./assets/img/products/11.png"
+                        src="/assets/img/products/11.png"
                         width="60"
                         alt=""
                       />
@@ -142,7 +140,7 @@ function BestSellingProducts() {
                     <div className="d-flex align-items-center position-relative">
                       <img
                         className="rounded-1 border border-200"
-                        src="./assets/img/products/14.png"
+                        src="/assets/img/products/14.png"
                         width="60"
                         alt=""
                       />
@@ -181,7 +179,7 @@ function BestSellingProducts() {
                     <div className="d-flex align-items-center position-relative">
                       <img
                         className="rounded-1 border border-200"
-                        src="./assets/img/products/13.png"
+                        src="/assets/img/products/13.png"
                         width="60"
                         alt=""
                       />

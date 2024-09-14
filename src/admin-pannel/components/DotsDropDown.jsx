@@ -1,5 +1,3 @@
-import React from "react";
-
 function DotsDropDown() {
   return (
     <li className="nav-item dropdown px-1">
@@ -47,7 +45,7 @@ function DotsDropDown() {
                     <div className="avatar avatar-2xl">
                       <img
                         className="rounded-circle"
-                        src="./assets/img/team/3.jpg"
+                        src="/assets/img/team/3.jpg"
                         alt=""
                       />
                     </div>

@@ -1,5 +1,3 @@
-import React from "react";
-
 function RunningProjects() {
   return (
     <div className="col-lg-6 pe-lg-2 mb-3">

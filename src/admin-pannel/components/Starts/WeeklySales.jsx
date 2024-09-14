@@ -1,35 +1,33 @@
-import React from "react";
-
 function WeeklySales() {
   return (
     <div className="col-md-6 col-xxl-3">
-      <div class="card h-md-100 ecommerce-card-min-width">
-        <div class="card-header pb-0">
-          <h6 class="mb-0 mt-2 d-flex align-items-center">
+      <div className="card h-md-100 ecommerce-card-min-width">
+        <div className="card-header pb-0">
+          <h6 className="mb-0 mt-2 d-flex align-items-center">
             Weekly Sales
             <span
-              class="ms-1 text-400"
+              className="ms-1 text-400"
               data-bs-toggle="tooltip"
               data-bs-placement="top"
               title="Calculated according to last week's sales"
             >
               <span
-                class="far fa-question-circle"
+                className="far fa-question-circle"
                 data-fa-transform="shrink-1"
               ></span>
             </span>
           </h6>
         </div>
-        <div class="card-body d-flex flex-column justify-content-end">
-          <div class="row">
-            <div class="col">
-              <p class="font-sans-serif lh-1 mb-1 fs-5">$47K</p>
-              <span class="badge badge-subtle-success rounded-pill fs-11">
+        <div className="card-body d-flex flex-column justify-content-end">
+          <div className="row">
+            <div className="col">
+              <p className="font-sans-serif lh-1 mb-1 fs-5">$47K</p>
+              <span className="badge badge-subtle-success rounded-pill fs-11">
                 +3.5%
               </span>
             </div>
-            <div class="col-auto ps-0">
-              <div class="echart-bar-weekly-sales h-100"></div>
+            <div className="col-auto ps-0">
+              <div className="echart-bar-weekly-sales h-100"></div>
             </div>
           </div>
         </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 function NotFound() {
@@ -9,7 +8,7 @@ function NotFound() {
           <Link className="d-flex flex-center mb-4" to="/">
             <img
               className="me-2"
-              src="./assets/img/icons/spot-illustrations/falcon.png"
+              src="/assets/img/icons/spot-illustrations/falcon.png"
               alt=""
               width="58"
             />
@@ -21,11 +20,11 @@ function NotFound() {
             <div className="card-body p-4 p-sm-5">
               <div className="fw-black lh-1 text-300 fs-error">404</div>
               <p className="lead mt-4 text-800 font-sans-serif fw-semi-bold w-md-75 w-xl-100 mx-auto">
-                The page you're looking for is not found.
+                The page you&apos;re looking for is not found.
               </p>
               <hr />
               <p>
-                Make sure the address is correct and that the page hasn't moved.
+                Make sure the address is correct and that the page hasn&apos;t moved.
                 If you think this is a mistake,
                 <a href="mailto:info@exmaple.com">contact us</a>.
               </p>

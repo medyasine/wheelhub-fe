@@ -1,5 +1,3 @@
-import React from "react";
-
 function Notifications() {
   return (
     <>
@@ -61,7 +59,7 @@ function Notifications() {
                       <div className="avatar avatar-2xl me-3">
                         <img
                           className="rounded-circle"
-                          src="./assets/img/team/1-thumb.png"
+                          src="/assets/img/team/1-thumb.png"
                           alt=""
                         />
                       </div>
@@ -69,7 +67,7 @@ function Notifications() {
                     <div className="notification-body">
                       <p className="mb-1">
                         <strong>Emma Watson</strong> replied to your comment :
-                        "Hello world 😍"
+                        Hello world 😍
                       </p>
                       <span className="notification-time">
                         <span className="me-2" role="img" aria-label="Emoji">
@@ -87,7 +85,7 @@ function Notifications() {
                       <div className="avatar avatar-2xl me-3">
                         <img
                           className="rounded-circle"
-                          src="./assets/img/icons/weather-sm.jpg"
+                          src="/assets/img/icons/weather-sm.jpg"
                           alt=""
                         />
                       </div>
@@ -95,7 +93,7 @@ function Notifications() {
                     <div className="notification-body">
                       <p className="mb-1">
                         The forecast today shows a low of 20&#8451; in
-                        California. See today's weather.
+                        California. See todays weather.
                       </p>
                       <span className="notification-time">
                         <span className="me-2" role="img" aria-label="Emoji">

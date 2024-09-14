@@ -9,7 +9,7 @@ export default function ExperienceSection() {
           <a href="#!">
             <img
               className="img-fluid"
-              src="./assets/img/logos/g.png"
+              src="/assets/img/logos/g.png"
               alt=""
               width="56"
             />
@@ -42,7 +42,7 @@ export default function ExperienceSection() {
           <a href="#!">
             <img
               className="img-fluid"
-              src="./assets/img/logos/apple.png"
+              src="/assets/img/logos/apple.png"
               alt=""
               width="56"
             />
@@ -73,7 +73,7 @@ export default function ExperienceSection() {
           <a href="#!">
             <img
               className="img-fluid"
-              src="./assets/img/logos/nike.png"
+              src="/assets/img/logos/nike.png"
               alt=""
               width="56"
             />

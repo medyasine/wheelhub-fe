@@ -1,5 +1,3 @@
-import React from "react";
-
 function SharedFiles() {
   return (
     <div className="col-lg-5 col-xl-4 ps-lg-2 mb-3">
@@ -15,7 +13,7 @@ function SharedFiles() {
             <div className="file-thumbnail">
               <img
                 className="border h-100 w-100 object-fit-cover rounded-2"
-                src="./assets/img/products/5-thumb.png"
+                src="/assets/img/products/5-thumb.png"
                 alt=""
               />
             </div>
@@ -35,11 +33,11 @@ function SharedFiles() {
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   title="Download"
-                  href="./assets/img/icons/cloud-download.svg"
+                  href="/assets/img/icons/cloud-download.svg"
                   download="download"
                 >
                   <img
-                    src="./assets/img/icons/cloud-download.svg"
+                    src="/assets/img/icons/cloud-download.svg"
                     alt=""
                     width="15"
                   />
@@ -52,7 +50,7 @@ function SharedFiles() {
                   title="Edit"
                 >
                   <img
-                    src="./assets/img/icons/edit-alt.svg"
+                    src="/assets/img/icons/edit-alt.svg"
                     alt=""
                     width="15"
                   />
@@ -65,7 +63,7 @@ function SharedFiles() {
             <div className="file-thumbnail">
               <img
                 className="border h-100 w-100 object-fit-cover rounded-2"
-                src="./assets/img/products/3-thumb.png"
+                src="/assets/img/products/3-thumb.png"
                 alt=""
               />
             </div>
@@ -87,11 +85,11 @@ function SharedFiles() {
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   title="Download"
-                  href="./assets/img/icons/cloud-download.svg"
+                  href="/assets/img/icons/cloud-download.svg"
                   download="download"
                 >
                   <img
-                    src="./assets/img/icons/cloud-download.svg"
+                    src="/assets/img/icons/cloud-download.svg"
                     alt=""
                     width="15"
                   />
@@ -104,7 +102,7 @@ function SharedFiles() {
                   title="Edit"
                 >
                   <img
-                    src="./assets/img/icons/edit-alt.svg"
+                    src="/assets/img/icons/edit-alt.svg"
                     alt=""
                     width="15"
                   />
@@ -117,7 +115,7 @@ function SharedFiles() {
             <div className="file-thumbnail">
               <img
                 className="img-fluid"
-                src="./assets/img/icons/zip.png"
+                src="/assets/img/icons/zip.png"
                 alt=""
               />
             </div>
@@ -139,11 +137,11 @@ function SharedFiles() {
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   title="Download"
-                  href="./assets/img/icons/cloud-download.svg"
+                  href="/assets/img/icons/cloud-download.svg"
                   download="download"
                 >
                   <img
-                    src="./assets/img/icons/cloud-download.svg"
+                    src="/assets/img/icons/cloud-download.svg"
                     alt=""
                     width="15"
                   />
@@ -156,7 +154,7 @@ function SharedFiles() {
                   title="Edit"
                 >
                   <img
-                    src="./assets/img/icons/edit-alt.svg"
+                    src="/assets/img/icons/edit-alt.svg"
                     alt=""
                     width="15"
                   />
@@ -169,7 +167,7 @@ function SharedFiles() {
             <div className="file-thumbnail">
               <img
                 className="border h-100 w-100 object-fit-cover rounded-2"
-                src="./assets/img/products/2-thumb.png"
+                src="/assets/img/products/2-thumb.png"
                 alt=""
               />
             </div>
@@ -191,11 +189,11 @@ function SharedFiles() {
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   title="Download"
-                  href="./assets/img/icons/cloud-download.svg"
+                  href="/assets/img/icons/cloud-download.svg"
                   download="download"
                 >
                   <img
-                    src="./assets/img/icons/cloud-download.svg"
+                    src="/assets/img/icons/cloud-download.svg"
                     alt=""
                     width="15"
                   />
@@ -208,7 +206,7 @@ function SharedFiles() {
                   title="Edit"
                 >
                   <img
-                    src="./assets/img/icons/edit-alt.svg"
+                    src="/assets/img/icons/edit-alt.svg"
                     alt=""
                     width="15"
                   />
@@ -221,7 +219,7 @@ function SharedFiles() {
             <div className="file-thumbnail">
               <img
                 className="img-fluid"
-                src="./assets/img/icons/docs.png"
+                src="/assets/img/icons/docs.png"
                 alt=""
               />
             </div>
@@ -243,11 +241,11 @@ function SharedFiles() {
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   title="Download"
-                  href="./assets/img/icons/cloud-download.svg"
+                  href="/assets/img/icons/cloud-download.svg"
                   download="download"
                 >
                   <img
-                    src="./assets/img/icons/cloud-download.svg"
+                    src="/assets/img/icons/cloud-download.svg"
                     alt=""
                     width="15"
                   />
@@ -260,7 +258,7 @@ function SharedFiles() {
                   title="Edit"
                 >
                   <img
-                    src="./assets/img/icons/edit-alt.svg"
+                    src="/assets/img/icons/edit-alt.svg"
                     alt=""
                     width="15"
                   />

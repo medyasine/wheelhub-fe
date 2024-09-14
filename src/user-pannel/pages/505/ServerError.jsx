@@ -8,7 +8,7 @@ function ServerError() {
           <Link className="d-flex flex-center mb-4" to="/">
             <img
               className="me-2"
-              src="./assets/img/icons/spot-illustrations/falcon.png"
+              src="/assets/img/icons/spot-illustrations/falcon.png"
               alt=""
               width="58"
             />

@@ -16,7 +16,7 @@ function AssociationsSection() {
             <div className="d-flex position-relative align-items-center mb-2">
               <img
                 className="d-flex align-self-center me-2 rounded-3"
-                src="./assets/img/logos/apple.png"
+                src="/assets/img/logos/apple.png"
                 alt=""
                 width="50"
               />
@@ -34,7 +34,7 @@ function AssociationsSection() {
             <div className="d-flex position-relative align-items-center mb-2">
               <img
                 className="d-flex align-self-center me-2 rounded-3"
-                src="./assets/img/logos/g.png"
+                src="/assets/img/logos/g.png"
                 alt=""
                 width="50"
               />
@@ -52,7 +52,7 @@ function AssociationsSection() {
             <div className="d-flex position-relative align-items-center mb-2">
               <img
                 className="d-flex align-self-center me-2 rounded-3"
-                src="./assets/img/logos/intel-2.png"
+                src="/assets/img/logos/intel-2.png"
                 alt=""
                 width="50"
               />
@@ -70,7 +70,7 @@ function AssociationsSection() {
             <div className="d-flex position-relative align-items-center mb-2">
               <img
                 className="d-flex align-self-center me-2 rounded-3"
-                src="./assets/img/logos/facebook.png"
+                src="/assets/img/logos/facebook.png"
                 alt=""
                 width="50"
               />

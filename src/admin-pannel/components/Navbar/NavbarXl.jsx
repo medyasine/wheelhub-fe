@@ -34,7 +34,7 @@ function NavbarXl() {
           <div className="d-flex align-items-center py-3">
             <img
               className="me-2"
-              src="./assets/img/icons/spot-illustrations/falcon.png"
+              src="/assets/img/icons/spot-illustrations/falcon.png"
               alt=""
               width="20"
             />

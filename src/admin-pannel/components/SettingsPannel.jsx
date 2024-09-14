@@ -1,5 +1,3 @@
-import React from "react";
-
 function SettingsPannel() {
   return (
     <>
@@ -64,7 +62,7 @@ function SettingsPannel() {
                   <span className="hover-overlay mb-2 rounded d-block">
                     <img
                       className="img-fluid img-prototype mb-0"
-                      src="./assets/img/generic/falcon-mode-default.jpg"
+                      src="/assets/img/generic/falcon-mode-default.jpg"
                       alt=""
                     />
                   </span>
@@ -87,7 +85,7 @@ function SettingsPannel() {
                   <span className="hover-overlay mb-2 rounded d-block">
                     <img
                       className="img-fluid img-prototype mb-0"
-                      src="./assets/img/generic/falcon-mode-dark.jpg"
+                      src="/assets/img/generic/falcon-mode-dark.jpg"
                       alt=""
                     />
                   </span>
@@ -110,7 +108,7 @@ function SettingsPannel() {
                   <span className="hover-overlay mb-2 rounded d-block">
                     <img
                       className="img-fluid img-prototype mb-0"
-                      src="./assets/img/generic/falcon-mode-auto.jpg"
+                      src="/assets/img/generic/falcon-mode-auto.jpg"
                       alt=""
                     />
                   </span>
@@ -124,7 +122,7 @@ function SettingsPannel() {
             <div className="d-flex align-items-start">
               <img
                 className="me-2"
-                src="./assets/img/icons/left-arrow-from-left.svg"
+                src="/assets/img/icons/left-arrow-from-left.svg"
                 width="20"
                 alt=""
               />
@@ -153,7 +151,7 @@ function SettingsPannel() {
             <div className="d-flex align-items-start">
               <img
                 className="me-2"
-                src="./assets/img/icons/arrows-h.svg"
+                src="/assets/img/icons/arrows-h.svg"
                 width="20"
                 alt=""
               />
@@ -181,7 +179,7 @@ function SettingsPannel() {
           <div className="d-flex align-items-start">
             <img
               className="me-2"
-              src="./assets/img/icons/paragraph.svg"
+              src="/assets/img/icons/paragraph.svg"
               width="20"
               alt=""
             />
@@ -238,7 +236,7 @@ function SettingsPannel() {
                 >
                   <img
                     className="img-fluid img-prototype"
-                    src="./assets/img/generic/default.png"
+                    src="/assets/img/generic/default.png"
                     alt=""
                   />
                   <span className="label-text"> Transparent</span>
@@ -259,7 +257,7 @@ function SettingsPannel() {
                 >
                   <img
                     className="img-fluid img-prototype"
-                    src="./assets/img/generic/inverted.png"
+                    src="/assets/img/generic/inverted.png"
                     alt=""
                   />
                   <span className="label-text"> Inverted</span>
@@ -280,7 +278,7 @@ function SettingsPannel() {
                 >
                   <img
                     className="img-fluid img-prototype"
-                    src="./assets/img/generic/card.png"
+                    src="/assets/img/generic/card.png"
                     alt=""
                   />
                   <span className="label-text"> Card</span>
@@ -301,7 +299,7 @@ function SettingsPannel() {
                 >
                   <img
                     className="img-fluid img-prototype"
-                    src="./assets/img/generic/vibrant.png"
+                    src="/assets/img/generic/vibrant.png"
                     alt=""
                   />
                   <span className="label-text"> Vibrant</span>
@@ -312,7 +310,7 @@ function SettingsPannel() {
           <div className="text-center mt-5">
             <img
               className="mb-4"
-              src="./assets/img/icons/spot-illustrations/47.png"
+              src="/assets/img/icons/spot-illustrations/47.png"
               alt=""
               width="120"
             />

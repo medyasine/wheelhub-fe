@@ -1,5 +1,3 @@
-import React from "react";
-
 function BandwidthSaved() {
   return (
     <div className="col-md-6 col-xxl-3 ps-md-2 order-xxl-1 mb-3 mb-xxl-0">

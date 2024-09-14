@@ -26,7 +26,7 @@ function NavbarContent() {
         <div className="d-flex align-items-center">
           <img
             className="me-2"
-            src="./assets/img/icons/spot-illustrations/falcon.png"
+            src="/assets/img/icons/spot-illustrations/falcon.png"
             alt=""
             width="40"
           />

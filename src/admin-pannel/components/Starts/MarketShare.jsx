@@ -1,5 +1,3 @@
-import React from "react";
-
 function MarketShare() {
   return (
     <div className="col-md-6 col-xxl-3">

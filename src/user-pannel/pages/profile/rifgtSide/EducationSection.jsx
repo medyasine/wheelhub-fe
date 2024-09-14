@@ -39,7 +39,7 @@ export default function EducationSection() {
           <a href="#!">
             <img
               className="img-fluid"
-              src="./assets/img/logos/staten.png"
+              src="/assets/img/logos/staten.png"
               alt=""
               width="56"
             />
@@ -70,7 +70,7 @@ export default function EducationSection() {
           <a href="#!">
             <img
               className="img-fluid"
-              src="./assets/img/logos/tj-heigh-school.png"
+              src="/assets/img/logos/tj-heigh-school.png"
               alt=""
               width="56"
             />

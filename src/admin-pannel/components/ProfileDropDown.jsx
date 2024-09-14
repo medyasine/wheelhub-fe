@@ -1,5 +1,3 @@
-import React from "react";
-
 function ProfileDropDown() {
   return (
     <li className="nav-item dropdown">
@@ -14,7 +12,7 @@ function ProfileDropDown() {
         <div className="avatar avatar-xl">
           <img
             className="rounded-circle"
-            src="./assets/img/team/3-thumb.png"
+            src="/assets/img/team/3-thumb.png"
             alt=""
           />
         </div>

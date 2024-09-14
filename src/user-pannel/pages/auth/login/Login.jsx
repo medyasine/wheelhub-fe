@@ -75,13 +75,13 @@ function Login() {
         <div className="col-lg-8 col-xxl-5 py-3 position-relative">
           <img
             className="bg-auth-circle-shape"
-            src="./assets/img/icons/spot-illustrations/bg-shape.png"
+            src="/assets/img/icons/spot-illustrations/bg-shape.png"
             alt=""
             width="250"
           />
           <img
             className="bg-auth-circle-shape-2"
-            src="./assets/img/icons/spot-illustrations/shape-1.png"
+            src="/assets/img/icons/spot-illustrations/shape-1.png"
             alt=""
             width="150"
           />
@@ -97,7 +97,7 @@ function Login() {
                       className="bg-holder bg-auth-card-shape"
                       style={{
                         backgroundImage:
-                          "url(./assets/img/icons/spot-illustrations/half-circle.png)",
+                          "url(/assets/img/icons/spot-illustrations/half-circle.png)",
                       }}
                     ></div>
                     <div className="z-1 position-relative">
