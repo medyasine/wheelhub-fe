@@ -34,7 +34,6 @@ function Vehicles() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { vehicles } = useSelector((state) => state.vehicle);
-  console.log(vehicles);
 
   useEffect(() => {
     dispatch(getVehicles());

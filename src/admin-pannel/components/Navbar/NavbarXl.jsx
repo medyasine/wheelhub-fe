@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function NavbarXl() {
   useEffect(() => {
-    // Equivalent of the script tag logic
     const navbarStyle = localStorage.getItem("navbarStyle");
     if (navbarStyle && navbarStyle !== "transparent") {
       const navbar = document.querySelector(".navbar-vertical");
@@ -37,9 +36,9 @@ function NavbarXl() {
               className="me-2"
               src="./assets/img/icons/spot-illustrations/falcon.png"
               alt=""
-              width="40"
+              width="20"
             />
-            <span className="font-sans-serif text-primary">Wheelhub</span>
+            <span className="font-sans-serif text-primary">wheelhub</span>
           </div>
         </a>
       </div>
@@ -64,11 +63,11 @@ function NavbarXl() {
               </a>
               <ul className="nav collapse show" id="dashboard">
                 <li className="nav-item">
-                  <a className="nav-link active" href="index.html">
+                  <Link className="nav-link active" to="">
                     <div className="d-flex align-items-center">
                       <span className="nav-link-text ps-1">Default</span>
                     </div>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>

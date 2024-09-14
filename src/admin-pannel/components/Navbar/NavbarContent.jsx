@@ -1,4 +1,3 @@
-import React from "react";
 import ThemeDropDown from "../ThemeDropDown";
 import Notifications from "../Notifications";
 import DotsDropDown from "../DotsDropDown";
@@ -31,7 +30,7 @@ function NavbarContent() {
             alt=""
             width="40"
           />
-          <span className="font-sans-serif text-primary">falcon</span>
+          <span className="font-sans-serif text-primary">wheelhub</span>
         </div>
       </a>
       <ul className="navbar-nav align-items-center d-none d-lg-block">

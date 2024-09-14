@@ -17,44 +17,45 @@ function AdminPannelLayout() {
 
   useEffect(() => {
     const handleNavbarPosition = () => {
-      const navbarVertical = document.querySelector(".navbar-vertical");
-      const navbarTopVertical = document.querySelector(".content .navbar-top");
-      const navbarTop = document.querySelector(
-        "[data-layout] .navbar-top:not([data-double-top-nav])"
+      var navbarPosition = localStorage.getItem("navbarPosition");
+      var navbarVertical = document.querySelector(".navbar-vertical");
+      var navbarTopVertical = document.querySelector(".content .navbar-top");
+      var navbarTop = document.querySelector(
+        "[data-layout] .navbar-top:not([data-double-top-nav"
       );
-      const navbarDoubleTop = document.querySelector("[data-double-top-nav]");
-      const navbarTopCombo = document.querySelector(
+      var navbarDoubleTop = document.querySelector("[data-double-top-nav]");
+      var navbarTopCombo = document.querySelector(
         '.content [data-navbar-top="combo"]'
       );
 
-      if (navbarPosition === "double-top") {
+      if (localStorage.getItem("navbarPosition") === "double-top") {
         document.documentElement.classList.toggle("double-top-nav-layout");
       }
 
       if (navbarPosition === "top") {
-        if (navbarTop) navbarTop.style.display = "";
-        if (navbarTopVertical) navbarTopVertical.remove();
-        if (navbarVertical) navbarVertical.remove();
-        if (navbarTopCombo) navbarTopCombo.remove();
-        if (navbarDoubleTop) navbarDoubleTop.remove();
+        navbarTop.removeAttribute("style");
+        navbarTopVertical.remove(navbarTopVertical);
+        navbarVertical.remove(navbarVertical);
+        navbarTopCombo.remove(navbarTopCombo);
+        navbarDoubleTop.remove(navbarDoubleTop);
       } else if (navbarPosition === "combo") {
-        if (navbarVertical) navbarVertical.style.display = "";
-        if (navbarTopCombo) navbarTopCombo.style.display = "";
-        if (navbarTop) navbarTop.remove();
-        if (navbarTopVertical) navbarTopVertical.remove();
-        if (navbarDoubleTop) navbarDoubleTop.remove();
+        navbarVertical.removeAttribute("style");
+        navbarTopCombo.removeAttribute("style");
+        navbarTop.remove(navbarTop);
+        navbarTopVertical.remove(navbarTopVertical);
+        navbarDoubleTop.remove(navbarDoubleTop);
       } else if (navbarPosition === "double-top") {
-        if (navbarDoubleTop) navbarDoubleTop.style.display = "";
-        if (navbarTopVertical) navbarTopVertical.remove();
-        if (navbarVertical) navbarVertical.remove();
-        if (navbarTop) navbarTop.remove();
-        if (navbarTopCombo) navbarTopCombo.remove();
+        navbarDoubleTop.removeAttribute("style");
+        navbarTopVertical.remove(navbarTopVertical);
+        navbarVertical.remove(navbarVertical);
+        navbarTop.remove(navbarTop);
+        navbarTopCombo.remove(navbarTopCombo);
       } else {
-        if (navbarVertical) navbarVertical.style.display = "";
-        if (navbarTopVertical) navbarTopVertical.style.display = "";
-        if (navbarTop) navbarTop.remove();
-        if (navbarDoubleTop) navbarDoubleTop.remove();
-        if (navbarTopCombo) navbarTopCombo.remove();
+        navbarVertical.removeAttribute("style");
+        navbarTopVertical.removeAttribute("style");
+        navbarTop.remove(navbarTop);
+        navbarDoubleTop.remove(navbarDoubleTop);
+        navbarTopCombo.remove(navbarTopCombo);
       }
     };
 
@@ -73,7 +74,6 @@ function AdminPannelLayout() {
     return <Navigate to="/login" />;
   }
 
-  console.log(user);
   if (user && user.role !== "ADMIN") {
     return <Navigate to="/" />;
   }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { getUser } from "../../../../store/UserSlice";
 
 function Signup() {
   const { token } = useSelector((state) => state.auth);
@@ -27,7 +28,7 @@ function Signup() {
         navigate("/");
       }
     }
-  }, []);
+  }, [dispatch, token, user, navigate]);
 
   const handleChange = (e) => {
     const { value, name } = e.target;

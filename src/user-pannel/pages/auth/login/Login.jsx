@@ -25,7 +25,7 @@ function Login() {
         navigate("/");
       }
     }
-  }, []);
+  }, [dispatch, token, user, navigate]);
 
   function hamdleChange(e) {
     const { value, name } = e.target;
