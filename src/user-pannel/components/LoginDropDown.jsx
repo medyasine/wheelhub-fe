@@ -1,23 +1,36 @@
 import { login } from "../../store/AuthSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getUser } from "../../store/UserSlice";
 
 function LoginDropDown() {
   const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const [error, setError] = useState("");
 
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  if (token) {
-    return;
-  }
+  useEffect(() => {
+    if (token) {
+      dispatch(getUser());
+    }
+  }, [dispatch, token]);
 
+  useEffect(() => {
+    if (user) {
+      if (user.role === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [user, navigate]);
 
   function hamdleChange(e) {
     const { value, name } = e.target;
@@ -31,6 +44,10 @@ function LoginDropDown() {
 
   const handelSubmit = async (e) => {
     e.preventDefault();
+    if (token) {
+      setError("You are already loged in!");
+      return;
+    }
 
     if (!loginData.username.trim() || !loginData.password.trim()) {
       setError("ALl fields are required.");

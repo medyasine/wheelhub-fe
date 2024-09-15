@@ -324,7 +324,7 @@ function Header() {
                 className="nav-link"
                 href="#!"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target="#register"
               >
                 Register
               </a>

@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 function RegisterModal() {
-  const { token } = useSelector((state) => state.auth);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -15,10 +13,6 @@ function RegisterModal() {
     email: "",
     role: "buyer",
   });
-
-  if (token) {
-    return;
-  }
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -96,7 +90,7 @@ function RegisterModal() {
   return (
     <div
       className="modal fade"
-      id="exampleModal"
+      id="register"
       tabIndex="-1"
       role="dialog"
       aria-labelledby="modalLabel"
