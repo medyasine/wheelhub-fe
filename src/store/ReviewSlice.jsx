@@ -114,14 +114,20 @@ const reviewSlice = createSlice({
   initialState: {
     review: null,
     reviews: [],
-    vehicleReviews:[],
+    vehicleReviews: [],
     isLoading: false,
     isSaving: false,
     isUpdating: false,
     isDeleting: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    addVehicleReview: (state, action) => {
+      const review = action.payload;
+      state.vehicleReviews.push(review);
+      state.reviews.push(review);
+    },
+  },
   extraReducers: (builder) => {
     // Get all reviews
     builder.addCase(getReviews.pending, (state) => {
@@ -210,4 +216,5 @@ const reviewSlice = createSlice({
   },
 });
 
+export const { addVehicleReview } = reviewSlice.actions;
 export default reviewSlice.reducer;

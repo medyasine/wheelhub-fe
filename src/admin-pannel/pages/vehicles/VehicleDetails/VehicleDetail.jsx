@@ -149,11 +149,11 @@ function VehicleDetail() {
                   aria-labelledby="description-tab"
                 >
                   <div className="mt-3">
-                    <p>{vehicle.description}</p>
+                    <p>{vehicle?.description}</p>
                   </div>
                 </div>
                 <Features />
-                <Reviews data={vehicleReviews} />
+                <Reviews data={vehicleReviews} vehicleId={vehicle?.id} />
               </div>
             </div>
           </div>
