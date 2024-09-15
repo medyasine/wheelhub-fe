@@ -4,13 +4,20 @@ import { useParams } from "react-router-dom";
 import { getVehicle } from "../../../../store/VehicleSlice";
 import Reviews from "./Reviews";
 import Features from "./Features";
-import { getVehicleReviews } from "../../../../store/ReviewSlice";
+import {
+  getRatingAvgForVehicle,
+  getVehicleReviews,
+} from "../../../../store/ReviewSlice";
 import { getVehicleFeaturesForVehicle } from "../../../../store/VehicleFeatureSlice";
+import { getLatestPriceDropForVehicle } from "../../../../store/PriceDropSlice";
 
 function VehicleDetail() {
   const { id } = useParams();
   const { vehicle } = useSelector((state) => state.vehicle);
-  const { vehicleReviews } = useSelector((state) => state.review);
+  const { vehicleReviews, ratingAvgForVehicle } = useSelector(
+    (state) => state.review
+  );
+  const { latestPriceDropForVehicle } = useSelector((state) => state.priceDrop);
   const { vehicleFeaturesForVehicle } = useSelector(
     (state) => state.vehicleFeature
   );
@@ -20,6 +27,8 @@ function VehicleDetail() {
     dispatch(getVehicle(id));
     dispatch(getVehicleReviews({ vehicleId: id, reviewType: "USER_REVIEW" }));
     dispatch(getVehicleFeaturesForVehicle(id));
+    dispatch(getLatestPriceDropForVehicle(id));
+    dispatch(getRatingAvgForVehicle(id));
   }, [id, dispatch]);
 
   return (
@@ -64,21 +73,42 @@ function VehicleDetail() {
             </div>
             <p className="fs-10">
               <span className="d-block">Location: {vehicle?.location}</span>
-              <span className="d-block">Vehicle type: {vehicle?.type}</span>
               <span className="d-block">
-                Vehicle Category: {vehicle?.category}
+                Vehicle type: {vehicle?.type?.typeName}
+              </span>
+              <span className="d-block">
+                Vehicle Category: {vehicle?.category?.categoryName}
               </span>
             </p>
             <h4 className="d-flex align-items-center">
-              <span className="text-warning me-2">${vehicle?.price}</span>
+              <span className="text-warning me-2">
+                ${latestPriceDropForVehicle?.oldPrice}
+              </span>
               <span className="me-1 fs-10 text-500">
-                <del className="me-1">$2400</del>
-                <strong>-50%</strong>
+                <del className="me-1">
+                  ${latestPriceDropForVehicle?.newPrice}
+                </del>
+                <strong>
+                  -
+                  {latestPriceDropForVehicle?.oldPrice &&
+                  latestPriceDropForVehicle?.newPrice
+                    ? (
+                        ((latestPriceDropForVehicle.oldPrice -
+                          latestPriceDropForVehicle.newPrice) /
+                          latestPriceDropForVehicle.oldPrice) *
+                        100
+                      ).toFixed(2)
+                    : 0}
+                  %
+                </strong>
               </span>
             </h4>
+
             <p className="fs-10">
-              Status:
-              <strong className="text-success">{vehicle?.available}</strong>
+              Status:{" "}
+              <strong className="text-success">
+                {vehicle?.available ? "available" : "not available"}
+              </strong>
             </p>
             <div className="row">
               <div className="col-auto px-2 px-md-3">

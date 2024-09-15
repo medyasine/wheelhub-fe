@@ -34,6 +34,24 @@ export const getReview = createAsyncThunk(
   }
 );
 
+export const getRatingAvgForVehicle = createAsyncThunk(
+  "review/getRatingAvgForVehicle",
+  async (vehicleId) => {
+    const user = JSON.parse(sessionStorage.getItem("login"));
+
+    const res = await fetch(url + `/ratingAvg/vehicle/${vehicleId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    if (!res.ok)
+      throw new Error(`Could not fetch rating avg for vehicle ${vehicleId}`);
+    const data = await res.json();
+    return data;
+  }
+);
+
 // GET vehicle reviews
 export const getVehicleReviews = createAsyncThunk(
   "review/getVehicleReviews",
@@ -115,6 +133,7 @@ const reviewSlice = createSlice({
     review: null,
     reviews: [],
     vehicleReviews: [],
+    ratingAvgForVehicle: null,
     isLoading: false,
     isSaving: false,
     isUpdating: false,
@@ -166,6 +185,18 @@ const reviewSlice = createSlice({
     builder.addCase(getReview.fulfilled, (state, action) => {
       state.isLoading = false;
       state.review = action.payload;
+    });
+
+    builder.addCase(getRatingAvgForVehicle.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getRatingAvgForVehicle.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(getRatingAvgForVehicle.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.ratingAvgForVehicle = action.payload;
     });
 
     // Create a new review

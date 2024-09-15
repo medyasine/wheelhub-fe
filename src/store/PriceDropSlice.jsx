@@ -19,6 +19,27 @@ export const getPriceDrops = createAsyncThunk(
   }
 );
 
+// GET the latest price drop for a vehicle
+export const getLatestPriceDropForVehicle = createAsyncThunk(
+  "priceDrops/getLatestPriceDropForVehicle",
+  async (vehicleId) => {
+    const user = JSON.parse(sessionStorage.getItem("login"));
+
+    const res = await fetch(url + `/latest/vehicle/${vehicleId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    if (!res.ok)
+      throw new Error(
+        `Could not fetch latest price drops for vehicle : ${vehicleId}`
+      );
+    const data = await res.json();
+    return data;
+  }
+);
+
 // GET a single price drop
 export const getPriceDrop = createAsyncThunk(
   "priceDrops/getPriceDrop",
@@ -98,6 +119,7 @@ const priceDropSlice = createSlice({
   name: "priceDrops",
   initialState: {
     priceDrop: null,
+    latestPriceDropForVehicle: null,
     priceDrops: [],
     isLoading: false,
     isSaving: false,
@@ -131,6 +153,19 @@ const priceDropSlice = createSlice({
     builder.addCase(getPriceDrop.fulfilled, (state, action) => {
       state.isLoading = false;
       state.priceDrop = action.payload;
+    });
+
+    // GET the latest price drop for a vehicle
+    builder.addCase(getLatestPriceDropForVehicle.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getLatestPriceDropForVehicle.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(getLatestPriceDropForVehicle.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.latestPriceDropForVehicle = action.payload;
     });
 
     // Create a new price drop
