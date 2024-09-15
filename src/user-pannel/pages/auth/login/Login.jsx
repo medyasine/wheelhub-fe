@@ -17,15 +17,20 @@ function Login() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUser());
     if (token) {
+      dispatch(getUser());
+    }
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    if (user) {
       if (user.role === "ADMIN") {
         navigate("/admin");
       } else {
         navigate("/");
       }
     }
-  }, [dispatch, token, user, navigate]);
+  }, [user, navigate]);
 
   function hamdleChange(e) {
     const { value, name } = e.target;

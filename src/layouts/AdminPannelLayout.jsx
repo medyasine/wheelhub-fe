@@ -74,7 +74,7 @@ function AdminPannelLayout() {
     return <Navigate to="/login" />;
   }
 
-  if (user && user.role !== "ADMIN") {
+  if (user?.role !== "ADMIN") {
     return <Navigate to="/" />;
   }
 
