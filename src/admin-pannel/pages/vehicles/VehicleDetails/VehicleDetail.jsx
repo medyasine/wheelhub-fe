@@ -5,16 +5,21 @@ import { getVehicle } from "../../../../store/VehicleSlice";
 import Reviews from "./Reviews";
 import Features from "./Features";
 import { getVehicleReviews } from "../../../../store/ReviewSlice";
+import { getVehicleFeaturesForVehicle } from "../../../../store/VehicleFeatureSlice";
 
 function VehicleDetail() {
   const { id } = useParams();
   const { vehicle } = useSelector((state) => state.vehicle);
   const { vehicleReviews } = useSelector((state) => state.review);
+  const { vehicleFeaturesForVehicle } = useSelector(
+    (state) => state.vehicleFeature
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getVehicle(id));
     dispatch(getVehicleReviews({ vehicleId: id, reviewType: "USER_REVIEW" }));
+    dispatch(getVehicleFeaturesForVehicle(id));
   }, [id, dispatch]);
 
   return (
@@ -72,7 +77,8 @@ function VehicleDetail() {
               </span>
             </h4>
             <p className="fs-10">
-              Stock: <strong className="text-success">Available</strong>
+              Status:
+              <strong className="text-success">{vehicle?.available}</strong>
             </p>
             <div className="row">
               <div className="col-auto px-2 px-md-3">
@@ -152,7 +158,7 @@ function VehicleDetail() {
                     <p>{vehicle?.description}</p>
                   </div>
                 </div>
-                <Features />
+                <Features data={vehicleFeaturesForVehicle} />
                 <Reviews data={vehicleReviews} vehicleId={vehicle?.id} />
               </div>
             </div>

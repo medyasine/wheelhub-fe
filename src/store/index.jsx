@@ -11,6 +11,7 @@ import InquirySlice from "./InquirySlice";
 import NewsArticle from "./NewsArticle";
 import PriceDropSlice from "./PriceDropSlice";
 import DealershipInventorySlice from "./DealershipInventorySlice";
+import VehicleFeatureSlice from "./VehicleFeatureSlice";
 
 const store = configureStore({
   reducer: {
@@ -25,7 +26,8 @@ const store = configureStore({
     inquiry: InquirySlice,
     newsArticle: NewsArticle,
     priceDrop: PriceDropSlice,
-    DealershipInventory: DealershipInventorySlice,
+    dealershipInventory: DealershipInventorySlice,
+    vehicleFeature: VehicleFeatureSlice,
   },
 });
 
