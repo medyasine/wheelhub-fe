@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getVehicle } from "../../../../store/VehicleSlice";
@@ -10,10 +10,15 @@ import {
 } from "../../../../store/ReviewSlice";
 import { getVehicleFeaturesForVehicle } from "../../../../store/VehicleFeatureSlice";
 import { getLatestPriceDropForVehicle } from "../../../../store/PriceDropSlice";
+import StarRating from "../../../components/StarRating";
+import Loader from "../../../components/Loader";
 
 function VehicleDetail() {
   const { id } = useParams();
   const { vehicle } = useSelector((state) => state.vehicle);
+  const { token } = useSelector((state) => state.auth);
+  const [vehicleImages, setVehicleImages] = useState([]);
+
   const { vehicleReviews, ratingAvgForVehicle } = useSelector(
     (state) => state.review
   );
@@ -21,6 +26,7 @@ function VehicleDetail() {
   const { vehicleFeaturesForVehicle } = useSelector(
     (state) => state.vehicleFeature
   );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,6 +36,34 @@ function VehicleDetail() {
     dispatch(getLatestPriceDropForVehicle(id));
     dispatch(getRatingAvgForVehicle(id));
   }, [id, dispatch]);
+
+  useEffect(() => {
+    const getImagesForVehicle = async () => {
+      const res = await fetch(
+        `http://localhost:8080/api/vehicle-images/vehicle/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (!res.ok) throw new Error("Could not fetch vehicle image");
+      const data = await res.json();
+      setVehicleImages(data);
+    };
+    getImagesForVehicle();
+  }, [id, token]);
+
+  if (
+    !ratingAvgForVehicle ||
+    !vehicle ||
+    !latestPriceDropForVehicle ||
+    !vehicleReviews ||
+    !vehicleFeaturesForVehicle
+  ) {
+    return <Loader />;
+  }
 
   return (
     <div className="card">
@@ -42,13 +76,15 @@ function VehicleDetail() {
                 data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'
               >
                 <div className="swiper-wrapper h-100">
-                  <div className="swiper-slide h-100">
-                    <img
-                      className="rounded-1 object-fit-cover h-100 w-100"
-                      src="/assets/img/products/1.jpg"
-                      alt=""
-                    />
-                  </div>
+                  {vehicleImages.map((ele) => (
+                    <div className="swiper-slide h-100">
+                      <img
+                        className="rounded-1 object-fit-cover h-100 w-100"
+                        src={ele.imageUrl}
+                        alt=""
+                      />
+                    </div>
+                  ))}
                 </div>
                 <div className="swiper-nav">
                   <div className="swiper-button-next swiper-button-white"></div>
@@ -65,11 +101,9 @@ function VehicleDetail() {
               {vehicle?.mileage} km
             </a>
             <div className="fs-11 mb-3 d-inline-block text-decoration-none">
-              <span className="fa fa-star text-warning"></span>
-              <span className="fa fa-star text-warning"></span>
-              <span className="fa fa-star text-warning"></span>
-              <span className="fa fa-star text-warning"></span>
-              <span className="fa fa-star-half-alt text-warning star-icon"></span>
+              <div className="fs-11 mb-3 d-inline-block text-decoration-none">
+                <StarRating rating={ratingAvgForVehicle} />
+              </div>
             </div>
             <p className="fs-10">
               <span className="d-block">Location: {vehicle?.location}</span>

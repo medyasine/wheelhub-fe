@@ -9,13 +9,22 @@ import SettingsPannel from "../admin-pannel/components/SettingsPannel";
 import Footer from "../admin-pannel/components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../store/UserSlice";
+import Loader from "../admin-pannel/components/Loader";
+import { useLayoutEffect } from "react";
 
 function AdminPannelLayout() {
+  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const [navbarPosition, setNavbarPosition] = useState(
     localStorage.getItem("navbarPosition")
   );
 
+  const dispatch = useDispatch();
   useEffect(() => {
+    if (token) dispatch(getUser());
+  }, [dispatch, token]);
+
+  useLayoutEffect(() => {
     const handleNavbarPosition = () => {
       var navbarPosition = localStorage.getItem("navbarPosition");
       var navbarVertical = document.querySelector(".navbar-vertical");
@@ -34,45 +43,39 @@ function AdminPannelLayout() {
 
       if (navbarPosition === "top") {
         navbarTop.removeAttribute("style");
-        navbarTopVertical.remove(navbarTopVertical);
-        navbarVertical.remove(navbarVertical);
-        navbarTopCombo.remove(navbarTopCombo);
-        navbarDoubleTop.remove(navbarDoubleTop);
+        navbarTopVertical.remove();
+        navbarVertical.remove();
+        navbarTopCombo.remove();
+        navbarDoubleTop.remove();
       } else if (navbarPosition === "combo") {
         navbarVertical.removeAttribute("style");
         navbarTopCombo.removeAttribute("style");
-        navbarTop.remove(navbarTop);
-        navbarTopVertical.remove(navbarTopVertical);
-        navbarDoubleTop.remove(navbarDoubleTop);
+        navbarTop.remove();
+        navbarTopVertical.remove();
+        navbarDoubleTop.remove();
       } else if (navbarPosition === "double-top") {
         navbarDoubleTop.removeAttribute("style");
-        navbarTopVertical.remove(navbarTopVertical);
-        navbarVertical.remove(navbarVertical);
-        navbarTop.remove(navbarTop);
-        navbarTopCombo.remove(navbarTopCombo);
+        navbarTopVertical.remove();
+        navbarVertical.remove();
+        navbarTop.remove();
+        navbarTopCombo.remove();
       } else {
         navbarVertical.removeAttribute("style");
         navbarTopVertical.removeAttribute("style");
-        navbarTop.remove(navbarTop);
-        navbarDoubleTop.remove(navbarDoubleTop);
-        navbarTopCombo.remove(navbarTopCombo);
+        navbarTop.remove();
+        navbarDoubleTop.remove();
+        navbarTopCombo.remove();
       }
     };
 
     handleNavbarPosition();
   }, [navbarPosition]);
 
-  const { token } = useSelector((state) => state.auth);
-  const { user } = useSelector((state) => state.user);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
-
   if (!token) {
     return <Navigate to="/login" />;
   }
+
+  // if (!user) return <Loader />;
 
   if (user?.role !== "ADMIN") {
     return <Navigate to="/" />;
@@ -88,7 +91,9 @@ function AdminPannelLayout() {
           <div className="content">
             <NavbarContent />
             <NavbarDataContent />
-            <Outlet />
+            <Outlet /> <NabvarLgData />
+            <NavbarXl />
+            <NavbarLg />
             <Footer />
           </div>
         </div>

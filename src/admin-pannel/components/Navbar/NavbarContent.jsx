@@ -4,6 +4,7 @@ import DotsDropDown from "../DotsDropDown";
 import ProfileDropDown from "../ProfileDropDown";
 
 function NavbarContent() {
+
   return (
     <nav
       className="navbar navbar-light navbar-glass navbar-top navbar-expand"

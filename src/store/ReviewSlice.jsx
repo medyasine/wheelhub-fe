@@ -134,10 +134,13 @@ const reviewSlice = createSlice({
     reviews: [],
     vehicleReviews: [],
     ratingAvgForVehicle: null,
-    isLoading: false,
-    isSaving: false,
-    isUpdating: false,
-    isDeleting: false,
+    isLoadingReviews: false,
+    isLoadingVehicleReviews: false,
+    isLoadingReview: false,
+    isLoadingRatingAvg: false,
+    isSavingReview: false,
+    isUpdatingReview: false,
+    isDeletingReview: false,
     error: null,
   },
   reducers: {
@@ -150,78 +153,74 @@ const reviewSlice = createSlice({
   extraReducers: (builder) => {
     // Get all reviews
     builder.addCase(getReviews.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getReviews.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
+      state.isLoadingReviews = true;
     });
     builder.addCase(getReviews.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isLoadingReviews = false;
       state.reviews = action.payload;
+    });
+    builder.addCase(getReviews.rejected, (state, action) => {
+      state.isLoadingReviews = false;
+      state.error = action.error.message;
     });
 
     // Get all vehicle reviews
     builder.addCase(getVehicleReviews.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getVehicleReviews.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
+      state.isLoadingVehicleReviews = true;
     });
     builder.addCase(getVehicleReviews.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isLoadingVehicleReviews = false;
       state.vehicleReviews = action.payload;
+    });
+    builder.addCase(getVehicleReviews.rejected, (state, action) => {
+      state.isLoadingVehicleReviews = false;
+      state.error = action.error.message;
     });
 
     // Get a single review
     builder.addCase(getReview.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getReview.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
+      state.isLoadingReview = true;
     });
     builder.addCase(getReview.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isLoadingReview = false;
       state.review = action.payload;
+    });
+    builder.addCase(getReview.rejected, (state, action) => {
+      state.isLoadingReview = false;
+      state.error = action.error.message;
     });
 
     builder.addCase(getRatingAvgForVehicle.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getRatingAvgForVehicle.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
+      state.isLoadingRatingAvg = true;
     });
     builder.addCase(getRatingAvgForVehicle.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isLoadingRatingAvg = false;
       state.ratingAvgForVehicle = action.payload;
+    });
+    builder.addCase(getRatingAvgForVehicle.rejected, (state, action) => {
+      state.isLoadingRatingAvg = false;
+      state.error = action.error.message;
     });
 
     // Create a new review
     builder.addCase(createReview.pending, (state) => {
-      state.isSaving = true;
-    });
-    builder.addCase(createReview.rejected, (state, action) => {
-      state.isSaving = false;
-      state.error = action.error.message;
+      state.isSavingReview = true;
     });
     builder.addCase(createReview.fulfilled, (state, action) => {
-      state.isSaving = false;
+      state.isSavingReview = false;
       state.reviews.push(action.payload);
+    });
+    builder.addCase(createReview.rejected, (state, action) => {
+      state.isSavingReview = false;
+      state.error = action.error.message;
     });
 
     // Update an existing review
     builder.addCase(updateReview.pending, (state) => {
-      state.isUpdating = true;
-    });
-    builder.addCase(updateReview.rejected, (state, action) => {
-      state.isUpdating = false;
-      state.error = action.error.message;
+      state.isUpdatingReview = true;
     });
     builder.addCase(updateReview.fulfilled, (state, action) => {
-      state.isUpdating = false;
+      state.isUpdatingReview = false;
       const index = state.reviews.findIndex(
         (review) => review.id === action.payload.id
       );
@@ -229,20 +228,24 @@ const reviewSlice = createSlice({
         state.reviews[index] = action.payload;
       }
     });
+    builder.addCase(updateReview.rejected, (state, action) => {
+      state.isUpdatingReview = false;
+      state.error = action.error.message;
+    });
 
     // Delete a review
     builder.addCase(deleteReview.pending, (state) => {
-      state.isDeleting = true;
-    });
-    builder.addCase(deleteReview.rejected, (state, action) => {
-      state.isDeleting = false;
-      state.error = action.error.message;
+      state.isDeletingReview = true;
     });
     builder.addCase(deleteReview.fulfilled, (state, action) => {
-      state.isDeleting = false;
+      state.isDeletingReview = false;
       state.reviews = state.reviews.filter(
         (review) => review.id !== action.payload
       );
+    });
+    builder.addCase(deleteReview.rejected, (state, action) => {
+      state.isDeletingReview = false;
+      state.error = action.error.message;
     });
   },
 });

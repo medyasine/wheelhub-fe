@@ -1,7 +1,10 @@
+import { useDispatch } from "react-redux";
 import ThemeDropDown from "../../admin-pannel/components/ThemeDropDown";
+import { logout } from "../../store/AuthSlice";
 import LoginDropDown from "./LoginDropDown";
 
 function Header() {
+  const dispatch = useDispatch();
   return (
     <nav
       className="navbar navbar-standard navbar-expand-lg fixed-top navbar-dark"
@@ -328,6 +331,11 @@ function Header() {
               >
                 Register
               </a>
+            </li>
+            <li className="nav-item">
+              <button onClick={() => dispatch(logout())} className="nav-link">
+                Log out
+              </button>
             </li>
           </ul>
         </div>

@@ -5,6 +5,7 @@ import ProfileDropDown from "../ProfileDropDown";
 import { Link } from "react-router-dom";
 
 function NavbarDataContent() {
+
   return (
     <nav
       className="navbar navbar-light navbar-glass navbar-top navbar-expand-lg"

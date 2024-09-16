@@ -1,39 +1,35 @@
 /* Container for star ratings */
 .star-rating {
-    display: inline-flex;
-    font-size: 2rem; /* Adjust size as needed */
-  }
-  
-  /* Star base styles */
-  .star {
-    display: inline-block;
-    position: relative;
-    width: 1em;
-    height: 1em;
-    margin: 0;
-    background: #d3d3d3; /* Default color for empty stars */
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-  }
-  
-  /* Full star */
-  .star.full {
-    background: linear-gradient(to right, #f5c518 50%, #d3d3d3 50%);
-  }
-  
-  /* Half star */
-  .star.half {
-    background: linear-gradient(to right, #f5c518 50%, #d3d3d3 50%);
-  }
-  
-  .star.half::before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    background: #d3d3d3; /* Color for empty half */
-    clip-path: inherit;
-  }
-  
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Star base styles */
+.star {
+  display: inline-block;
+  width: 20px; /* Adjust size as needed */
+  height: 20px; /* Adjust size as needed */
+  background: gray; /* Default color for empty stars */
+  clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+  );
+}
+
+/* Full star */
+.star.full {
+  background: gold; /* Color for full star */
+}
+
+/* Half star - using linear gradient for half effect */
+.star.half {
+  background: linear-gradient(to right, gold 50%, gray 50%);
+}
