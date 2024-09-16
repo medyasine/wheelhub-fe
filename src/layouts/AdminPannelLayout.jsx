@@ -24,50 +24,55 @@ function AdminPannelLayout() {
     if (token) dispatch(getUser());
   }, [dispatch, token]);
 
-  useLayoutEffect(() => {
-    const handleNavbarPosition = () => {
-      var navbarPosition = localStorage.getItem("navbarPosition");
-      var navbarVertical = document.querySelector(".navbar-vertical");
-      var navbarTopVertical = document.querySelector(".content .navbar-top");
-      var navbarTop = document.querySelector(
-        "[data-layout] .navbar-top:not([data-double-top-nav"
-      );
-      var navbarDoubleTop = document.querySelector("[data-double-top-nav]");
-      var navbarTopCombo = document.querySelector(
-        '.content [data-navbar-top="combo"]'
-      );
-
-      if (localStorage.getItem("navbarPosition") === "double-top") {
-        document.documentElement.classList.toggle("double-top-nav-layout");
-      }
-
-      if (navbarPosition === "top") {
-        navbarTop.removeAttribute("style");
-        navbarTopVertical.remove();
-        navbarVertical.remove();
-        navbarTopCombo.remove();
-        navbarDoubleTop.remove();
-      } else if (navbarPosition === "combo") {
-        navbarVertical.removeAttribute("style");
-        navbarTopCombo.removeAttribute("style");
-        navbarTop.remove();
-        navbarTopVertical.remove();
-        navbarDoubleTop.remove();
-      } else if (navbarPosition === "double-top") {
-        navbarDoubleTop.removeAttribute("style");
-        navbarTopVertical.remove();
-        navbarVertical.remove();
-        navbarTop.remove();
-        navbarTopCombo.remove();
-      } else {
-        navbarVertical.removeAttribute("style");
-        navbarTopVertical.removeAttribute("style");
-        navbarTop.remove();
-        navbarDoubleTop.remove();
-        navbarTopCombo.remove();
+  const handleNavbarPosition = () => {
+    const navbarPosition = localStorage.getItem("navbarPosition");
+    const navbarVertical = document.querySelector(".navbar-vertical");
+    const navbarTopVertical = document.querySelector(".content .navbar-top");
+    const navbarTop = document.querySelector(
+      "[data-layout] .navbar-top:not([data-double-top-nav])"
+    );
+    const navbarDoubleTop = document.querySelector("[data-double-top-nav]");
+    const navbarTopCombo = document.querySelector(
+      '.content [data-navbar-top="combo"]'
+    );
+  
+    if (navbarPosition === "double-top") {
+      document.documentElement.classList.toggle("double-top-nav-layout");
+    }
+  
+    const removeIfExists = (element) => {
+      if (element && element.parentNode) {
+        element.parentNode.removeChild(element);
       }
     };
-
+  
+    if (navbarPosition === "top") {
+      if (navbarTop) navbarTop.removeAttribute("style");
+      removeIfExists(navbarTopVertical);
+      removeIfExists(navbarVertical);
+      removeIfExists(navbarTopCombo);
+      removeIfExists(navbarDoubleTop);
+    } else if (navbarPosition === "combo") {
+      if (navbarVertical) navbarVertical.removeAttribute("style");
+      if (navbarTopCombo) navbarTopCombo.removeAttribute("style");
+      removeIfExists(navbarTop);
+      removeIfExists(navbarTopVertical);
+      removeIfExists(navbarDoubleTop);
+    } else if (navbarPosition === "double-top") {
+      if (navbarDoubleTop) navbarDoubleTop.removeAttribute("style");
+      removeIfExists(navbarTopVertical);
+      removeIfExists(navbarVertical);
+      removeIfExists(navbarTop);
+      removeIfExists(navbarTopCombo);
+    } else {
+      if (navbarVertical) navbarVertical.removeAttribute("style");
+      if (navbarTopVertical) navbarTopVertical.removeAttribute("style");
+      removeIfExists(navbarTop);
+      removeIfExists(navbarDoubleTop);
+      removeIfExists(navbarTopCombo);
+    }
+  };
+  useEffect(() => {
     handleNavbarPosition();
   }, [navbarPosition]);
 
