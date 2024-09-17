@@ -101,6 +101,7 @@ const vehicleSlice = createSlice({
   initialState: {
     vehicle: null,
     vehicles: [],
+    isVehiclesLoading: false,
     isLoading: false,
     isSaving: false,
     isUpdating: false,
@@ -111,14 +112,14 @@ const vehicleSlice = createSlice({
   extraReducers: (builder) => {
     // Get all vehicles
     builder.addCase(getVehicles.pending, (state) => {
-      state.isLoading = true;
+      state.isVehiclesLoading = true;
     });
     builder.addCase(getVehicles.rejected, (state, action) => {
-      state.isLoading = false;
+      state.isVehiclesLoading = false;
       state.error = action.error.message;
     });
     builder.addCase(getVehicles.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isVehiclesLoading = false;
       state.vehicles = action.payload;
     });
 

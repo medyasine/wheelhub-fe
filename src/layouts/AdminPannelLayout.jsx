@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import NabvarLgData from "../admin-pannel/components/Navbar/NabvarLgData";
 import NavbarXl from "../admin-pannel/components/Navbar/NavbarXl";
 import NavbarLg from "../admin-pannel/components/Navbar/NavbarLg";
@@ -9,8 +9,6 @@ import SettingsPannel from "../admin-pannel/components/SettingsPannel";
 import Footer from "../admin-pannel/components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../store/UserSlice";
-import Loader from "../admin-pannel/components/Loader";
-import { useLayoutEffect } from "react";
 
 function AdminPannelLayout() {
   const { token } = useSelector((state) => state.auth);
@@ -18,11 +16,28 @@ function AdminPannelLayout() {
   const [navbarPosition, setNavbarPosition] = useState(
     localStorage.getItem("navbarPosition")
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (token) dispatch(getUser());
   }, [dispatch, token]);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    } else if (!isLoading && user?.role !== "ADMIN") {
+      navigate("/");
+    }
+  }, [token, user, navigate, isLoading]);
+
+  useEffect(() => {
+    if (user) {
+      setIsLoading(false);
+    }
+  }, [user]);
 
   const handleNavbarPosition = () => {
     const navbarPosition = localStorage.getItem("navbarPosition");
@@ -35,17 +50,17 @@ function AdminPannelLayout() {
     const navbarTopCombo = document.querySelector(
       '.content [data-navbar-top="combo"]'
     );
-  
+
     if (navbarPosition === "double-top") {
       document.documentElement.classList.toggle("double-top-nav-layout");
     }
-  
+
     const removeIfExists = (element) => {
       if (element && element.parentNode) {
         element.parentNode.removeChild(element);
       }
     };
-  
+
     if (navbarPosition === "top") {
       if (navbarTop) navbarTop.removeAttribute("style");
       removeIfExists(navbarTopVertical);
@@ -76,16 +91,6 @@ function AdminPannelLayout() {
     handleNavbarPosition();
   }, [navbarPosition]);
 
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-
-  // if (!user) return <Loader />;
-
-  if (user?.role !== "ADMIN") {
-    return <Navigate to="/" />;
-  }
-
   return (
     <>
       <main className="main" id="top">
@@ -96,9 +101,7 @@ function AdminPannelLayout() {
           <div className="content">
             <NavbarContent />
             <NavbarDataContent />
-            <Outlet /> <NabvarLgData />
-            <NavbarXl />
-            <NavbarLg />
+            <Outlet />
             <Footer />
           </div>
         </div>

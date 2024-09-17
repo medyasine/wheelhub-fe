@@ -7,6 +7,7 @@ import {
   updateVehicle,
 } from "../../../store/VehicleSlice";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
 
 const mockTranslateService = (key) => key;
 const mockMessageService = {
@@ -33,11 +34,13 @@ const sampleColumns = [
 function Vehicles() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { vehicles } = useSelector((state) => state.vehicle);
+  const { vehicles, isVehiclesLoading } = useSelector((state) => state.vehicle);
 
   useEffect(() => {
     dispatch(getVehicles());
   }, [dispatch]);
+
+  if (isVehiclesLoading) return <Loader />;
 
   const handleDetailClicked = (id) => {
     navigate(`/admin/vehicles/${id}`);

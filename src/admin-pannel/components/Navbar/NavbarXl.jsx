@@ -133,7 +133,7 @@ function NavbarXl() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="vehicles">
+                  <Link className="nav-link" to="vehicles/create">
                     <div className="d-flex align-items-center">
                       <span className="nav-link-text ps-1">Add a vehicle</span>
                     </div>
