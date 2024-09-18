@@ -154,7 +154,7 @@ const userSlice = createSlice({
     });
     builder.addCase(getUsersByrole.fulfilled, (state, action) => {
       state.isUsersByRoleLoading = false;
-      state.users = action.payload;
+      state.usersByrole = action.payload;
     });
 
     // Create a user

@@ -17,21 +17,47 @@ function AdminPannelLayout() {
     localStorage.getItem("navbarPosition")
   );
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (token) dispatch(getUser());
-  }, [dispatch, token]);
+    const verifyToken = async () => {
+      if (token) {
+        try {
+          const response = await fetch("http://localhost:8080/verify-token", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          const data = await response.json();
+
+          if (response.ok && !data.error) {
+            dispatch(getUser());
+          } else {
+            setError(data.error || "Token verification failed");
+            navigate("/login");
+          }
+        } catch (err) {
+          setError("An error occurred");
+          navigate("/login");
+        }
+      } else {
+        navigate("/login");
+      }
+    };
+
+    verifyToken();
+  }, [dispatch, token, navigate]);
 
   useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    } else if (!isLoading && user?.role !== "ADMIN") {
+    if (!isLoading && user?.role !== "ADMIN") {
       navigate("/");
     }
-  }, [token, user, navigate, isLoading]);
+  }, [user, navigate, isLoading]);
 
   useEffect(() => {
     if (user) {
@@ -90,6 +116,10 @@ function AdminPannelLayout() {
   useEffect(() => {
     handleNavbarPosition();
   }, [navbarPosition]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <>

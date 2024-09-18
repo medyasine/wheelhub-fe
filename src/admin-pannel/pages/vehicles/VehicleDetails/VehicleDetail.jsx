@@ -77,7 +77,7 @@ function VehicleDetail() {
               >
                 <div className="swiper-wrapper h-100">
                   {vehicleImages.map((ele) => (
-                    <div className="swiper-slide h-100">
+                    <div key={ele.id} className="swiper-slide h-100">
                       <img
                         className="rounded-1 object-fit-cover h-100 w-100"
                         src={ele.imageUrl}

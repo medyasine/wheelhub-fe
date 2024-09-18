@@ -1,9 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getUsersByrole } from "../../../store/UserSlice";
+import { getVehicleCategories } from "../../../store/VehicleCategorySlice";
+import { getVehicleTypes } from "../../../store/VehicleTypeSlice";
+import Loader from "../../components/Loader";
 
 export default function VehicleCreate() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
+  const { usersByrole, isUsersByroleLoading } = useSelector(
+    (state) => state.user
+  );
+  const { vehicleCatgories, isVehicleCategoriesLoading } = useSelector(
+    (state) => state.vehicleCategory
+  );
+  const { vehicleTypes, isVechileTypesLoading } = useSelector(
+    (state) => state.vehicleType
+  );
+
+  useEffect(() => {
+    dispatch(getUsersByrole("SELLER"));
+    dispatch(getVehicleCategories());
+    dispatch(getVehicleTypes());
+  }, [dispatch]);
 
   const [formData, setFormData] = useState({
     make: "",
@@ -13,12 +32,20 @@ export default function VehicleCreate() {
     description: "",
     price: "",
     location: "",
-    categoryId: 0,
+    vehicleCategoryId: 0,
     vehicleTypeId: 0,
     status: "in-stock",
     sellerId: 0,
-    images: [],
   });
+
+  const [images, setImages] = useState([]);
+
+  if (
+    isUsersByroleLoading ||
+    isVechileTypesLoading ||
+    isVehicleCategoriesLoading
+  )
+    return <Loader />;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,21 +56,19 @@ export default function VehicleCreate() {
   };
 
   const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      images: [...e.target.files],
-    });
+    const files = Array.from(e.target.files);
+    setImages(files);
   };
 
   const handleImagesUpload = async (vehicleId) => {
     const data = new FormData();
     // Loop through all selected files and append them to FormData
-    for (let i = 0; i < formData.images.length; i++) {
-      data.append("images", formData.images[i]);
+    for (let i = 0; i < images.length; i++) {
+      data.append("images", images[i]);
     }
 
     const response = await fetch(
-      `http://localhost:8080/api/vehicles/${vehicleId}/upload-images`,
+      `http://localhost:8080/api/vehicles/${vehicleId}/upload`,
       {
         method: "POST",
         body: data,
@@ -84,8 +109,9 @@ export default function VehicleCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+    formData.status = formData.status.toLocaleUpperCase();
 
-    const response = await fetch("http://localhost:8080/api/vehicles", {
+    const response = await fetch("http://localhost:8080/api/vehicles/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,6 +124,7 @@ export default function VehicleCreate() {
       const result = await response.json();
       console.log("Vehicle added successfully:", result);
       const imageUrls = handleImagesUpload(result.id);
+      console.log(imageUrls);
     } else {
       console.error("Failed to add vehicle");
     }
@@ -193,83 +220,19 @@ export default function VehicleCreate() {
               <h6 className="mb-0">Add images</h6>
             </div>
             <div className="card-body">
-              <form
-                className="dropzone dropzone-multiple p-0"
-                id="dropzoneMultipleFileUpload"
-                data-dropzone="data-dropzone"
-                action="#!"
-                data-options='{"acceptedFiles":"image/*"}'
-              >
-                <div className="fallback">
-                  <input
-                    name="file"
-                    type="file"
-                    multiple="multiple"
-                    onChange={handleFileChange}
-                  />
-                </div>
-                <div className="dz-message" data-dz-message="data-dz-message">
-                  <img
-                    className="me-2"
-                    src="/assets/img/icons/cloud-upload.svg"
-                    width="25"
-                    alt=""
-                  />
-                  <span className="d-none d-lg-inline">
-                    Drag your image here
-                    <br />
-                    or,
-                  </span>
-                  <span className="btn btn-link p-0 fs-10">Browse</span>
-                </div>
-                <div className="dz-preview dz-preview-multiple m-0 d-flex flex-column">
-                  <div className="d-flex media align-items-center mb-3 pb-3 border-bottom btn-reveal-trigger">
-                    <img
-                      className="dz-image"
-                      src="/assets/img/icons/cloud-upload.svg"
-                      alt="..."
-                      data-dz-thumbnail="data-dz-thumbnail"
-                    />
-                    <div className="flex-1 d-flex flex-between-center">
-                      <div>
-                        <h6 data-dz-name="data-dz-name"></h6>
-                        <div className="d-flex align-items-center">
-                          <p
-                            className="mb-0 fs-10 text-400 lh-1"
-                            data-dz-size="data-dz-size"
-                          ></p>
-                          <div className="dz-progress">
-                            <span
-                              className="dz-upload"
-                              data-dz-uploadprogress=""
-                            ></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="dropdown font-sans-serif">
-                        <button
-                          className="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none"
-                          type="button"
-                          data-bs-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <span className="fas fa-ellipsis-h"></span>
-                        </button>
-                        <div className="dropdown-menu dropdown-menu-end border py-2">
-                          <a
-                            className="dropdown-item"
-                            href="#!"
-                            data-dz-remove="data-dz-remove"
-                          >
-                            Remove File
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
+              <div className="mb-3">
+                <label htmlFor="formFileMultiple" className="form-label">
+                  Upload Images
+                </label>
+                <input
+                  className="form-control"
+                  type="file"
+                  id="formFileMultiple"
+                  multiple
+                  onChange={handleFileChange}
+                  name="images"
+                />
+              </div>
             </div>
           </div>
           <div className="card mb-3">
@@ -390,27 +353,35 @@ export default function VehicleCreate() {
                     <select
                       className="form-select"
                       id="category"
-                      name="categoryId"
-                      value={formData.categoryId}
+                      name="vehicleCategoryId"
+                      value={formData.vehicleCategoryId}
                       onChange={handleChange}
                     >
-                      <option value="computerAccessories">
-                        Computer & Accessories
-                      </option>
+                      {vehicleCatgories.map((ele) => (
+                        <option key={ele.id} value={ele.id}>
+                          {ele.categoryName}
+                        </option>
+                      ))}
                     </select>
                   </div>
-                  <div className="col-12">
+                  <div className="col-12 mb-3">
                     <label className="form-label" htmlFor="vehicleType">
                       Vehicle Type:
                     </label>
                     <select
                       className="form-select"
+                      data-options='{"removeItemButton":true,"placeholder":true}'
+                      size="1"
                       id="vehicleType"
                       name="vehicleTypeId"
                       value={formData.vehicleTypeId}
                       onChange={handleChange}
                     >
-                      <option value="laptop">Laptop</option>
+                      {vehicleTypes.map((ele) => (
+                        <option key={ele.id} value={ele.id}>
+                          {ele.typeName}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div className="col-12">
@@ -424,7 +395,11 @@ export default function VehicleCreate() {
                       value={formData.sellerId}
                       onChange={handleChange}
                     >
-                      <option value="laptop">Laptop</option>
+                      {usersByrole.map((ele) => (
+                        <option key={ele.id} value={ele.id}>
+                          {ele.username}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -495,7 +470,7 @@ export default function VehicleCreate() {
         <div className="card-body">
           <div className="row justify-content-between align-items-center">
             <div className="col-md">
-              <h5 className="mb-2 mb-md-0">You're almost done!</h5>
+              <h5 className="mb-2 mb-md-0">You&apos;re almost done!</h5>
             </div>
             <div className="col-auto">
               <button
