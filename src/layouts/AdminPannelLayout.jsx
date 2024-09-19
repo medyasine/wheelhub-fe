@@ -18,13 +18,14 @@ function AdminPannelLayout() {
   );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isTokenVerified, setIsTokenVerified] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     const verifyToken = async () => {
-      if (token) {
+      if (token && !isTokenVerified) {
         try {
           const response = await fetch("http://localhost:8080/verify-token", {
             method: "GET",
@@ -32,10 +33,10 @@ function AdminPannelLayout() {
               Authorization: `Bearer ${token}`,
             },
           });
-
           const data = await response.json();
 
           if (response.ok && !data.error) {
+            setIsTokenVerified(true);
             dispatch(getUser());
           } else {
             setError(data.error || "Token verification failed");
@@ -45,16 +46,17 @@ function AdminPannelLayout() {
           setError("An error occurred");
           navigate("/login");
         }
-      } else {
+      } else if (!token) {
         navigate("/login");
       }
+      setIsLoading(false);
     };
 
     verifyToken();
-  }, [dispatch, token, navigate]);
+  }, [dispatch, token, navigate, isTokenVerified]);
 
   useEffect(() => {
-    if (!isLoading && user?.role !== "ADMIN") {
+    if (!isLoading && user && user.role !== "ADMIN") {
       navigate("/");
     }
   }, [user, navigate, isLoading]);

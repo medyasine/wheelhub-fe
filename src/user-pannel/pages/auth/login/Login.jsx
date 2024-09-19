@@ -50,27 +50,22 @@ function Login() {
       return;
     }
 
-    try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginData),
+    const response = await fetch("http://localhost:8080/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginData),
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      setError(json.error || "Invalid login credentials.");
+    } else {
+      dispatch(login(json));
+      setLoginData({
+        username: "",
+        password: "",
       });
-
-      const json = await response.json();
-
-      if (!response.ok) {
-        setError(json.error || "Invalid login credentials.");
-      } else {
-        dispatch(login(json));
-        setLoginData({
-          username: "",
-          password: "",
-        });
-      }
-    } catch (error) {
-      setError("Failed to connect to the server.");
-      console.log(error);
     }
   };
 
