@@ -20,7 +20,7 @@ export const getUser = createAsyncThunk("users/getUser", async () => {
 export const getUsers = createAsyncThunk("users/getUsers", async () => {
   const user = JSON.parse(sessionStorage.getItem("login"));
 
-  const res = await fetch(url + `/all/`, {
+  const res = await fetch(url + `/all`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${user.token}`,

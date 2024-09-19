@@ -34,11 +34,12 @@ export default function VehicleCreate() {
     location: "",
     vehicleCategoryId: 0,
     vehicleTypeId: 0,
-    status: "in-stock",
+    status: "IN_STOCK",
     sellerId: 0,
   });
 
   const [images, setImages] = useState([]);
+  const [showToast, setShowTest] = useState(false);
 
   if (
     isUsersByroleLoading ||
@@ -62,7 +63,6 @@ export default function VehicleCreate() {
 
   const handleImagesUpload = async (vehicleId) => {
     const data = new FormData();
-    // Loop through all selected files and append them to FormData
     for (let i = 0; i < images.length; i++) {
       data.append("images", images[i]);
     }
@@ -73,7 +73,6 @@ export default function VehicleCreate() {
         method: "POST",
         body: data,
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       }
@@ -81,7 +80,6 @@ export default function VehicleCreate() {
 
     if (response.ok) {
       const imageUrls = await response.json();
-      console.log("Images uploaded at: ", imageUrls);
       return imageUrls;
     } else {
       console.error("Image upload failed");
@@ -122,9 +120,21 @@ export default function VehicleCreate() {
 
     if (response.ok) {
       const result = await response.json();
-      console.log("Vehicle added successfully:", result);
-      const imageUrls = handleImagesUpload(result.id);
-      console.log(imageUrls);
+      handleImagesUpload(result.id);
+      setShowTest(true);
+      setFormData({
+        make: "",
+        model: "",
+        year: "",
+        mileage: "",
+        description: "",
+        price: "",
+        location: "",
+        vehicleCategoryId: 0,
+        vehicleTypeId: 0,
+        status: "IN_STOCK",
+        sellerId: 0,
+      });
     } else {
       console.error("Failed to add vehicle");
     }
@@ -416,8 +426,8 @@ export default function VehicleCreate() {
                     id="in-stock"
                     type="radio"
                     name="status"
-                    value="in-stock"
-                    checked={formData.status === "in-stock"}
+                    value="IN_STOCK"
+                    checked={formData.status === "IN_STOCK"}
                     onChange={handleChange}
                   />
                   <label
@@ -433,8 +443,8 @@ export default function VehicleCreate() {
                     id="unavailable"
                     type="radio"
                     name="status"
-                    value="unavailable"
-                    checked={formData.status === "unavailable"}
+                    value="UNAVAILABLE"
+                    checked={formData.status === "UNAVAILABLE"}
                     onChange={handleChange}
                   />
                   <label
@@ -450,8 +460,8 @@ export default function VehicleCreate() {
                     id="to-be-announced"
                     type="radio"
                     name="status"
-                    value="to-be-announced"
-                    checked={formData.status === "to-be-announced"}
+                    value="TO_BE_ANNOUNCED"
+                    checked={formData.status === "TO_BE_ANNOUNCED"}
                     onChange={handleChange}
                   />
                   <label

@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import NabvarLgData from "../admin-pannel/components/Navbar/NabvarLgData";
 import NavbarXl from "../admin-pannel/components/Navbar/NavbarXl";
 import NavbarLg from "../admin-pannel/components/Navbar/NavbarLg";
