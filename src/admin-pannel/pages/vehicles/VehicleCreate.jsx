@@ -139,7 +139,7 @@ export default function VehicleCreate() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({...formData,}),
+      body: JSON.stringify({ ...formData, features }),
     });
 
     if (response.ok) {
