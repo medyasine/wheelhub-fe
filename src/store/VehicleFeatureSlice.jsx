@@ -120,8 +120,10 @@ const vehicleFeatureSlice = createSlice({
   initialState: {
     vehicleFeature: null,
     vehicleFeatures: [],
-    vehicleFeaturesForVehicle:[],
-    isLoading: false,
+    vehicleFeaturesForVehicle: [],
+    isVehicleFeaturesForVehicleLoading: false,
+    isVehicleFeaturesLoading:false,
+    isVehicleFeatureLoading: false,
     isSaving: false,
     isUpdating: false,
     isDeleting: false,
@@ -131,38 +133,38 @@ const vehicleFeatureSlice = createSlice({
   extraReducers: (builder) => {
     // Get all vehiclesFeatures
     builder.addCase(getVehicleFeatures.pending, (state) => {
-      state.isLoading = true;
+      state.isVehicleFeaturesLoading = true;
     });
     builder.addCase(getVehicleFeatures.rejected, (state, action) => {
-      state.isLoading = false;
+      state.isVehicleFeaturesLoading = false;
       state.error = action.error.message;
     });
     builder.addCase(getVehicleFeatures.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isVehicleFeaturesLoading = false;
       state.vehicleFeatures = action.payload;
     });
 
     builder.addCase(getVehicleFeaturesForVehicle.pending, (state) => {
-        state.isLoading = true;
-      });
-      builder.addCase(getVehicleFeaturesForVehicle.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message;
-      });
-      builder.addCase(getVehicleFeaturesForVehicle.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.vehicleFeaturesForVehicle = action.payload;
-      });
+      state.isVehicleFeaturesForVehicleLoading = true;
+    });
+    builder.addCase(getVehicleFeaturesForVehicle.rejected, (state, action) => {
+      state.isVehicleFeaturesForVehicleLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(getVehicleFeaturesForVehicle.fulfilled, (state, action) => {
+      state.isVehicleFeaturesForVehicleLoading = false;
+      state.vehicleFeaturesForVehicle = action.payload;
+    });
 
     builder.addCase(getVehicleFeature.pending, (state) => {
-      state.isLoading = true;
+      state.isVehicleFeatureLoading = true;
     });
     builder.addCase(getVehicleFeature.rejected, (state, action) => {
-      state.isLoading = false;
+      state.isVehicleFeatureLoading = false;
       state.error = action.error.message;
     });
     builder.addCase(getVehicleFeature.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isVehicleFeatureLoading = false;
       state.vehicle = action.payload;
     });
 

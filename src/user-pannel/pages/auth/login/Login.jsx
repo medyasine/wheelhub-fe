@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { login } from "../../../../store/AuthSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,31 +5,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUser } from "../../../../store/UserSlice";
 
 function Login() {
-  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.user);
+  const token = useSelector((state) => state.auth.token);
+
+  const [error, setError] = useState("");
+  const [isTokenVerified, setIsTokenVerified] = useState(false);
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (token) {
-      dispatch(getUser());
-    }
-  }, [dispatch, token]);
-
-  useEffect(() => {
-    if (user) {
-      if (user.role === "ADMIN") {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
-    }
-  }, [user, navigate]);
 
   function hamdleChange(e) {
     const { value, name } = e.target;
@@ -42,8 +28,35 @@ function Login() {
     });
   }
 
+  const verifyToken = async () => {
+    if (token && !isTokenVerified) {
+      try {
+        const response = await fetch("http://localhost:8080/verify-token", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+
+        if (response.ok && !data.error) {
+          setIsTokenVerified(true);
+          setError("You are already loged in!");
+        } else {
+          setError(data.error || "Token verification failed");
+          logout();
+        }
+      } catch (err) {
+        setError("An error occurred");
+        logout();
+      }
+    }
+  };
+
   const handelSubmit = async (e) => {
     e.preventDefault();
+
+    verifyToken();
 
     if (!loginData.username.trim() || !loginData.password.trim()) {
       setError("ALl fields are required.");
@@ -55,13 +68,17 @@ function Login() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginData),
     });
-    
-    const json = await response.json();
 
     if (!response.ok) {
-      setError(json.error || "Invalid login credentials.");
+      setError("Invalid login credentials.");
     } else {
+      const json = await response.json();
       dispatch(login(json));
+      if (token) dispatch(getUser());
+      if (user) {
+        if (user.role == "ADMIN") navigate("/admin");
+        else navigate("/");
+      }
       setLoginData({
         username: "",
         password: "",

@@ -68,7 +68,7 @@ export default function VehicleCreate() {
     }
 
     const response = await fetch(
-      `http://localhost:8080/api/vehicles/${vehicleId}/upload`,
+      `http://localhost:8080/api/vehicles/${vehicleId}/uploadCloud`,
       {
         method: "POST",
         body: data,

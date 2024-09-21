@@ -121,6 +121,7 @@ const priceDropSlice = createSlice({
     priceDrop: null,
     latestPriceDropForVehicle: null,
     priceDrops: [],
+    isLatestPriceDropForVehicleLoading: false,
     isLoading: false,
     isSaving: false,
     isUpdating: false,
@@ -157,14 +158,14 @@ const priceDropSlice = createSlice({
 
     // GET the latest price drop for a vehicle
     builder.addCase(getLatestPriceDropForVehicle.pending, (state) => {
-      state.isLoading = true;
+      state.isLatestPriceDropForVehicleLoading = true;
     });
     builder.addCase(getLatestPriceDropForVehicle.rejected, (state, action) => {
-      state.isLoading = false;
+      state.isLatestPriceDropForVehicleLoading = false;
       state.error = action.error.message;
     });
     builder.addCase(getLatestPriceDropForVehicle.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.isLatestPriceDropForVehicleLoading = false;
       state.latestPriceDropForVehicle = action.payload;
     });
 

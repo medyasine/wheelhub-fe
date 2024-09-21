@@ -8,11 +8,12 @@ function LoginDropDown() {
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
   const [error, setError] = useState("");
-
+  const [isTokenVerified, setIsTokenVerified] = useState(false);
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -42,12 +43,34 @@ function LoginDropDown() {
     });
   }
 
+  const verifyToken = async () => {
+    if (token && !isTokenVerified) {
+      try {
+        const response = await fetch("http://localhost:8080/verify-token", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+
+        if (response.ok && !data.error) {
+          setIsTokenVerified(true);
+          setError("You are already loged in!");
+        } else {
+          setError(data.error || "Token verification failed");
+          logout();
+        }
+      } catch (err) {
+        setError("An error occurred");
+        logout();
+      }
+    }
+  };
+
   const handelSubmit = async (e) => {
     e.preventDefault();
-    if (token) {
-      setError("You are already loged in!");
-      return;
-    }
+    verifyToken();
 
     if (!loginData.username.trim() || !loginData.password.trim()) {
       setError("ALl fields are required.");
@@ -61,11 +84,10 @@ function LoginDropDown() {
         body: JSON.stringify(loginData),
       });
 
-      const json = await response.json();
-
       if (!response.ok) {
-        setError(json.error || "Invalid login credentials.");
+        setError("Invalid login credentials.");
       } else {
+        const json = await response.json();
         dispatch(login(json));
         setLoginData({
           username: "",

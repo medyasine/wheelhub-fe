@@ -15,17 +15,22 @@ import Loader from "../../../components/Loader";
 
 function VehicleDetail() {
   const { id } = useParams();
-  const { vehicle } = useSelector((state) => state.vehicle);
   const { token } = useSelector((state) => state.auth);
   const [vehicleImages, setVehicleImages] = useState([]);
 
-  const { vehicleReviews, ratingAvgForVehicle } = useSelector(
-    (state) => state.review
-  );
-  const { latestPriceDropForVehicle } = useSelector((state) => state.priceDrop);
-  const { vehicleFeaturesForVehicle } = useSelector(
-    (state) => state.vehicleFeature
-  );
+  const { vehicle, isVehicleLoading } = useSelector((state) => state.vehicle);
+
+  const {
+    vehicleReviews,
+    ratingAvgForVehicle,
+    isLoadingVehicleReviews,
+    isLoadingRatingAvg,
+  } = useSelector((state) => state.review);
+
+  const { latestPriceDropForVehicle, isLatestPriceDropForVehicleLoading } =
+    useSelector((state) => state.priceDrop);
+  const { vehicleFeaturesForVehicle, isVehicleFeaturesForVehicleLoading } =
+    useSelector((state) => state.vehicleFeature);
 
   const dispatch = useDispatch();
 
@@ -56,14 +61,18 @@ function VehicleDetail() {
   }, [id, token]);
 
   if (
-    !ratingAvgForVehicle ||
-    !vehicle ||
-    !latestPriceDropForVehicle ||
-    !vehicleReviews ||
-    !vehicleFeaturesForVehicle
+    isLoadingRatingAvg ||
+    isVehicleLoading ||
+    isLatestPriceDropForVehicleLoading ||
+    isLoadingVehicleReviews ||
+    isVehicleFeaturesForVehicleLoading
   ) {
     return <Loader />;
   }
+
+  const formatStatus = (status) => {
+    return status.replace(/_/g, " ").toLowerCase();
+  };
 
   return (
     <div className="card">
@@ -80,7 +89,7 @@ function VehicleDetail() {
                     <div key={ele.id} className="swiper-slide h-100">
                       <img
                         className="rounded-1 object-fit-cover h-100 w-100"
-                        src={ele.imageUrl}
+                        src={`http://localhost:8080` + ele.imageUrl}
                         alt=""
                       />
                     </div>
@@ -102,7 +111,9 @@ function VehicleDetail() {
             </a>
             <div className="fs-11 mb-3 d-inline-block text-decoration-none">
               <div className="fs-11 mb-3 d-inline-block text-decoration-none">
-                <StarRating rating={ratingAvgForVehicle} />
+                {ratingAvgForVehicle && (
+                  <StarRating rating={ratingAvgForVehicle} />
+                )}
               </div>
             </div>
             <p className="fs-10">
@@ -140,9 +151,7 @@ function VehicleDetail() {
 
             <p className="fs-10">
               Status:{" "}
-              <strong className="text-success">
-                {vehicle?.available ? "available" : "not available"}
-              </strong>
+              <strong className="text-success">{vehicle?.status}</strong>
             </p>
             <div className="row">
               <div className="col-auto px-2 px-md-3">

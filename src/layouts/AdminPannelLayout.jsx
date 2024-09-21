@@ -9,6 +9,7 @@ import SettingsPannel from "../admin-pannel/components/SettingsPannel";
 import Footer from "../admin-pannel/components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../store/UserSlice";
+import { logout } from "../store/AuthSlice";
 
 function AdminPannelLayout() {
   const { token } = useSelector((state) => state.auth);
@@ -40,10 +41,12 @@ function AdminPannelLayout() {
             dispatch(getUser());
           } else {
             setError(data.error || "Token verification failed");
+            logout();
             navigate("/login");
           }
         } catch (err) {
           setError("An error occurred");
+          logout();
           navigate("/login");
         }
       } else if (!token) {
