@@ -4,6 +4,7 @@ import { getUsersByrole } from "../../../store/UserSlice";
 import { getVehicleCategories } from "../../../store/VehicleCategorySlice";
 import { getVehicleTypes } from "../../../store/VehicleTypeSlice";
 import Loader from "../../components/Loader";
+import Alert from "../../components/Alert";
 
 export default function VehicleCreate() {
   const dispatch = useDispatch();
@@ -32,14 +33,17 @@ export default function VehicleCreate() {
     description: "",
     price: "",
     location: "",
-    vehicleCategoryId: 0,
-    vehicleTypeId: 0,
+    vehicleCategoryId: "",
+    vehicleTypeId: "",
     status: "IN_STOCK",
-    sellerId: 0,
+    sellerId: "",
   });
 
   const [images, setImages] = useState([]);
-  const [showToast, setShowTest] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [features, setFeatures] = useState([]);
+  const [fError, setFerror] = useState("");
+  const [firstError, setFirstError] = useState("");
 
   if (
     isUsersByroleLoading ||
@@ -87,20 +91,40 @@ export default function VehicleCreate() {
   };
 
   const validateForm = () => {
-    const { make, model, year, mileage, description, price, location } =
-      formData;
-    if (
-      !make ||
-      !model ||
-      !year ||
-      !mileage ||
-      !description ||
-      !price ||
-      !location
-    ) {
-      alert("All fields must be filled!");
+    const {
+      make,
+      model,
+      year,
+      mileage,
+      description,
+      price,
+      location,
+      vehicleCategoryId,
+      vehicleTypeId,
+      sellerId,
+    } = formData;
+    let errors = [];
+
+    if (!make || !make.trim()) errors.push("Make is required.");
+    if (!model || !model.trim()) errors.push("Model is required.");
+    if (!year || isNaN(year) || year.length !== 4)
+      errors.push("Enter a valid year.");
+    if (!mileage || isNaN(mileage)) errors.push("Enter valid mileage.");
+    if (!description || !description.trim())
+      errors.push("Description is required.");
+    if (!price || isNaN(price)) errors.push("Enter a valid price.");
+    if (!location || !location.trim()) errors.push("Location is required.");
+    if (!vehicleCategoryId || isNaN(vehicleCategoryId))
+      errors.push("Vehicle category is required.");
+    if (!vehicleTypeId || isNaN(vehicleCategoryId))
+      errors.push("Vehicle type is required.");
+    if (!sellerId || isNaN(sellerId)) errors.push("Seller ID is required.");
+
+    if (errors.length > 0) {
+      setFirstError(errors[0]);
       return false;
     }
+    setFirstError("");
     return true;
   };
 
@@ -115,13 +139,13 @@ export default function VehicleCreate() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({...formData,}),
     });
 
     if (response.ok) {
       const result = await response.json();
       handleImagesUpload(result.id);
-      setShowTest(true);
+      setShowAlert(true);
       setFormData({
         make: "",
         model: "",
@@ -130,18 +154,45 @@ export default function VehicleCreate() {
         description: "",
         price: "",
         location: "",
-        vehicleCategoryId: 0,
-        vehicleTypeId: 0,
+        vehicleCategoryId: "",
+        vehicleTypeId: "",
         status: "IN_STOCK",
-        sellerId: 0,
+        sellerId: "",
       });
     } else {
       console.error("Failed to add vehicle");
     }
   };
 
+  const handleAddFeature = () => {
+    const featureName = document.getElementById("specification-label").value;
+    const description = document.getElementById("specification-property").value;
+
+    if (
+      !featureName ||
+      !description ||
+      !description.trim() ||
+      !featureName.trim()
+    ) {
+      setFerror("fields are required");
+      return;
+    }
+    const newFeature = { featureName, description };
+    setFeatures([...features, newFeature]);
+    document.getElementById("specification-label").value = "";
+    document.getElementById("specification-property").value = "";
+  };
+
+  const handleRemoveFeature = (index) => {
+    const updatedFeatures = features.filter((_, idx) => idx !== index);
+    setFeatures(updatedFeatures);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
+      {firstError && <Alert msg={firstError} status={"danger"} />}
+      {showAlert && <Alert msg={"vehicle added"} status={"success"} />}
+
       <div className="card mb-3">
         <div className="card-body">
           <div className="row flex-between-center">
@@ -301,34 +352,31 @@ export default function VehicleCreate() {
               <h6 className="mb-0">Features</h6>
             </div>
             <div className="card-body">
-              <div className="row gx-2 flex-between-center mb-3">
-                <div className="col-sm-3">
-                  <h6 className="mb-0 text-600">Processor</h6>
-                </div>
-                <div className="col-sm-9">
-                  <div className="d-flex flex-between-center">
-                    <h6 className="mb-0 text-700">
-                      2.3GHz quad-core Intel Core i5
-                    </h6>
-                    <a
-                      className="btn btn-sm btn-link text-danger"
-                      href="#!"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      title="Remove"
-                    >
-                      <span className="fs-10 fas fa-trash-alt"></span>
-                    </a>
+              {features.map((feature, index) => (
+                <div className="row gx-2 flex-between-center mb-3" key={index}>
+                  <div className="col-sm-3">
+                    <h6 className="mb-0 text-600">{feature.featureName}</h6>
+                  </div>
+                  <div className="col-sm-9">
+                    <div className="d-flex flex-between-center">
+                      <h6 className="mb-0 text-700">{feature.description}</h6>
+                      <button
+                        className="btn btn-sm btn-link text-danger"
+                        onClick={() => handleRemoveFeature(index)}
+                      >
+                        <span className="fs-10 fas fa-trash-alt"></span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
               <div className="row gy-3 gx-2">
                 <div className="col-sm-3">
                   <input
                     className="form-control form-control-sm"
                     id="specification-label"
                     type="text"
-                    placeholder="Label"
+                    placeholder="Feature name"
                   />
                 </div>
                 <div className="col-sm-9">
@@ -337,14 +385,19 @@ export default function VehicleCreate() {
                       className="form-control form-control-sm"
                       id="specification-property"
                       type="text"
-                      placeholder="Property"
+                      placeholder="Description"
                     />
-                    <button className="btn btn-sm btn-falcon-default">
+                    <button
+                      className="btn btn-sm btn-falcon-default"
+                      onClick={handleAddFeature}
+                      type="button"
+                    >
                       Add
                     </button>
                   </div>
                 </div>
               </div>
+              {fError && <span className="text-danger"> {fError}</span>}
             </div>
           </div>
         </div>
