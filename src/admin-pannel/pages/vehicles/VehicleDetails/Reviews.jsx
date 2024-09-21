@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Rating from "react-rating";
 import { getUser } from "../../../../store/UserSlice";
 import { addVehicleReview } from "../../../../store/ReviewSlice";
+import Alert from "../../../components/Alert";
 
 function Reviews({ data, vehicleId }) {
   const { user } = useSelector((state) => state.user);
@@ -40,11 +41,11 @@ function Reviews({ data, vehicleId }) {
     }));
   };
 
-    const formatDate = (dateString) => {
-      const options = { year: "numeric", month: "long", day: "numeric" };
-      const date = new Date(dateString);
-      return date.toLocaleDateString(undefined, options);
-    };
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -87,34 +88,41 @@ function Reviews({ data, vehicleId }) {
       aria-labelledby="reviews-tab"
     >
       <div className="row mt-3">
-        <div className="col-lg-6 mb-4 mb-lg-0">
-          {data.map((ele) => {
-            const stars = Array.from({ length: ele.rating }, (_, index) => (
-              <span
-                key={index}
-                className="fa fa-star text-warning fs-10"
-              ></span>
-            ));
+        {data.length > 0 ? (
+          <div className="col-lg-6 mb-4 mb-lg-0">
+            {data.map((ele) => {
+              const stars = Array.from({ length: ele.rating }, (_, index) => (
+                <span
+                  key={index}
+                  className="fa fa-star text-warning fs-10"
+                ></span>
+              ));
 
-            const firstParagraph = ele.comment.split("\n")[0];
+              const firstParagraph = ele.comment.split("\n")[0];
 
-            return (
-              <div key={ele.id}>
-                <div className="mb-1">
-                  {stars}
-                  <span className="ms-3 text-1100 fw-semi-bold">
-                    {firstParagraph}
-                  </span>
+              return (
+                <div key={ele.id}>
+                  <div className="mb-1">
+                    {stars}
+                    <span className="ms-3 text-1100 fw-semi-bold">
+                      {firstParagraph}
+                    </span>
+                  </div>
+                  <p className="fs-10 mb-2 text-600">
+                    By {ele.username} • {formatDate(ele.createdAt)}
+                  </p>
+                  <p className="mb-0">{ele.comment}</p>
+                  <hr className="my-4" />
                 </div>
-                <p className="fs-10 mb-2 text-600">
-                  By {ele.username} • {formatDate(ele.createdAt)}
-                </p>
-                <p className="mb-0">{ele.comment}</p>
-                <hr className="my-4" />
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        ) : (
+          <Alert
+            msg={"Vehicle does not have any reviews, add yours"}
+            status={"primary"}
+          />
+        )}
         <div className="col-lg-6 ps-lg-5">
           <form onSubmit={handleSubmit}>
             <h5 className="mb-3">Write your Review</h5>

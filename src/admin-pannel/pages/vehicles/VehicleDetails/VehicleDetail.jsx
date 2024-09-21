@@ -12,6 +12,7 @@ import { getVehicleFeaturesForVehicle } from "../../../../store/VehicleFeatureSl
 import { getLatestPriceDropForVehicle } from "../../../../store/PriceDropSlice";
 import StarRating from "../../../components/StarRating";
 import Loader from "../../../components/Loader";
+import Alert from "../../../components/Alert";
 
 function VehicleDetail() {
   const { id } = useParams();
@@ -60,13 +61,7 @@ function VehicleDetail() {
     getImagesForVehicle();
   }, [id, token]);
 
-  if (
-    isLoadingRatingAvg ||
-    isVehicleLoading ||
-    isLatestPriceDropForVehicleLoading ||
-    isLoadingVehicleReviews ||
-    isVehicleFeaturesForVehicleLoading
-  ) {
+  if (isLoadingRatingAvg || !vehicle || isLatestPriceDropForVehicleLoading) {
     return <Loader />;
   }
 
@@ -79,28 +74,43 @@ function VehicleDetail() {
       <div className="card-body">
         <div className="row">
           <div className="col-lg-6 mb-4 mb-lg-0">
-            <div className="product-slider" id="galleryTop">
-              <div
-                className="swiper theme-slider position-lg-absolute all-0"
-                data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'
-              >
-                <div className="swiper-wrapper h-100">
-                  {vehicleImages.map((ele) => (
-                    <div key={ele.id} className="swiper-slide h-100">
-                      <img
-                        className="rounded-1 object-fit-cover h-100 w-100"
-                        src={`http://localhost:8080` + ele.imageUrl}
-                        alt=""
-                      />
-                    </div>
-                  ))}
-                </div>
-                <div className="swiper-nav">
-                  <div className="swiper-button-next swiper-button-white"></div>
-                  <div className="swiper-button-prev swiper-button-white"></div>
+            {vehicleImages.length > 0 ? (
+              <div className="product-slider" id="galleryTop">
+                <div
+                  className="swiper theme-slider position-lg-absolute all-0"
+                  data-swiper='{"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"thumb":{"spaceBetween":5,"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":5,"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'
+                >
+                  <div className="swiper-wrapper h-100">
+                    {vehicleImages.map((ele) => (
+                      //from local
+
+                      // <div key={ele.id} className="swiper-slide h-100">
+                      //   <img
+                      //     className="rounded-1 object-fit-cover h-100 w-100"
+                      //     src={`http://localhost:8080` + ele.imageUrl}
+                      //     alt=""
+                      //   />
+                      // </div>
+
+                      // from cloud
+                      <div key={ele.id} className="swiper-slide h-100">
+                        <img
+                          className="rounded-1 object-fit-cover h-100 w-100"
+                          src={ele.imageUrl}
+                          alt=""
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="swiper-nav">
+                    <div className="swiper-button-next swiper-button-white"></div>
+                    <div className="swiper-button-prev swiper-button-white"></div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <Alert msg={"Vehicle does not have images"} status={"info"} />
+            )}
           </div>
           <div className="col-lg-6">
             <h5>
@@ -127,31 +137,38 @@ function VehicleDetail() {
             </p>
             <h4 className="d-flex align-items-center">
               <span className="text-warning me-2">
-                ${latestPriceDropForVehicle?.oldPrice}
+                $
+                {latestPriceDropForVehicle.id
+                  ? latestPriceDropForVehicle.oldPrice
+                  : vehicle.price}
               </span>
-              <span className="me-1 fs-10 text-500">
-                <del className="me-1">
-                  ${latestPriceDropForVehicle?.newPrice}
-                </del>
-                <strong>
-                  -
-                  {latestPriceDropForVehicle?.oldPrice &&
-                  latestPriceDropForVehicle?.newPrice
-                    ? (
-                        ((latestPriceDropForVehicle.oldPrice -
-                          latestPriceDropForVehicle.newPrice) /
-                          latestPriceDropForVehicle.oldPrice) *
-                        100
-                      ).toFixed(2)
-                    : 0}
-                  %
-                </strong>
-              </span>
+              {latestPriceDropForVehicle.id && (
+                <span className="me-1 fs-10 text-500">
+                  <del className="me-1">
+                    ${latestPriceDropForVehicle?.newPrice}
+                  </del>
+                  <strong>
+                    -
+                    {latestPriceDropForVehicle?.oldPrice &&
+                    latestPriceDropForVehicle?.newPrice
+                      ? (
+                          ((latestPriceDropForVehicle.oldPrice -
+                            latestPriceDropForVehicle.newPrice) /
+                            latestPriceDropForVehicle.oldPrice) *
+                          100
+                        ).toFixed(2)
+                      : 0}
+                    %
+                  </strong>
+                </span>
+              )}
             </h4>
 
             <p className="fs-10">
               Status:{" "}
-              <strong className="text-success">{vehicle?.status}</strong>
+              <strong className="text-success">
+                {vehicle && formatStatus(vehicle.status)}
+              </strong>
             </p>
             <div className="row">
               <div className="col-auto px-2 px-md-3">
@@ -160,17 +177,6 @@ function VehicleDetail() {
                   <span className="d-none d-sm-inline-block">
                     Contact seller
                   </span>
-                </a>
-              </div>
-              <div className="col-auto px-0">
-                <a
-                  className="btn btn-sm btn-outline-danger border border-300"
-                  href="#!"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="Add to Wish List"
-                >
-                  <span className="far fa-heart me-1"></span>282
                 </a>
               </div>
             </div>
