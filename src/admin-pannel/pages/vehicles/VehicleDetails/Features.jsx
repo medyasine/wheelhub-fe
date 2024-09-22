@@ -1,4 +1,9 @@
 import Alert from "../../../components/Alert";
+import PropTypes from "prop-types";
+
+Features.propTypes = {
+  data: PropTypes.array.isRequired,
+};
 
 function Features({ data }) {
   return (

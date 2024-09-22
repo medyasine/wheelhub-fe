@@ -4,6 +4,13 @@ import Rating from "react-rating";
 import { getUser } from "../../../../store/UserSlice";
 import { addVehicleReview } from "../../../../store/ReviewSlice";
 import Alert from "../../../components/Alert";
+import { handleChange } from "../../../../utils/formUtils";
+import PropTypes from "prop-types";
+
+Reviews.propTypes = {
+  data: PropTypes.array.isRequired,
+  vehicleId: PropTypes.number.isRequired,
+};
 
 function Reviews({ data, vehicleId }) {
   const { user } = useSelector((state) => state.user);
@@ -24,15 +31,7 @@ function Reviews({ data, vehicleId }) {
     reviewType: "USER_REVIEW",
   });
 
-  function hamdleChange(e) {
-    const { value, name } = e.target;
-    setFormData((preData) => {
-      return {
-        ...preData,
-        [name]: value,
-      };
-    });
-  }
+  const handleFormChange = (e) => handleChange(e, formData, setFormData);
 
   const handleRatingChange = (value) => {
     setFormData((prevData) => ({
@@ -127,7 +126,7 @@ function Reviews({ data, vehicleId }) {
           <form onSubmit={handleSubmit}>
             <h5 className="mb-3">Write your Review</h5>
             <div className="mb-3">
-              <label className="form-label">Rating: </label>
+              <span className="form-label">Rating: </span>
               <Rating
                 className="ms-3"
                 initialRating={formData.rating}
@@ -168,7 +167,7 @@ function Reviews({ data, vehicleId }) {
                 rows="3"
                 name="comment"
                 value={formData.comment}
-                onChange={hamdleChange}
+                onChange={handleFormChange}
               ></textarea>
             </div>
             {error && <span className="text-danger mb-3">{error}</span>}

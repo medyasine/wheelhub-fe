@@ -5,6 +5,11 @@ import { getVehicleCategories } from "../../../store/VehicleCategorySlice";
 import { getVehicleTypes } from "../../../store/VehicleTypeSlice";
 import Loader from "../../components/Loader";
 import Alert from "../../components/Alert";
+import { handleChange } from "../../../utils/formUtils";
+
+const isRequired = (value) => value.trim() === "";
+const isValidNumber = (value) => isNaN(value) || value.trim() === "";
+const isValidYear = (year) => year.length !== 4 || isNaN(year);
 
 export default function VehicleCreate() {
   const dispatch = useDispatch();
@@ -52,13 +57,7 @@ export default function VehicleCreate() {
   )
     return <Loader />;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const handleFormChange = (e) => handleChange(e, formData, setFormData);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -105,20 +104,17 @@ export default function VehicleCreate() {
     } = formData;
     let errors = [];
 
-    if (!make.trim()) errors.push("Make is required.");
-    if (!model.trim()) errors.push("Model is required.");
-    if (!year || isNaN(year) || year.length !== 4)
-      errors.push("Enter a valid year.");
-    if (!mileage || isNaN(mileage)) errors.push("Enter valid mileage.");
-    if (!description.trim())
-      errors.push("Description is required.");
-    if (!price || isNaN(price)) errors.push("Enter a valid price.");
-    if (!location.trim()) errors.push("Location is required.");
-    if (!vehicleCategoryId || isNaN(vehicleCategoryId))
+    if (isRequired(make)) errors.push("Make is required.");
+    if (isRequired(model)) errors.push("Model is required.");
+    if (isValidYear(year)) errors.push("Enter a valid year.");
+    if (isValidNumber(mileage)) errors.push("Enter valid mileage.");
+    if (isRequired(description)) errors.push("Description is required.");
+    if (isValidNumber(price)) errors.push("Enter a valid price.");
+    if (isRequired(location)) errors.push("Location is required.");
+    if (isValidNumber(vehicleCategoryId))
       errors.push("Vehicle category is required.");
-    if (!vehicleTypeId || isNaN(vehicleCategoryId))
-      errors.push("Vehicle type is required.");
-    if (!sellerId || isNaN(sellerId)) errors.push("Seller ID is required.");
+    if (isValidNumber(vehicleTypeId)) errors.push("Vehicle type is required.");
+    if (isValidNumber(sellerId)) errors.push("Seller ID is required.");
 
     if (errors.length > 0) {
       setFirstError(errors[0]);
@@ -168,11 +164,7 @@ export default function VehicleCreate() {
     const featureName = document.getElementById("specification-label").value;
     const description = document.getElementById("specification-property").value;
 
-    if (
-      !featureName ||
-      !description.trim() ||
-      !featureName.trim()
-    ) {
+    if (!featureName || !description.trim() || !featureName.trim()) {
       setFerror("fields are required");
       return;
     }
@@ -241,7 +233,7 @@ export default function VehicleCreate() {
                     name="make"
                     type="text"
                     value={formData.make}
-                    onChange={handleChange}
+                    onChange={handleFormChange}
                   />
                 </div>
                 <div className="col-12 mb-3">
@@ -254,7 +246,7 @@ export default function VehicleCreate() {
                     name="model"
                     type="text"
                     value={formData.model}
-                    onChange={handleChange}
+                    onChange={handleFormChange}
                   />
                 </div>
                 <div className="col-12 mb-3">
@@ -267,7 +259,7 @@ export default function VehicleCreate() {
                     name="year"
                     type="text"
                     value={formData.year}
-                    onChange={handleChange}
+                    onChange={handleFormChange}
                   />
                 </div>
                 <div className="col-12 mb-3">
@@ -280,7 +272,7 @@ export default function VehicleCreate() {
                     name="mileage"
                     type="text"
                     value={formData.mileage}
-                    onChange={handleChange}
+                    onChange={handleFormChange}
                   />
                 </div>
               </div>
@@ -323,7 +315,7 @@ export default function VehicleCreate() {
                       name="description"
                       id="description"
                       value={formData.description}
-                      onChange={handleChange}
+                      onChange={handleFormChange}
                     ></textarea>
                   </div>
                 </div>
@@ -337,7 +329,7 @@ export default function VehicleCreate() {
                     name="price"
                     type="text"
                     value={formData.price}
-                    onChange={handleChange}
+                    onChange={handleFormChange}
                   />
                 </div>
                 <div className="col-12 mb-3">
@@ -350,7 +342,7 @@ export default function VehicleCreate() {
                     name="location"
                     type="text"
                     value={formData.location}
-                    onChange={handleChange}
+                    onChange={handleFormChange}
                   />
                 </div>
               </div>
@@ -427,7 +419,7 @@ export default function VehicleCreate() {
                       id="category"
                       name="vehicleCategoryId"
                       value={formData.vehicleCategoryId}
-                      onChange={handleChange}
+                      onChange={handleFormChange}
                     >
                       {vehicleCatgories.map((ele) => (
                         <option key={ele.id} value={ele.id}>
@@ -447,7 +439,7 @@ export default function VehicleCreate() {
                       id="vehicleType"
                       name="vehicleTypeId"
                       value={formData.vehicleTypeId}
-                      onChange={handleChange}
+                      onChange={handleFormChange}
                     >
                       {vehicleTypes.map((ele) => (
                         <option key={ele.id} value={ele.id}>
@@ -465,7 +457,7 @@ export default function VehicleCreate() {
                       id="sellerId"
                       name="sellerId"
                       value={formData.sellerId}
-                      onChange={handleChange}
+                      onChange={handleFormChange}
                     >
                       {usersByrole.map((ele) => (
                         <option key={ele.id} value={ele.id}>
@@ -490,7 +482,7 @@ export default function VehicleCreate() {
                     name="status"
                     value="IN_STOCK"
                     checked={formData.status === "IN_STOCK"}
-                    onChange={handleChange}
+                    onChange={handleFormChange}
                   />
                   <label
                     className="form-check-label fs-9 fw-normal text-700"
@@ -507,7 +499,7 @@ export default function VehicleCreate() {
                     name="status"
                     value="UNAVAILABLE"
                     checked={formData.status === "UNAVAILABLE"}
-                    onChange={handleChange}
+                    onChange={handleFormChange}
                   />
                   <label
                     className="form-check-label fs-9 fw-normal text-700"
@@ -524,7 +516,7 @@ export default function VehicleCreate() {
                     name="status"
                     value="TO_BE_ANNOUNCED"
                     checked={formData.status === "TO_BE_ANNOUNCED"}
-                    onChange={handleChange}
+                    onChange={handleFormChange}
                   />
                   <label
                     className="form-check-label fs-9 fw-normal text-700"

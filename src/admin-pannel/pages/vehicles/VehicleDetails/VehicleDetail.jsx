@@ -19,7 +19,7 @@ function VehicleDetail() {
   const { token } = useSelector((state) => state.auth);
   const [vehicleImages, setVehicleImages] = useState([]);
 
-  const { vehicle, isVehicleLoading } = useSelector((state) => state.vehicle);
+  const { vehicle } = useSelector((state) => state.vehicle);
 
   const {
     vehicleReviews,
@@ -61,7 +61,13 @@ function VehicleDetail() {
     getImagesForVehicle();
   }, [id, token]);
 
-  if (isLoadingRatingAvg || !vehicle || isLatestPriceDropForVehicleLoading) {
+  if (
+    isLoadingRatingAvg ||
+    !vehicle ||
+    isLatestPriceDropForVehicleLoading ||
+    isVehicleFeaturesForVehicleLoading ||
+    isLoadingVehicleReviews
+  ) {
     return <Loader />;
   }
 

@@ -40,7 +40,7 @@ function Alert({ msg, status, onClose }) {
 Alert.propTypes = {
   msg: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
 };
 
 export default Alert;
