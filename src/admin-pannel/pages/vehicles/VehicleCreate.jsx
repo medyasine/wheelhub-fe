@@ -67,8 +67,8 @@ export default function VehicleCreate() {
 
   const handleImagesUpload = async (vehicleId) => {
     const data = new FormData();
-    for (let i = 0; i < images.length; i++) {
-      data.append("images", images[i]);
+    for (const image of images) {
+      data.append("images", image);
     }
 
     const response = await fetch(
@@ -105,15 +105,15 @@ export default function VehicleCreate() {
     } = formData;
     let errors = [];
 
-    if (!make || !make.trim()) errors.push("Make is required.");
-    if (!model || !model.trim()) errors.push("Model is required.");
+    if (!make.trim()) errors.push("Make is required.");
+    if (!model.trim()) errors.push("Model is required.");
     if (!year || isNaN(year) || year.length !== 4)
       errors.push("Enter a valid year.");
     if (!mileage || isNaN(mileage)) errors.push("Enter valid mileage.");
-    if (!description || !description.trim())
+    if (!description.trim())
       errors.push("Description is required.");
     if (!price || isNaN(price)) errors.push("Enter a valid price.");
-    if (!location || !location.trim()) errors.push("Location is required.");
+    if (!location.trim()) errors.push("Location is required.");
     if (!vehicleCategoryId || isNaN(vehicleCategoryId))
       errors.push("Vehicle category is required.");
     if (!vehicleTypeId || isNaN(vehicleCategoryId))
@@ -170,7 +170,6 @@ export default function VehicleCreate() {
 
     if (
       !featureName ||
-      !description ||
       !description.trim() ||
       !featureName.trim()
     ) {
@@ -190,9 +189,20 @@ export default function VehicleCreate() {
 
   return (
     <form onSubmit={handleSubmit}>
-      {firstError && <Alert msg={firstError} status={"danger"} />}
-      {showAlert && <Alert msg={"vehicle added"} status={"success"} />}
-
+      {firstError && (
+        <Alert
+          msg={firstError}
+          status={"danger"}
+          onClose={() => setFirstError(null)}
+        />
+      )}
+      {showAlert && (
+        <Alert
+          msg={"vehicle added"}
+          status={"success"}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
       <div className="card mb-3">
         <div className="card-body">
           <div className="row flex-between-center">
@@ -312,7 +322,6 @@ export default function VehicleCreate() {
                       data-tinymce="data-tinymce"
                       name="description"
                       id="description"
-                      required="required"
                       value={formData.description}
                       onChange={handleChange}
                     ></textarea>
@@ -528,6 +537,22 @@ export default function VehicleCreate() {
             </div>
           </div>
         </div>
+      </div>
+      <div className=" mt-3">
+        {firstError && (
+          <Alert
+            msg={firstError}
+            status={"danger"}
+            onClose={() => setFirstError(null)}
+          />
+        )}
+        {showAlert && (
+          <Alert
+            msg={"vehicle added"}
+            status={"success"}
+            onClose={() => setShowAlert(false)}
+          />
+        )}
       </div>
       <div className="card mt-3">
         <div className="card-body">
