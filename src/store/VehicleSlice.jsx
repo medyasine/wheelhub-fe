@@ -20,6 +20,44 @@ export const getVehicles = createAsyncThunk(
   }
 );
 
+// GET all deleted vehicles
+export const getAllDeletedVehicles = createAsyncThunk(
+  "vehicles/getAllDeletedVehicles",
+  async () => {
+    const user = JSON.parse(sessionStorage.getItem("login"));
+
+    const res = await fetch(url + "/allDeleted", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    if (!res.ok)
+      throw new Error("Could not fetch vehicles from vehicle service");
+    const data = await res.json();
+    return data;
+  }
+);
+
+// GET all deleted vehicles
+export const getAllNotDeletedVehicles = createAsyncThunk(
+  "vehicles/getAllNotDeletedVehicles",
+  async () => {
+    const user = JSON.parse(sessionStorage.getItem("login"));
+
+    const res = await fetch(url + "/allNotDeleted", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    if (!res.ok)
+      throw new Error("Could not fetch vehicles from vehicle service");
+    const data = await res.json();
+    return data;
+  }
+);
+
 // GET a single vehicle
 export const getVehicle = createAsyncThunk(
   "vehicles/getVehicle",
@@ -96,6 +134,62 @@ export const deleteVehicle = createAsyncThunk(
   }
 );
 
+// DELETE all selected vehicles
+export const deleteAllSelectedVehicles = createAsyncThunk(
+  "vehicles/deleteAllSelectedVehicles",
+  async (ids) => {
+    const user = JSON.parse(sessionStorage.getItem("login"));
+
+    const res = await fetch(url + "/deleteAllSelected", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify(ids),
+    });
+    if (!res.ok) throw new Error("Could not delete vehicles");
+    return ids;
+  }
+);
+
+// SOFT DELETE all selected vehicles
+export const softDeleteAllSelectedVehicles = createAsyncThunk(
+  "vehicles/softDeleteAllSelectedVehicles",
+  async (ids) => {
+    const user = JSON.parse(sessionStorage.getItem("login"));
+
+    const res = await fetch(url + "/softDeleteAllSelected", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify(ids),
+    });
+    if (!res.ok) throw new Error("Could not soft delete vehicles");
+    return ids;
+  }
+);
+
+// Export all selected vehicles
+export const exportAllSelectedVehicles = createAsyncThunk(
+  "vehicles/exportAllSelectedVehicles",
+  async (ids) => {
+    const user = JSON.parse(sessionStorage.getItem("login"));
+
+    const res = await fetch(url + "/exportAllSelected", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify(ids),
+    });
+    if (!res.ok) throw new Error("Could not export vehicles");
+  }
+);
+
 const vehicleSlice = createSlice({
   name: "vehicles",
   initialState: {
@@ -106,6 +200,9 @@ const vehicleSlice = createSlice({
     isSaving: false,
     isUpdating: false,
     isDeleting: false,
+    isDeletingAllSelectedVehicles: false,
+    isSoftDeletingAllSelectedVehicles: false,
+    isAllSelectedVehiclesExported: false,
     error: null,
   },
   reducers: {},
@@ -119,6 +216,32 @@ const vehicleSlice = createSlice({
       state.error = action.error.message;
     });
     builder.addCase(getVehicles.fulfilled, (state, action) => {
+      state.isVehiclesLoading = false;
+      state.vehicles = action.payload;
+    });
+
+    // Get all deleted vehicles
+    builder.addCase(getAllDeletedVehicles.pending, (state) => {
+      state.isVehiclesLoading = true;
+    });
+    builder.addCase(getAllDeletedVehicles.rejected, (state, action) => {
+      state.isVehiclesLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(getAllDeletedVehicles.fulfilled, (state, action) => {
+      state.isVehiclesLoading = false;
+      state.vehicles = action.payload;
+    });
+
+    // Get all not deleted vehicles
+    builder.addCase(getAllNotDeletedVehicles.pending, (state) => {
+      state.isVehiclesLoading = true;
+    });
+    builder.addCase(getAllNotDeletedVehicles.rejected, (state, action) => {
+      state.isVehiclesLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(getAllNotDeletedVehicles.fulfilled, (state, action) => {
       state.isVehiclesLoading = false;
       state.vehicles = action.payload;
     });
@@ -180,6 +303,53 @@ const vehicleSlice = createSlice({
       state.vehicles = state.vehicles.filter(
         (vehicle) => vehicle.id !== action.payload
       );
+    });
+
+    // Delete all selected vehicles
+    builder.addCase(deleteAllSelectedVehicles.pending, (state) => {
+      state.isDeletingAllSelectedVehicles = true;
+    });
+    builder.addCase(deleteAllSelectedVehicles.rejected, (state, action) => {
+      state.isDeletingAllSelectedVehicles = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(deleteAllSelectedVehicles.fulfilled, (state, action) => {
+      state.isDeletingAllSelectedVehicles = false;
+      state.vehicles = state.vehicles.filter(
+        (vehicle) => !action.payload.includes(vehicle.id)
+      );
+    });
+
+    // Delete all selected vehicles
+    builder.addCase(softDeleteAllSelectedVehicles.pending, (state) => {
+      state.isSoftDeletingAllSelectedVehicles = true;
+    });
+    builder.addCase(softDeleteAllSelectedVehicles.rejected, (state, action) => {
+      state.isSoftDeletingAllSelectedVehicles = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(
+      softDeleteAllSelectedVehicles.fulfilled,
+      (state, action) => {
+        state.isSoftDeletingAllSelectedVehicles = false;
+        state.vehicles.forEach((vehicle) => {
+          if (action.payload.includes(vehicle.id)) {
+            vehicle.isDeleted = !vehicle.isDeleted;
+          }
+        });
+      }
+    );
+
+    // Export all selected vehicles
+    builder.addCase(exportAllSelectedVehicles.pending, (state) => {
+      state.isAllSelectedVehiclesExported = true;
+    });
+    builder.addCase(exportAllSelectedVehicles.rejected, (state, action) => {
+      state.isAllSelectedVehiclesExported = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(exportAllSelectedVehicles.fulfilled, (state) => {
+      state.isAllSelectedVehiclesExported = false;
     });
   },
 });

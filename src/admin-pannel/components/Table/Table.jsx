@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import FilterPannel from "./FilterPannel";
+import PropTypes from "prop-types";
 
 const Table = ({
   tableColumns = [],
@@ -12,10 +13,14 @@ const Table = ({
   messageService,
   itemsPerPage = 10,
   newClicked,
+  softDeleteAll,
+  deleteAll,
+  exportAll,
 }) => {
   const [filteredData, setFilteredData] = useState(tableData);
   const [currentPage, setCurrentPage] = useState(1);
   const [checkedRows, setCheckedRows] = useState([]);
+  const [bulkAction, setBulkAction] = useState("");
   const isAnyCheckboxChecked = checkedRows.length > 0;
 
   useEffect(() => {
@@ -78,6 +83,7 @@ const Table = ({
       setCheckedRows((prev) => prev.filter((id) => id !== rowId));
     }
   };
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
@@ -93,6 +99,14 @@ const Table = ({
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
+  };
+
+  const handleBulkActions = (e) => {
+    e.preventDefault();
+    console.log("amine");
+    if (bulkAction == "deleteAll") deleteAll(checkedRows);
+    else if (bulkAction == "softDeleteAll") softDeleteAll(checkedRows);
+    else exportAll(checkedRows);
   };
 
   return (
@@ -135,23 +149,24 @@ const Table = ({
                 ></div>
                 {isAnyCheckboxChecked ? (
                   <div className="d-flex" id="table-ticket-actions">
-                    <div className="d-flex">
+                    <form onSubmit={handleBulkActions} className="d-flex">
                       <select
                         className="form-select form-select-sm"
                         aria-label="Bulk actions"
+                        onChange={(e) => setBulkAction(e.target.value)}
+                        value={bulkAction}
                       >
-                        <option>Bulk actions</option>
-                        <option value="Refund">Refund</option>
-                        <option value="Delete">Delete</option>
-                        <option value="Archive">Archive</option>
+                        <option value="softDeleteAll">Soft delete</option>
+                        <option value="deleteAll">Delete</option>
+                        <option value="export">Export</option>
                       </select>
                       <button
                         className="btn btn-falcon-default btn-sm ms-2"
-                        type="button"
+                        type="submit"
                       >
                         Apply
                       </button>
-                    </div>
+                    </form>
                   </div>
                 ) : (
                   <div
@@ -234,14 +249,10 @@ const Table = ({
                         aria-labelledby="preview-dropdown"
                       >
                         <a className="dropdown-item" href="#!">
-                          View
-                        </a>
-                        <a className="dropdown-item" href="#!">
                           Export
                         </a>
-                        <div className="dropdown-divider"></div>
-                        <a className="dropdown-item text-danger" href="#!">
-                          Remove
+                        <a className="dropdown-item" href="#!">
+                          Import
                         </a>
                       </div>
                     </div>
@@ -298,24 +309,23 @@ const Table = ({
                         {showDetailButton && (
                           <button
                             className="btn btn-sm btn-falcon-default me-1"
-                            onClick={() => {
-                              detailClicked(rowData.id);
-                            }}
+                            onClick={() => detailClicked(rowData.id)}
+                            title="View Details"
                           >
-                            Details
+                            <span className="fas fa-info-circle"></span>
                           </button>
                         )}
                         <button
                           className="btn btn-sm btn-falcon-primary me-1"
                           onClick={() => editClicked(rowData)}
                         >
-                          Edit
+                          <span className="fas fa-edit"></span>
                         </button>
                         <button
                           className="btn btn-sm btn-falcon-danger"
-                          onClick={(event) => confirm(event, rowData)}
+                          onClick={(e) => confirm(e, rowData)}
                         >
-                          Delete
+                          <span className="fas fa-trash-alt"></span>
                         </button>
                       </td>
                     </tr>
@@ -373,6 +383,22 @@ const Table = ({
       <FilterPannel />
     </div>
   );
+};
+
+Table.propTypes = {
+  tableColumns: PropTypes.array,
+  tableData: PropTypes.array,
+  showDetailButton: PropTypes.bool,
+  detailClicked: PropTypes.func,
+  editClicked: PropTypes.func,
+  deleteClicked: PropTypes.func,
+  confirmationService: PropTypes.object,
+  messageService: PropTypes.object,
+  itemsPerPage: PropTypes.number,
+  newClicked: PropTypes.func,
+  softDeleteAll: PropTypes.func,
+  deleteAll: PropTypes.func,
+  exportAll: PropTypes.func,
 };
 
 export default Table;

@@ -2,8 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Table from "../../components/Table/Table";
 import { useEffect } from "react";
 import {
+  deleteAllSelectedVehicles,
   deleteVehicle,
   getVehicles,
+  softDeleteAllSelectedVehicles,
   updateVehicle,
 } from "../../../store/VehicleSlice";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +45,7 @@ function Vehicles() {
   if (isVehiclesLoading) return <Loader />;
 
   const handleDetailClicked = (id) => {
-    navigate(`/admin/vehicles/${id}`);
+    navigate(id.toString());
   };
 
   const handleEditClicked = (rowData) => {
@@ -54,14 +56,20 @@ function Vehicles() {
     dispatch(deleteVehicle(id));
   };
 
-  const handleRecoverClicked = (rowData) => {
-    console.log("Recover clicked:", rowData);
+  const handleNewClicked = () => {
+    navigate("create");
   };
 
-  const handleNewClicked = (rowData) => {
-    console.log("New clicked:", rowData);
+  const deleteAll = (ids) => {
+    dispatch(deleteAllSelectedVehicles(ids));
   };
 
+  const exportAll = (ids) => {};
+
+  const softDeleteAll = (ids) => {
+    dispatch(softDeleteAllSelectedVehicles(ids));
+  };
+  
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Vehicle Table </h1>
@@ -72,12 +80,14 @@ function Vehicles() {
         detailClicked={handleDetailClicked}
         editClicked={handleEditClicked}
         deleteClicked={handleDeleteClicked}
-        recoverClicked={handleRecoverClicked}
         confirmationService={mockConfirmationService}
         messageService={mockMessageService}
         translateService={mockTranslateService}
         newClicked={handleNewClicked}
         itemsPerPage={10}
+        softDeleteAll={softDeleteAll}
+        deleteAll={deleteAll}
+        exportAll={exportAll}
       />
     </div>
   );

@@ -1,5 +1,5 @@
-import { login } from "../../../../store/AuthSlice";
-import { useState } from "react";
+import { login, logout } from "../../../../store/AuthSlice";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getUser } from "../../../../store/UserSlice";
@@ -28,6 +28,11 @@ function Login() {
     });
   }
 
+  useEffect(() => {
+    if (token) dispatch(getUser());
+  }, [token, dispatch]);
+
+  
   const verifyToken = async () => {
     if (token && !isTokenVerified) {
       try {
@@ -74,7 +79,6 @@ function Login() {
     } else {
       const json = await response.json();
       dispatch(login(json));
-      if (token) dispatch(getUser());
       if (user) {
         if (user.role == "ADMIN") navigate("/admin");
         else navigate("/");
