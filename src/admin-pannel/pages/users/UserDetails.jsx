@@ -1,4 +1,34 @@
+import { useDispatch, useSelector } from "react-redux";
+import { getUserById } from "../../../store/UserSlice";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Loader from "../../components/Loader";
+import { format, parseISO } from 'date-fns'; // Import date-fns functions
+
 export default function UserDetails() {
+  const { userDetail, isUserDetailLoading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getUserById(id));
+    }
+  }, [dispatch, id]);
+
+  if (isUserDetailLoading) {
+    return <Loader />;
+  }
+
+  if (!userDetail) {
+    return <div>User not found</div>;
+  }
+
+  // Format the createdAt date
+  const formattedDate = userDetail.createdAt 
+    ? format(parseISO(userDetail.createdAt), 'MMM dd, hh:mm a')
+    : 'Date not available';
+
   return (
     <>
       <div className="card mb-3">
@@ -6,8 +36,7 @@ export default function UserDetails() {
           <div className="row">
             <div className="col">
               <h5 className="mb-2">
-                Tony Robbins (<a href="mailto:tony@gmail.com">tony@gmail.com</a>
-                )
+                {userDetail?.name} (<a href={`mailto:${userDetail?.email}`}>{userDetail?.email}</a>)
               </h5>
               <a className="btn btn-falcon-default btn-sm" href="#!">
                 <span className="fas fa-plus fs-11 me-1"></span>Add note
@@ -39,7 +68,7 @@ export default function UserDetails() {
             </div>
             <div className="col-auto d-none d-sm-block">
               <h6 className="text-uppercase text-600">
-                Customer<span className="fas fa-user ms-2"></span>
+                {userDetail.role}<span className="fas fa-user ms-2"></span>
               </h6>
             </div>
           </div>
@@ -51,8 +80,8 @@ export default function UserDetails() {
               data-fa-transform="down-5"
             ></span>
             <div className="flex-1">
-              <p className="mb-0">Customer was created</p>
-              <p className="fs-10 mb-0 text-600">Jan 12, 11:13 PM</p>
+              <p className="mb-0">{userDetail.role}</p>
+              <p className="fs-10 mb-0 text-600">{formattedDate}</p>
             </div>
           </div>
         </div>
@@ -75,82 +104,55 @@ export default function UserDetails() {
           <div className="row">
             <div className="col-lg col-xxl-5">
               <h6 className="fw-semi-bold ls mb-3 text-uppercase">
-                Account Information
+                Personal Information
               </h6>
               <div className="row">
                 <div className="col-5 col-sm-4">
                   <p className="fw-semi-bold mb-1">ID</p>
                 </div>
-                <div className="col">dcfasyo_Dfdjl</div>
+                <div className="col">{userDetail.id}</div>
               </div>
               <div className="row">
                 <div className="col-5 col-sm-4">
-                  <p className="fw-semi-bold mb-1">Created</p>
+                  <p className="fw-semi-bold mb-1">Adress</p>
                 </div>
-                <div className="col">2019/01/12 23:13</div>
+                <div className="col">{userDetail.adress}</div>
               </div>
               <div className="row">
                 <div className="col-5 col-sm-4">
                   <p className="fw-semi-bold mb-1">Email</p>
                 </div>
                 <div className="col">
-                  <a href="mailto:tony@gmail.com">tony@gmail.com</a>
+                  <a href="mailto:tony@gmail.com">{userDetail.email}</a>
                 </div>
               </div>
               <div className="row">
                 <div className="col-5 col-sm-4">
-                  <p className="fw-semi-bold mb-1">Description</p>
+                  <p className="fw-semi-bold mb-1">Full name</p>
                 </div>
                 <div className="col">
-                  <p className="fst-italic text-400 mb-1">No Description</p>
+                  <p className="fst-italic mb-1">{userDetail.name}</p>
                 </div>
               </div>
               <div className="row">
                 <div className="col-5 col-sm-4">
-                  <p className="fw-semi-bold mb-0">VAT number</p>
+                  <p className="fw-semi-bold mb-0">Phone Number</p>
                 </div>
                 <div className="col">
-                  <p className="fst-italic text-400 mb-0">No VAT number</p>
+                  <p className="fst-italic  mb-0">{userDetail.phoneNumber}</p>
                 </div>
               </div>
             </div>
             <div className="col-lg col-xxl-5 mt-4 mt-lg-0 offset-xxl-1">
               <h6 className="fw-semi-bold ls mb-3 text-uppercase">
-                Billing Information
+                Account Information
               </h6>
               <div className="row">
                 <div className="col-5 col-sm-4">
-                  <p className="fw-semi-bold mb-1">Send email to</p>
+                  <p className="fw-semi-bold mb-1">Created</p>
                 </div>
                 <div className="col">
-                  <a href="mailto:tony@gmail.com">tony@gmail.com</a>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-5 col-sm-4">
-                  <p className="fw-semi-bold mb-1">Address</p>
-                </div>
-                <div className="col">
-                  <p className="mb-1">
-                    8962 Lafayette St. <br />
-                    Oswego, NY 13126
-                  </p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-5 col-sm-4">
-                  <p className="fw-semi-bold mb-1">Phone number</p>
-                </div>
-                <div className="col">
-                  <a href="tel:+12025550110">+1-202-555-0110</a>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-5 col-sm-4">
-                  <p className="fw-semi-bold mb-0">Invoice prefix</p>
-                </div>
-                <div className="col">
-                  <p className="fw-semi-bold mb-0">7C23435</p>
+                  <a >{formattedDate}</a>
                 </div>
               </div>
             </div>

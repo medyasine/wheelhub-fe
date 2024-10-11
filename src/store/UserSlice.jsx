@@ -1,34 +1,39 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axiosInstance from "./AxiosInstance.jsx"; // or "./axiosInstance.jsx" if that's the file name
 const url = "http://localhost:8080/api/users";
+
 
 // GET single user
 export const getUser = createAsyncThunk("users/getUser", async () => {
   const user = JSON.parse(sessionStorage.getItem("login"));
-
-  const res = await fetch(url + `/username/${user.username}`, {
+  const res = await axiosInstance.get(`${url}/username/${user.username}`, {
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${user.token}`,
     },
   });
-  if (!res.ok) throw new Error("Could not fetch user from user service");
-  const data = await res.json();
-  return data;
+  return res.data;
+});
+
+// GET single user by id
+export const getUserById = createAsyncThunk("users/getUserById", async (id) => {
+  const user = JSON.parse(sessionStorage.getItem("login"));
+  const res = await axiosInstance.get(`${url}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+  return res.data;
 });
 
 // GET all users
 export const getUsers = createAsyncThunk("users/getUsers", async () => {
   const user = JSON.parse(sessionStorage.getItem("login"));
-
-  const res = await fetch(url + `/all`, {
+  const res = await axiosInstance.get(`${url}/all`, {
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${user.token}`,
     },
   });
-  if (!res.ok) throw new Error("Could not fetch users from user service");
-  const data = await res.json();
-  return data;
+  return res.data;
 });
 
 // GET users by role
@@ -36,36 +41,27 @@ export const getUsersByrole = createAsyncThunk(
   "users/getUsersByrole",
   async (role) => {
     const user = JSON.parse(sessionStorage.getItem("login"));
-
-    const res = await fetch(url + `/all/${role}`, {
+    const res = await axiosInstance.get(`${url}/all/${role}`, {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
     });
-    if (!res.ok) throw new Error("Could not fetch users from user service");
-    const data = await res.json();
-    return data;
+    return res.data;
   }
 );
+
 
 // CREATE a new user
 export const createUser = createAsyncThunk(
   "users/createUser",
   async (newUser) => {
     const user = JSON.parse(sessionStorage.getItem("login"));
-
-    const res = await fetch(url, {
-      method: "POST",
+    const res = await axiosInstance.post(url, newUser, {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify(newUser),
     });
-    if (!res.ok) throw new Error("Could not create user");
-    const data = await res.json();
-    return data;
+    return res.data;
   }
 );
 
@@ -74,18 +70,12 @@ export const updateUser = createAsyncThunk(
   "users/updateUser",
   async (updatedUser) => {
     const user = JSON.parse(sessionStorage.getItem("login"));
-
-    const res = await fetch(url + `/${updatedUser.id}`, {
-      method: "PUT",
+    const res = await axiosInstance.put(`${url}/${updatedUser.id}`, updatedUser, {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify(updatedUser),
     });
-    if (!res.ok) throw new Error("Could not update user");
-    const data = await res.json();
-    return data;
+    return res.data;
   }
 );
 
@@ -93,15 +83,12 @@ export const updateUser = createAsyncThunk(
 export const deleteUser = createAsyncThunk(
   "users/deleteUser",
   async (userId) => {
-    const user = JSON.parse(sessionStorage.getItem("login"));
-
-    const res = await fetch(url + `/${userId}`, {
-      method: "DELETE",
+    const user = JSON.parse(sessionStorage.getItem("login")); 
+    await axiosInstance.delete(`${url}/${userId}`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
     });
-    if (!res.ok) throw new Error("Could not delete user");
     return userId; // Return the deleted user's ID
   }
 );
@@ -110,10 +97,12 @@ const userSlice = createSlice({
   name: "users",
   initialState: {
     user: null,
+    userDetail: null,
     users: [],
-    usersByrole: [],
+    usersByRole: [],
     isUsersByRoleLoading: false,
     isUserLoading: false,
+    isUserDetailLoading: false,
     isUsersLoading: false,
     isCreating: false,
     isUpdating: false,
@@ -131,6 +120,18 @@ const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.isUserLoading = false;
       state.user = action.payload;
+    });
+
+    // Get a single user by id
+    builder.addCase(getUserById.pending, (state) => {
+      state.isUserDetailLoading = true;
+    });
+    builder.addCase(getUserById.rejected, (state) => {
+      state.isUserDetailLoading = false;
+    });
+    builder.addCase(getUserById.fulfilled, (state, action) => {
+      state.isUserDetailLoading = false;
+      state.userDetail = action.payload;
     });
 
     // Get all users
@@ -154,7 +155,7 @@ const userSlice = createSlice({
     });
     builder.addCase(getUsersByrole.fulfilled, (state, action) => {
       state.isUsersByRoleLoading = false;
-      state.usersByrole = action.payload;
+      state.usersByRole = action.payload;
     });
 
     // Create a user
